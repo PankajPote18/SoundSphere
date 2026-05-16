@@ -1,0 +1,37 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand: #00A8E1;
+  --color-brand-hover: #007799;
+  --color-bg-dark: #0f172a;
+  --color-bg-card: #1e293b;
+  --color-bg-lighter: #334155;
+}
+
+@layer base {
+  body {
+    @apply bg-bg-dark text-white font-sans antialiased overflow-x-hidden;
+  }
+}
+
+/* Custom scrollbar for horizontal scrolling movie rows */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Premium gradient overlays */
+.banner-gradient {
+  background: linear-gradient(to top, #0f172a 0%, transparent 100%);
+}
+
+.banner-gradient-right {
+  background: linear-gradient(to left, #0f172a 0%, transparent 100%);
+}
+
+.card-gradient {
+  background: linear-gradient(to top, rgba(15, 23, 42, 0.9) 0%, transparent 50%);
+}
