@@ -10,8 +10,8 @@ const HomePage = () => {
     const fetchData = async () => {
       try {
         const [categoriesRes, moviesRes] = await Promise.all([
-          fetch('http://localhost:8000/api/categories'),
-          fetch('http://localhost:8000/api/movies')
+          fetch(`${import.meta.env.VITE_API_URL}/api/categories`),
+          fetch(`${import.meta.env.VITE_API_URL}/api/movies`)
         ]);
         
         const categories = await categoriesRes.json();
