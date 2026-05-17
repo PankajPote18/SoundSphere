@@ -1,15 +1,26 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Play, Plus, ThumbsUp, ThumbsDown, Info } from 'lucide-react';
+import { usePremiumModal } from '../context/PremiumModalContext';
 
 const MovieCard = ({ movie }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const navigate = useNavigate();
+  const { showModal } = usePremiumModal();
+
+  const handleMovieClick = (e) => {
+    const user = JSON.parse(localStorage.getItem('user') || 'null');
+    if (!user || !user.isSubscribed) {
+      e.preventDefault();
+      showModal();
+    }
+  };
 
   return (
-    <Link to={`/movie/${movie.id}`} className="block relative h-full">
+    <Link to={`/movie/${movie.id}`} onClick={handleMovieClick} className="block relative h-full">
       <motion.div 
-        className="relative rounded-md overflow-hidden bg-bg-card aspect-video shadow-md group h-full z-10"
+        className="relative rounded-lg overflow-hidden bg-gray-900 aspect-video shadow-lg group-hover:shadow-2xl z-10 border border-transparent group-hover:border-[#00A8E1]/30 transition-all duration-300"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         whileHover={{ 
@@ -93,6 +104,9 @@ const MovieCard = ({ movie }) => {
           </div>
         </motion.div>
       </motion.div>
+      <div className="mt-3 px-1 text-gray-200 font-bold text-sm md:text-base truncate group-hover:text-[#00A8E1] transition-colors">
+        {movie.title}
+      </div>
     </Link>
   );
 };

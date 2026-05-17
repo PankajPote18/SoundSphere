@@ -8,7 +8,7 @@ const LoginPage = () => {
   const handleContinue = (e) => {
     e.preventDefault();
     if (mobileNo.length >= 10) {
-      navigate('/verify-otp');
+      navigate('/verify-otp', { state: { mobileNo } });
     }
   };
 

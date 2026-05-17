@@ -3,9 +3,9 @@
 @theme {
   --color-brand: #00A8E1;
   --color-brand-hover: #007799;
-  --color-bg-dark: #0f172a;
-  --color-bg-card: #1e293b;
-  --color-bg-lighter: #334155;
+  --color-bg-dark: #0a0f1c;
+  --color-bg-card: #111827;
+  --color-bg-lighter: #1f2937;
 }
 
 @layer base {

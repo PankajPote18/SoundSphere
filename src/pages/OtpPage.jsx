@@ -1,10 +1,16 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const OtpPage = () => {
   const [otp, setOtp] = useState(['', '', '', '']);
   const [timeLeft, setTimeLeft] = useState(30);
+  const [error, setError] = useState('');
+  
   const navigate = useNavigate();
+  const location = useLocation();
+  
+  // Get mobile number from login page, fallback if none
+  const mobileNo = location.state?.mobileNo || '9999999999';
 
   useEffect(() => {
     if (timeLeft === 0) return;
@@ -17,6 +23,7 @@ const OtpPage = () => {
   const handleChange = (index, value) => {
     if (!/^\d*$/.test(value)) return;
     
+    setError(''); // Clear error on typing
     const newOtp = [...otp];
     newOtp[index] = value;
     setOtp(newOtp);
@@ -35,8 +42,19 @@ const OtpPage = () => {
 
   const handleContinue = (e) => {
     e.preventDefault();
-    if (otp.join('').length === 4) {
-      navigate('/plans');
+    const otpValue = otp.join('');
+    
+    if (otpValue.length === 4) {
+      // Demo Logic Authentication
+      if (mobileNo === '9999999999' && otpValue === '1234') {
+        localStorage.setItem('user', JSON.stringify({ phone: mobileNo, isSubscribed: true }));
+        navigate('/'); // Go home
+      } else if (mobileNo === '8888888888' && otpValue === '5678') {
+        localStorage.setItem('user', JSON.stringify({ phone: mobileNo, isSubscribed: false }));
+        navigate('/'); // Go home, marked not subscribed
+      } else {
+        setError('Invalid credentials');
+      }
     }
   };
 
@@ -51,13 +69,13 @@ const OtpPage = () => {
 
         <h2 className="text-white font-bold text-xl mb-2">OTP Verification</h2>
         <p className="text-gray-400 text-xs mb-8 text-center">
-          OTP has been sent to +91 9999999999
+          OTP has been sent to +91 {mobileNo}
         </p>
 
         <form onSubmit={handleContinue} className="w-full flex flex-col items-center">
           
           {/* OTP Inputs */}
-          <div className="flex justify-center space-x-3 mb-6">
+          <div className="flex justify-center space-x-3 mb-2">
             {otp.map((digit, index) => (
               <input
                 key={index}
@@ -67,9 +85,14 @@ const OtpPage = () => {
                 value={digit}
                 onChange={(e) => handleChange(index, e.target.value)}
                 onKeyDown={(e) => handleKeyDown(index, e)}
-                className="w-12 h-12 bg-[#252833] border border-gray-600 rounded-lg text-center text-white text-xl font-bold focus:border-[#00A8E1] focus:outline-none transition-colors"
+                className={`w-12 h-12 bg-[#252833] border ${error ? 'border-red-500' : 'border-gray-600'} rounded-lg text-center text-white text-xl font-bold focus:border-[#00A8E1] focus:outline-none transition-colors`}
               />
             ))}
+          </div>
+
+          {/* Error Message */}
+          <div className="h-6 mb-4">
+            {error && <span className="text-red-500 text-xs font-bold">{error}</span>}
           </div>
 
           {/* Timer / Resend */}

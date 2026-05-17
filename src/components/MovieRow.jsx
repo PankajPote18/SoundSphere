@@ -16,7 +16,7 @@ const MovieRow = ({ title, movies }) => {
 
   return (
     <div 
-      className="py-4 px-6 relative group"
+      className="py-4 px-4 md:px-6 relative group"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -39,13 +39,13 @@ const MovieRow = ({ title, movies }) => {
             swiper.params.navigation.nextEl = nextRef.current;
           }}
           slidesPerView={2}
-          spaceBetween={10}
+          spaceBetween={16}
           slidesPerGroup={2}
           breakpoints={{
-            640: { slidesPerView: 3, slidesPerGroup: 3 },
-            768: { slidesPerView: 4, slidesPerGroup: 4 },
-            1024: { slidesPerView: 5, slidesPerGroup: 5 },
-            1280: { slidesPerView: 6, slidesPerGroup: 6 },
+            640: { slidesPerView: 3, slidesPerGroup: 3, spaceBetween: 16 },
+            768: { slidesPerView: 4, slidesPerGroup: 4, spaceBetween: 20 },
+            1024: { slidesPerView: 5, slidesPerGroup: 5, spaceBetween: 20 },
+            1280: { slidesPerView: 6, slidesPerGroup: 6, spaceBetween: 24 },
           }}
           className="!overflow-visible"
         >

@@ -17,7 +17,19 @@ const HomePage = () => {
         const categories = await categoriesRes.json();
         const movies = await moviesRes.json();
 
-        const heroMovies = movies.filter(m => m.category_id === 'hero');
+        // High-quality cinematic placeholders to replace low-quality picsum images
+        const cinematicBackgrounds = [
+          'https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=1925&auto=format&fit=crop',
+          'https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?q=80&w=2070&auto=format&fit=crop',
+          'https://images.unsplash.com/photo-1574267432553-4b4628081c31?q=80&w=2069&auto=format&fit=crop',
+          'https://images.unsplash.com/photo-1604085572504-a392ddf0d86a?q=80&w=2126&auto=format&fit=crop',
+          'https://images.unsplash.com/photo-1505686994434-e3cc5abf1330?q=80&w=2073&auto=format&fit=crop'
+        ];
+
+        const heroMovies = movies.filter(m => m.category_id === 'hero').map((movie, index) => ({
+          ...movie,
+          backdropUrl: cinematicBackgrounds[index % cinematicBackgrounds.length]
+        }));
         
         const rowsData = categories.filter(c => c.type === 'row').map(category => {
           return {
@@ -41,7 +53,7 @@ const HomePage = () => {
   if (loading) return <div className="min-h-screen flex items-center justify-center text-white text-xl">Loading...</div>;
 
   return (
-    <div className="pb-20">
+    <div className="w-full">
       <HeroCarousel movies={data.hero} />
       
       <div className="flex flex-col gap-y-2 md:gap-y-6 mt-4 relative z-20">

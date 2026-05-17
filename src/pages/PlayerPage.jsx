@@ -1,0 +1,241 @@
+import { useState, useEffect, useRef } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { X, Cast, Settings, Subtitles, Play, Pause, RotateCcw, RotateCw, Maximize, Minimize } from 'lucide-react';
+
+const PlayerPage = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const videoRef = useRef(null);
+  const containerRef = useRef(null);
+  
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [currentTime, setCurrentTime] = useState('00:00');
+  const [duration, setDuration] = useState('00:00');
+  const [showControls, setShowControls] = useState(true);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [movie, setMovie] = useState(null);
+  const controlsTimeoutRef = useRef(null);
+
+  // Fetch basic movie details for the title
+  useEffect(() => {
+    const fetchMovie = async () => {
+      try {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/movies/${id}`);
+        if (response.ok) {
+          const data = await response.json();
+          setMovie(data);
+        }
+      } catch (error) {
+        console.error("Error fetching movie:", error);
+      }
+    };
+    fetchMovie();
+  }, [id]);
+
+  // Handle controls visibility timeout
+  const resetControlsTimeout = () => {
+    setShowControls(true);
+    if (controlsTimeoutRef.current) clearTimeout(controlsTimeoutRef.current);
+    
+    if (isPlaying) {
+      controlsTimeoutRef.current = setTimeout(() => {
+        setShowControls(false);
+      }, 3000);
+    }
+  };
+
+  useEffect(() => {
+    resetControlsTimeout();
+    return () => {
+      if (controlsTimeoutRef.current) clearTimeout(controlsTimeoutRef.current);
+    };
+  }, [isPlaying]);
+
+  const togglePlay = () => {
+    if (videoRef.current) {
+      if (isPlaying) {
+        videoRef.current.pause();
+      } else {
+        videoRef.current.play();
+      }
+      setIsPlaying(!isPlaying);
+    }
+  };
+
+  const handleTimeUpdate = () => {
+    if (videoRef.current) {
+      const current = videoRef.current.currentTime;
+      const total = videoRef.current.duration;
+      setProgress((current / total) * 100);
+      setCurrentTime(formatTime(current));
+      setDuration(formatTime(total - current)); // Remaining time
+    }
+  };
+
+  const handleSeek = (e) => {
+    const newTime = (e.target.value / 100) * videoRef.current.duration;
+    videoRef.current.currentTime = newTime;
+    setProgress(e.target.value);
+  };
+
+  const skip = (seconds) => {
+    if (videoRef.current) {
+      videoRef.current.currentTime += seconds;
+    }
+  };
+
+  const toggleFullscreen = () => {
+    if (!document.fullscreenElement) {
+      containerRef.current.requestFullscreen().catch(err => {
+        console.log(`Error attempting to enable fullscreen: ${err.message}`);
+      });
+    } else {
+      document.exitFullscreen();
+    }
+  };
+
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(!!document.fullscreenElement);
+    };
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
+  }, []);
+
+  const formatTime = (timeInSeconds) => {
+    if (isNaN(timeInSeconds)) return "00:00";
+    const m = Math.floor(timeInSeconds / 60).toString().padStart(2, '0');
+    const s = Math.floor(timeInSeconds % 60).toString().padStart(2, '0');
+    return `${m}:${s}`;
+  };
+
+  return (
+    <div 
+      ref={containerRef}
+      className="relative w-screen h-screen bg-black overflow-hidden select-none"
+      onMouseMove={resetControlsTimeout}
+      onClick={resetControlsTimeout}
+      onMouseLeave={() => isPlaying && setShowControls(false)}
+    >
+      {/* HTML5 Video */}
+      <video
+        ref={videoRef}
+        className="w-full h-full object-contain"
+        src="/video.mp4" // Pointing to public/video.mp4
+        onTimeUpdate={handleTimeUpdate}
+        onEnded={() => setIsPlaying(false)}
+        onPlay={() => setIsPlaying(true)}
+        onPause={() => setIsPlaying(false)}
+        onClick={togglePlay}
+        playsInline
+      >
+        Your browser does not support the video tag.
+      </video>
+
+      {/* Controls Overlay */}
+      <div 
+        className={`absolute inset-0 flex flex-col justify-between transition-opacity duration-300 ${
+          showControls ? 'opacity-100' : 'opacity-0 pointer-events-none'
+        }`}
+      >
+        {/* Top Gradient */}
+        <div className="absolute top-0 inset-x-0 h-32 bg-gradient-to-b from-black/80 to-transparent pointer-events-none"></div>
+        {/* Bottom Gradient */}
+        <div className="absolute bottom-0 inset-x-0 h-40 bg-gradient-to-t from-black/90 to-transparent pointer-events-none"></div>
+
+        {/* Top Bar */}
+        <div className="relative z-10 flex items-center justify-between p-6">
+          <div className="flex items-center space-x-6">
+            <button onClick={() => navigate(-1)} className="text-white hover:text-gray-300 transition p-2">
+              <X size={32} />
+            </button>
+            <button className="text-white hover:text-gray-300 transition p-2">
+              <Cast size={28} />
+            </button>
+            <div className="flex flex-col ml-4">
+              <h1 className="text-white text-xl font-bold">{movie ? movie.title : 'Loading...'}</h1>
+              <p className="text-gray-300 text-sm">S1 E1 • Sample Video</p>
+            </div>
+          </div>
+          <div className="flex items-center space-x-6">
+            <button className="text-white hover:text-gray-300 transition p-2">
+              <Subtitles size={28} />
+            </button>
+            <button className="text-white hover:text-gray-300 transition p-2">
+              <Settings size={28} />
+            </button>
+          </div>
+        </div>
+
+        {/* Center Controls */}
+        <div className="relative z-10 flex items-center justify-center space-x-12">
+          <button 
+            onClick={() => skip(-10)} 
+            className="text-white hover:text-gray-300 hover:scale-110 transition-transform p-4 relative"
+          >
+            <RotateCcw size={48} strokeWidth={1.5} />
+            <span className="absolute inset-0 flex items-center justify-center text-[10px] font-bold mt-1">10</span>
+          </button>
+          
+          <button 
+            onClick={togglePlay} 
+            className="w-24 h-24 bg-white/20 hover:bg-white/30 backdrop-blur-md rounded-full flex items-center justify-center text-white transition-all transform hover:scale-105"
+          >
+            {isPlaying ? (
+              <Pause size={48} fill="currentColor" />
+            ) : (
+              <Play size={48} fill="currentColor" className="ml-2" />
+            )}
+          </button>
+
+          <button 
+            onClick={() => skip(10)} 
+            className="text-white hover:text-gray-300 hover:scale-110 transition-transform p-4 relative"
+          >
+            <RotateCw size={48} strokeWidth={1.5} />
+            <span className="absolute inset-0 flex items-center justify-center text-[10px] font-bold mt-1">10</span>
+          </button>
+        </div>
+
+        {/* Bottom Bar */}
+        <div className="relative z-10 px-8 pb-8 flex flex-col">
+          {/* Progress Bar Container */}
+          <div className="flex items-center space-x-4 mb-2">
+            <span className="text-white text-sm font-medium w-12 text-center">{currentTime}</span>
+            
+            <div className="flex-grow relative group cursor-pointer h-6 flex items-center">
+              <input 
+                type="range" 
+                min="0" 
+                max="100" 
+                value={progress} 
+                onChange={handleSeek}
+                className="w-full absolute inset-0 opacity-0 cursor-pointer z-20"
+              />
+              <div className="w-full h-1.5 bg-gray-600 rounded-full overflow-hidden relative z-10">
+                <div 
+                  className="h-full bg-[#00A8E1] transition-all duration-100 ease-linear"
+                  style={{ width: `${progress}%` }}
+                ></div>
+              </div>
+              {/* Scrub thumb */}
+              <div 
+                className="absolute w-4 h-4 bg-white rounded-full z-10 shadow transition-transform group-hover:scale-125"
+                style={{ left: `calc(${progress}% - 8px)` }}
+              ></div>
+            </div>
+
+            <span className="text-gray-300 text-sm font-medium w-16 text-center">-{duration}</span>
+            
+            <button onClick={toggleFullscreen} className="text-white hover:text-gray-300 ml-4">
+              {isFullscreen ? <Minimize size={24} /> : <Maximize size={24} />}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default PlayerPage;

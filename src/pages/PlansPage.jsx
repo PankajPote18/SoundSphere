@@ -28,7 +28,7 @@ const PlansPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-[#0f1115] pt-24 pb-12 flex flex-col items-center px-4">
+    <div className="w-full bg-[#0f1115] pt-24 pb-8 flex flex-col items-center px-4">
       
       <div className="w-full max-w-md bg-black border border-gray-800 rounded-3xl p-6 sm:p-8 shadow-2xl relative overflow-hidden mt-8">
         
@@ -55,26 +55,26 @@ const PlansPage = () => {
                 }`}
               >
                 {/* Left: Radio & Title */}
-                <div className="flex items-center space-x-4 z-10">
-                  <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-colors ${
+                <div className="flex items-center space-x-3 md:space-x-4 z-10">
+                  <div className={`w-4 h-4 md:w-5 md:h-5 rounded-full border-2 flex items-center justify-center transition-colors ${
                     selectedPlan === plan.id ? 'border-[#00A8E1]' : 'border-gray-500'
                   }`}>
                     {selectedPlan === plan.id && (
-                      <div className="w-2.5 h-2.5 rounded-full bg-[#00A8E1]"></div>
+                      <div className="w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-[#00A8E1]"></div>
                     )}
                   </div>
-                  <span className="text-white font-bold text-lg">{plan.id}</span>
+                  <span className="text-white font-bold text-base md:text-lg">{plan.id}</span>
                 </div>
 
                 {/* Middle: Pricing */}
-                <div className="flex items-center space-x-2 z-10 mr-16">
-                  <span className="text-white font-bold text-lg">₹ {plan.price}</span>
-                  <span className="text-gray-500 line-through text-sm">₹{plan.originalPrice}</span>
+                <div className="flex items-center space-x-1 md:space-x-2 z-10 mr-12 md:mr-16">
+                  <span className="text-white font-bold text-base md:text-lg">₹ {plan.price}</span>
+                  <span className="text-gray-500 line-through text-xs md:text-sm">₹{plan.originalPrice}</span>
                 </div>
 
                 {/* Right: Discount Graphic */}
-                <div className="absolute right-0 top-0 bottom-0 w-24 bg-[#7a8b86] rounded-l-[40px] flex flex-col items-center justify-center text-white">
-                   <span className="font-bold text-lg leading-tight">{plan.discount}</span>
+                <div className="absolute right-0 top-0 bottom-0 w-20 md:w-24 bg-[#7a8b86] rounded-l-[40px] flex flex-col items-center justify-center text-white">
+                   <span className="font-bold text-base md:text-lg leading-tight">{plan.discount}</span>
                    <span className="text-[10px] uppercase font-semibold">Off</span>
                 </div>
               </div>
