@@ -2,12 +2,22 @@ import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Play, Plus, ThumbsUp, ThumbsDown, Share2, Video } from 'lucide-react';
 import MovieRow from '../components/MovieRow';
+import { usePremiumModal } from '../context/PremiumModalContext';
 
 const DetailPage = () => {
   const { id } = useParams();
   const [movie, setMovie] = useState(null);
   const [related, setRelated] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { showModal } = usePremiumModal();
+
+  const handleWatchClick = (e) => {
+    const user = JSON.parse(localStorage.getItem('user') || 'null');
+    if (!user || !user.isSubscribed) {
+      e.preventDefault();
+      showModal();
+    }
+  };
 
   useEffect(() => {
     // Scroll to top on load
@@ -86,6 +96,7 @@ const DetailPage = () => {
           <div className="flex flex-wrap gap-4">
             <Link 
               to={`/player/${movie.id}`} 
+              onClick={handleWatchClick}
               className="flex items-center justify-center px-8 py-4 bg-[#38bdf8] text-black font-bold rounded-2xl hover:bg-[#0284c7] hover:text-white transition-all duration-300 hover:scale-105"
             >
               <Play size={20} fill="currentColor" className="mr-2" />
