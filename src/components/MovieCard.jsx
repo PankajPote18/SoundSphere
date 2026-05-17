@@ -9,16 +9,8 @@ const MovieCard = ({ movie }) => {
   const navigate = useNavigate();
   const { showModal } = usePremiumModal();
 
-  const handleMovieClick = (e) => {
-    const user = JSON.parse(localStorage.getItem('user') || 'null');
-    if (!user || !user.isSubscribed) {
-      e.preventDefault();
-      showModal();
-    }
-  };
-
   return (
-    <Link to={`/movie/${movie.id}`} onClick={handleMovieClick} className="block relative h-full">
+    <Link to={`/movie/${movie.id}`} className="block relative h-full">
       <motion.div 
         className="relative rounded-lg overflow-hidden bg-gray-900 aspect-video shadow-lg group-hover:shadow-2xl z-10 border border-transparent group-hover:border-[#00A8E1]/30 transition-all duration-300"
         onMouseEnter={() => setIsHovered(true)}

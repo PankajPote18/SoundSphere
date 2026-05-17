@@ -15,14 +15,6 @@ const HeroCarousel = ({ movies }) => {
   const navigate = useNavigate();
   const { showModal } = usePremiumModal();
 
-  const handleMovieClick = (e) => {
-    const user = JSON.parse(localStorage.getItem('user') || 'null');
-    if (!user || !user.isSubscribed) {
-      e.preventDefault();
-      showModal();
-    }
-  };
-
   if (!movies || movies.length === 0) return null;
 
   return (
@@ -98,7 +90,6 @@ const HeroCarousel = ({ movies }) => {
                 <div className="flex items-center gap-3 md:gap-4">
                   <Link 
                     to={`/movie/${movie.id}`}
-                    onClick={handleMovieClick}
                     className="flex-1 max-w-[160px] md:max-w-none flex items-center justify-center px-4 md:px-8 py-2 md:py-3.5 bg-white text-black hover:bg-gray-200 font-bold rounded transition text-sm md:text-base shadow-lg"
                   >
                     <span className="text-lg md:text-xl mr-1.5 md:mr-2 mb-0.5">▷</span> Watch now

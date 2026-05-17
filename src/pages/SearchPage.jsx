@@ -12,7 +12,7 @@ const SearchPage = () => {
     const fetchMovies = async () => {
       setLoading(true);
       try {
-        const response = await fetch(`http://localhost:8000/api/movies`);
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/movies`);
         const data = await response.json();
         setMovies(data);
       } catch (error) {
