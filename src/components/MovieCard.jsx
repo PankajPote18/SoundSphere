@@ -34,13 +34,7 @@ const MovieCard = ({ movie }) => {
           )}
         </div>
 
-        {/* Nexora logo badge */}
-        <div className="absolute bottom-2 right-2 flex items-center justify-center bg-black/60 px-1 py-0.5 rounded backdrop-blur-sm">
-           <span className="text-brand font-bold text-xs">Nexora</span>
-        </div>
-        <div className="absolute bottom-2 left-2">
-           <span className="text-yellow-400">🛍️</span>
-        </div>
+
 
         {/* Hover State Info */}
         <motion.div 

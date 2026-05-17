@@ -38,144 +38,96 @@ const DetailPage = () => {
   if (!movie) return <div className="min-h-screen bg-bg-dark text-white flex items-center justify-center text-xl">Movie not found</div>;
 
   return (
-    <div className="min-h-screen bg-bg-dark pb-20">
+    <div className="min-h-screen bg-[#0f1115]">
       {/* Cinematic Hero */}
-      <div className="relative w-full h-[80vh] md:h-[90vh]">
+      <div className="relative w-full h-[90vh]">
         <div className="absolute inset-0 w-full h-full">
           <img 
             src={movie.backdropUrl} 
             alt={movie.title} 
             className="w-full h-full object-cover opacity-60"
           />
-          {/* Gradient overlays for cinematic feel */}
-          <div className="absolute inset-0 bg-gradient-to-r from-bg-dark via-bg-dark/80 to-transparent w-full md:w-2/3"></div>
-          <div className="absolute inset-0 bg-gradient-to-t from-bg-dark via-bg-dark/20 to-transparent"></div>
+          {/* Enhanced Gradient overlays for darker blur effect */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0f1115] via-[#0f1115]/90 to-transparent w-full md:w-3/4 backdrop-blur-[2px]"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0f1115] via-[#0f1115]/40 to-transparent"></div>
         </div>
 
         {/* Content Overlay */}
-        <div className="absolute inset-0 pt-24 md:pt-32 px-6 md:px-12 flex flex-col justify-center">
-          <div className="max-w-2xl">
-            {/* Title */}
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6">
-              {movie.title}
-            </h1>
-
-            {/* Top actions (Watch trailer, Watchlist, Like, Not for me, Share) */}
-            <div className="flex items-center space-x-6 mb-8 text-gray-300">
-               <button className="flex flex-col items-center hover:text-white transition group">
-                 <div className="w-10 h-10 rounded-full bg-gray-800/80 flex items-center justify-center mb-1 group-hover:bg-gray-700">
-                    <Video size={20} />
-                 </div>
-                 <span className="text-xs font-medium">Watch trailer</span>
-               </button>
-               <button className="flex flex-col items-center hover:text-white transition group">
-                 <div className="w-10 h-10 rounded-full bg-gray-800/80 flex items-center justify-center mb-1 group-hover:bg-gray-700">
-                    <Plus size={20} />
-                 </div>
-                 <span className="text-xs font-medium">Watchlist</span>
-               </button>
-               <button className="flex flex-col items-center hover:text-white transition group">
-                 <div className="w-10 h-10 rounded-full bg-gray-800/80 flex items-center justify-center mb-1 group-hover:bg-gray-700">
-                    <ThumbsUp size={20} />
-                 </div>
-                 <span className="text-xs font-medium">Like</span>
-               </button>
-               <button className="flex flex-col items-center hover:text-white transition group">
-                 <div className="w-10 h-10 rounded-full bg-gray-800/80 flex items-center justify-center mb-1 group-hover:bg-gray-700">
-                    <ThumbsDown size={20} />
-                 </div>
-                 <span className="text-xs font-medium">Not for me</span>
-               </button>
-               <button className="flex flex-col items-center hover:text-white transition group">
-                 <div className="w-10 h-10 rounded-full bg-gray-800/80 flex items-center justify-center mb-1 group-hover:bg-gray-700">
-                    <Share2 size={20} />
-                 </div>
-                 <span className="text-xs font-medium">Share</span>
-               </button>
-            </div>
-
-            <div className="flex flex-col md:flex-row md:items-start md:space-x-12">
-              {/* Main Action Buttons */}
-              <div className="flex flex-col space-y-3 mb-8 w-full md:w-80 shrink-0">
-                <button className="w-full flex items-center justify-center px-6 py-4 bg-white text-black font-bold rounded-md hover:bg-gray-200 transition">
-                  <Play size={20} fill="currentColor" className="mr-2" />
-                  Play
-                </button>
-                <button className="w-full flex items-center justify-center px-6 py-4 bg-gray-800 text-white font-bold rounded-md hover:bg-gray-700 transition">
-                  Go ad free
-                </button>
-                <button className="w-full flex items-center justify-center px-6 py-4 bg-gray-800 text-white font-bold rounded-md hover:bg-gray-700 transition">
-                  More ways to watch
-                </button>
+        <div className="absolute inset-0 pt-32 px-6 md:px-16 flex flex-col justify-end pb-24 md:pb-32">
+          <div className="max-w-7xl w-full mx-auto flex flex-col md:flex-row md:items-end justify-between gap-12">
+            
+            {/* Left Column: Title, Meta, Actions */}
+            <div className="flex flex-col w-full md:w-[55%] shrink-0">
+              {/* Badges */}
+              <div className="flex items-center space-x-3 mb-4 text-sm font-medium">
+                {movie.isNew && (
+                  <span className="bg-[#00A8E1] text-white text-xs font-bold px-2.5 py-1 rounded uppercase tracking-wider shadow-sm">
+                    New Release
+                  </span>
+                )}
+                {movie.isTrending && (
+                  <span className="text-[#00A8E1] font-bold flex items-center bg-[#00A8E1]/10 px-2.5 py-1 rounded border border-[#00A8E1]/20">
+                    <span className="mr-1">↗</span> Trending #9
+                  </span>
+                )}
               </div>
-              
-              {/* Details Side */}
-              <div className="flex-1">
-                <div className="flex items-center space-x-2 text-brand mb-6 text-sm font-semibold">
-                  <div className="w-4 h-4 rounded-full bg-brand flex items-center justify-center">
-                      <span className="text-black text-[10px]">✓</span>
-                  </div>
-                  <span>Included with Nexora</span>
-                </div>
 
-                {/* Badges and Details */}
-                <div className="flex items-center space-x-3 mb-4 text-sm font-medium">
-                  {movie.isNew && (
-                    <span className="bg-white text-black text-[10px] font-bold px-1.5 py-0.5 rounded-sm uppercase tracking-wider">
-                      New Movie
-                    </span>
-                  )}
-                  {movie.isTrending && (
-                    <span className="text-green-500 font-bold flex items-center">
-                      <span className="mr-1">↗</span> #9 in India
-                    </span>
-                  )}
-                </div>
+              <h1 className="text-5xl md:text-7xl font-serif font-bold text-white mb-4 leading-tight drop-shadow-xl tracking-wide">
+                {movie.title}
+              </h1>
 
-                <p className="text-gray-200 text-base md:text-lg mb-4 line-clamp-4">
-                  {movie.description}
-                </p>
-
-                <div className="flex flex-wrap items-center space-x-2 text-sm text-gray-400 mb-2">
+              {/* Metadata */}
+              <div className="flex flex-wrap items-center space-x-3 text-sm md:text-base text-gray-300 mb-8 font-medium">
+                <span className="text-green-400 font-semibold border border-green-400/30 px-2 py-0.5 rounded">{movie.ageRating || 'U/A 13+'}</span>
+                <span>{movie.year}</span>
+                <span className="w-1.5 h-1.5 rounded-full bg-gray-500"></span>
+                <span>{movie.duration}</span>
+                <span className="w-1.5 h-1.5 rounded-full bg-gray-500"></span>
+                <span className="flex items-center space-x-2">
                   {movie.genres.map((genre, idx) => (
-                    <span key={idx} className="flex items-center font-medium text-gray-300">
-                      {idx > 0 && <span className="mx-2 text-gray-600">•</span>}
+                    <span key={idx} className="flex items-center">
+                      {idx > 0 && <span className="mx-2 text-gray-500">•</span>}
                       {genre}
                     </span>
                   ))}
-                  <span className="mx-2 text-gray-600">•</span>
-                  <span>{movie.year}</span>
-                  <span className="mx-2 text-gray-600">•</span>
-                  <span>{movie.duration}</span>
+                </span>
+              </div>
+              
+              {/* Action Buttons */}
+              <div className="flex flex-row items-center space-x-4">
+                <button className="flex-1 max-w-[200px] flex items-center justify-center px-6 py-4 bg-[#00A8E1] text-white font-bold rounded-lg hover:bg-[#008bc0] transition text-lg shadow-[0_0_20px_rgba(0,168,225,0.4)] hover:scale-105 transform duration-200">
+                  <Play size={24} fill="currentColor" className="mr-2" />
+                  Watch Now
+                </button>
+                <button className="flex-1 max-w-[200px] flex items-center justify-center px-6 py-4 bg-white/10 backdrop-blur-md border border-white/20 text-white font-bold rounded-lg hover:bg-white/20 transition text-lg shadow-lg hover:scale-105 transform duration-200">
+                  <Plus size={24} className="mr-2" />
+                  Watchlist
+                </button>
+              </div>
+            </div>
+            
+            {/* Right Column: Description & Cast */}
+            <div className="flex flex-col w-full md:w-[40%] bg-black/40 backdrop-blur-sm p-6 md:p-8 rounded-2xl border border-white/5">
+              <h3 className="text-white text-lg font-bold mb-3 border-b border-white/10 pb-2">About this movie</h3>
+              <p className="text-gray-300 text-base md:text-lg mb-6 leading-relaxed font-medium">
+                {movie.description}
+              </p>
+              
+              <div className="flex flex-col space-y-3">
+                <div className="text-sm">
+                  <span className="text-gray-400 mr-3 font-medium">Cast:</span>
+                  <span className="text-gray-200">{movie.cast.join(', ')}</span>
                 </div>
-
-                <div className="text-sm text-gray-400 mb-4">
-                  <span className="mr-2">Cast:</span>
-                  <span className="text-gray-200 font-medium">{movie.cast.join(', ')}</span>
-                </div>
-
-                <div className="flex items-center space-x-2">
-                  <span className="w-6 h-6 border border-gray-500 rounded flex items-center justify-center text-[10px] text-gray-400">A</span>
-                  <span className="w-6 h-6 border border-gray-500 rounded flex items-center justify-center text-[10px] text-gray-400">CC</span>
-                  <span className="w-8 h-6 border border-gray-500 rounded flex items-center justify-center text-[10px] text-gray-400">AD</span>
+                <div className="flex items-center space-x-3 mt-2">
+                  <span className="px-2 py-1 border border-gray-600 rounded text-[10px] text-gray-400 font-bold bg-black/50">CC</span>
+                  <span className="px-2 py-1 border border-gray-600 rounded text-[10px] text-gray-400 font-bold bg-black/50">AD</span>
+                  <span className="px-2 py-1 border border-gray-600 rounded text-[10px] text-gray-400 font-bold bg-black/50">4K UHD</span>
                 </div>
               </div>
             </div>
+
           </div>
         </div>
-      </div>
-
-      {/* Tabs */}
-      <div className="px-6 md:px-12 mt-4 md:mt-8 border-b border-gray-800">
-         <div className="flex space-x-8 text-lg font-medium">
-            <button className="pb-4 border-b-2 border-white text-white">Related</button>
-            <button className="pb-4 text-gray-400 hover:text-white transition">Details</button>
-         </div>
-      </div>
-
-      {/* Related Content */}
-      <div className="mt-8 relative z-20">
-        <MovieRow title="Customers also watched" movies={related} />
       </div>
     </div>
   );

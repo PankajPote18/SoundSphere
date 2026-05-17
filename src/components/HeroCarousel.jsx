@@ -34,23 +34,19 @@ const HeroCarousel = ({ movies }) => {
       >
         {movies.map((movie) => (
           <SwiperSlide key={movie.id} className="relative w-full h-full bg-[#0a0f1c]">
-            <div className="absolute inset-0 w-full h-full flex justify-end">
+            <div className="absolute inset-0 w-full h-full">
               <img
                 src={movie.backdropUrl}
                 alt={movie.title}
-                className="w-full md:w-[70%] h-full object-cover object-right"
+                className="w-full h-full object-cover object-center"
               />
               {/* Overlays to make text readable and blend with rows */}
-              <div className="absolute inset-0 bg-gradient-to-r from-[#0a0f1c] via-[#0a0f1c]/90 to-transparent w-full md:w-[60%] z-10"></div>
-              <div className="absolute inset-0 banner-gradient z-10"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-[#0a0f1c] via-[#0a0f1c]/80 to-transparent w-full md:w-3/4 z-10"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-bg-dark via-bg-dark/20 to-transparent z-10"></div>
             </div>
 
             <div className="absolute bottom-0 left-0 w-full px-6 md:px-16 pb-16 md:pb-24 pt-32 z-20 flex items-center h-full">
               <div className="max-w-xl md:max-w-2xl mt-20">
-                {/* Series/Movie Badge */}
-                <div className="flex items-center space-x-2 mb-1">
-                  <span className="text-[#00A8E1] font-bold text-lg md:text-xl tracking-tight">Nexora</span>
-                </div>
 
                 {/* Title */}
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-transparent bg-clip-text bg-gradient-to-b from-yellow-200 to-yellow-600 mb-3 shadow-sm uppercase tracking-widest leading-tight">
