@@ -56,7 +56,7 @@ const HomePage = () => {
     <div className="w-full">
       <HeroCarousel movies={data.hero} />
       
-      <div className="flex flex-col gap-y-2 md:gap-y-6 mt-4 relative z-20">
+      <div className="flex flex-col gap-y-2 md:gap-y-6 -mt-6 md:-mt-16 relative z-20">
         {data.rows.map(row => (
           <MovieRow key={row.id} title={row.title} movies={row.movies} />
         ))}

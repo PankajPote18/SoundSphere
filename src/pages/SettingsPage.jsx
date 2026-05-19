@@ -21,10 +21,10 @@ const SettingsPage = () => {
   };
 
   return (
-    <div className="w-full bg-[#0f1115] pt-32 pb-8 flex flex-col items-center">
+    <div className="w-full bg-[#0f1115] pt-24 pb-8 flex flex-col items-center">
       
       {/* User Profile */}
-      <div className="flex flex-col items-center mb-16">
+      <div className="flex flex-col items-center mb-10">
         <h1 className="text-3xl font-bold text-white mb-2 tracking-wide">John Doe</h1>
         <p className="text-gray-400 font-medium text-sm">+91 9999999999</p>
       </div>

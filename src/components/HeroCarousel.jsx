@@ -18,7 +18,7 @@ const HeroCarousel = ({ movies }) => {
   if (!movies || movies.length === 0) return null;
 
   return (
-    <div className="relative w-full h-[85vh] lg:h-[95vh] -mt-20 group">
+    <div className="relative w-full h-[60vh] md:h-[75vh] lg:h-[95vh] -mt-20 group">
       <Swiper
         modules={[Autoplay, EffectFade, Pagination, Navigation]}
         effect="fade"
@@ -48,12 +48,12 @@ const HeroCarousel = ({ movies }) => {
                 }}
               />
               {/* Lighter overlays to ensure image is visible while text remains readable */}
-              <div className="absolute inset-0 bg-gradient-to-r from-[#0a0f1c]/90 via-[#0a0f1c]/40 to-transparent w-full md:w-2/3 z-10"></div>
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0f1115] via-[#0f1115]/30 to-transparent z-10"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-[#0a0f1c] via-[#0a0f1c]/50 to-transparent w-full md:w-2/3 z-10"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0a0f1c] via-[#0a0f1c]/70 to-transparent z-10"></div>
             </div>
 
-            <div className="absolute bottom-0 left-0 w-full px-4 md:px-16 pb-12 md:pb-24 pt-32 z-20 flex items-center h-full">
-              <div className="max-w-xl md:max-w-2xl mt-16 md:mt-20">
+            <div className="absolute bottom-0 left-0 w-full px-4 md:px-16 pb-6 md:pb-24 pt-20 z-20 flex items-end h-full">
+              <div className="max-w-xl md:max-w-2xl mb-2 md:mb-0 w-full">
 
                 {/* Badge */}
                 <div className="inline-flex items-center px-2 py-0.5 md:px-3 md:py-1 bg-[#00A8E1] text-white text-[9px] md:text-xs font-bold rounded shadow-md uppercase tracking-widest mb-2 md:mb-4">
