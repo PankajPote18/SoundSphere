@@ -31,7 +31,7 @@ const SettingsPage = () => {
   const userPhone = user?.phone || '9999999999';
 
   return (
-    <div className="w-full bg-[#0f1115] pt-24 pb-8 flex flex-col items-center">
+    <div className="w-full bg-[#0a0f1c] pt-24 pb-8 flex flex-col items-center">
       
       {/* User Profile */}
       <div className="flex flex-col items-center mt-12 mb-12">

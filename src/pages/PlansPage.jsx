@@ -28,7 +28,7 @@ const PlansPage = () => {
   ];
 
   return (
-    <div className="w-full bg-[#0f1115] pt-24 pb-8 flex flex-col items-center px-4">
+    <div className="w-full bg-[#0a0f1c] pt-24 pb-8 flex flex-col items-center px-4">
       
       <div className="w-full max-w-md bg-black border border-gray-800 rounded-3xl p-6 sm:p-8 shadow-2xl relative overflow-hidden mt-8">
         

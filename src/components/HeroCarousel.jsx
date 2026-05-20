@@ -159,19 +159,23 @@ const HeroCarousel = ({ movies }) => {
         ))}
       </Swiper>
 
-      {/* Custom Navigation Buttons */}
-      <button
-        ref={(node) => setPrevEl(node)}
-        className="absolute top-1/2 -translate-y-1/2 left-4 md:left-8 z-40 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 drop-shadow-lg hover:scale-110 disabled:opacity-30"
-      >
-        <ChevronLeft size={48} strokeWidth={1.5} />
-      </button>
-      <button
-        ref={(node) => setNextEl(node)}
-        className="absolute top-1/2 -translate-y-1/2 right-4 md:right-8 z-40 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 drop-shadow-lg hover:scale-110 disabled:opacity-30"
-      >
-        <ChevronRight size={48} strokeWidth={1.5} />
-      </button>
+      {/* Custom Navigation Buttons - Only shown on PC/Laptop view */}
+      {deviceMode === 'desktop' && (
+        <>
+          <button
+            ref={(node) => setPrevEl(node)}
+            className="absolute top-1/2 -translate-y-1/2 left-4 md:left-8 z-40 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 drop-shadow-lg hover:scale-110 disabled:opacity-30"
+          >
+            <ChevronLeft size={48} strokeWidth={1.5} />
+          </button>
+          <button
+            ref={(node) => setNextEl(node)}
+            className="absolute top-1/2 -translate-y-1/2 right-4 md:right-8 z-40 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 drop-shadow-lg hover:scale-110 disabled:opacity-30"
+          >
+            <ChevronRight size={48} strokeWidth={1.5} />
+          </button>
+        </>
+      )}
     </div>
   );
 };

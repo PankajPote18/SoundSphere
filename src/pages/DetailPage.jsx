@@ -48,7 +48,7 @@ const DetailPage = () => {
   if (!movie) return <div className="min-h-screen bg-bg-dark text-white flex items-center justify-center text-xl">Movie not found</div>;
 
   return (
-    <div className="w-full bg-[#0f1115] min-h-screen text-white pt-24 pb-20 px-4 md:px-12">
+    <div className="w-full bg-[#0a0f1c] min-h-screen text-white pt-24 pb-4 px-4 md:px-12">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-8 md:gap-16">
         
         {/* Left Column: Poster Card */}

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { Search, User } from 'lucide-react';
+import { Search } from 'lucide-react';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -23,7 +23,7 @@ const Navbar = () => {
   return (
     <nav 
       className={`fixed top-0 left-0 md:left-16 right-0 z-40 transition-all duration-300 px-4 md:px-6 py-3 md:py-4 flex items-center justify-between ${
-        isScrolled ? 'bg-[#0f1115]/90 backdrop-blur-md shadow-lg' : 'bg-gradient-to-b from-[#0f1115]/80 to-transparent'
+        isScrolled ? 'bg-[#0a0f1c]/90 backdrop-blur-md shadow-lg' : 'bg-gradient-to-b from-[#0a0f1c]/80 to-transparent'
       }`}
     >
       <div className="flex items-center w-full md:w-1/4 justify-between md:justify-start">

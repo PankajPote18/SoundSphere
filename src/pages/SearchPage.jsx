@@ -29,25 +29,9 @@ const SearchPage = () => {
     : movies.slice(0, 24); // Show some defaults initially
 
   return (
-    <div className="w-full min-h-screen bg-[#0f1115] pt-24 px-4 md:px-12 pb-20">
+    <div className="w-full min-h-screen bg-[#0a0f1c] pt-24 px-4 md:px-12 pb-4">
       
       <div className="max-w-7xl mx-auto">
-        {/* Search Input Area */}
-        <div className="max-w-4xl mb-12">
-          <div className="flex items-center bg-[#1a1d24] rounded-xl px-4 py-3 border-none">
-            <div className="text-gray-500 mr-3">
-              <Search size={22} />
-            </div>
-            <input 
-              type="text"
-              placeholder="Search audio or video..."
-              className="w-full bg-transparent text-white text-lg outline-none placeholder-gray-600"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              autoFocus
-            />
-          </div>
-        </div>
         {/* Results / Recommended Grid */}
         <div>
           <h2 className="text-gray-400 font-bold tracking-widest text-sm uppercase mb-6">
