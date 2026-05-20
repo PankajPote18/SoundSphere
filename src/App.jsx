@@ -41,10 +41,10 @@ function App() {
 
           {/* Public Routes with Navbar/Sidebar */}
           <Route path="*" element={
-            <div className="min-h-screen bg-[#0a0f1c] flex flex-col md:pl-16 pb-16 md:pb-0 relative">
+            <div className="min-h-dvh bg-[#0a0f1c] flex flex-col md:pl-16 pb-16 md:pb-0 relative">
               <Sidebar />
               <Navbar />
-              <main className="overflow-x-hidden w-full">
+              <main className="flex-grow overflow-x-hidden w-full">
                 <Routes>
                   <Route path="/" element={<HomePage />} />
                   <Route path="/search" element={<SearchPage />} />
