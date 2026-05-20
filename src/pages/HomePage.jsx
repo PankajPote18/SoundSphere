@@ -7,6 +7,18 @@ const HomePage = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // 1. Instantly load from cache if available (0ms load time)
+    const cachedData = localStorage.getItem('home_page_data');
+    if (cachedData) {
+      try {
+        setData(JSON.parse(cachedData));
+        setLoading(false);
+      } catch (e) {
+        console.error("Cache parsing error", e);
+      }
+    }
+
+    // 2. Fetch fresh data in the background
     const fetchData = async () => {
       try {
         const [categoriesRes, moviesRes] = await Promise.all([
@@ -39,7 +51,11 @@ const HomePage = () => {
           };
         });
 
-        setData({ hero: heroMovies, rows: rowsData });
+        const finalData = { hero: heroMovies, rows: rowsData };
+        
+        // Update state and cache with fresh data
+        setData(finalData);
+        localStorage.setItem('home_page_data', JSON.stringify(finalData));
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
@@ -56,7 +72,7 @@ const HomePage = () => {
     <div className="w-full">
       <HeroCarousel movies={data.hero} />
       
-      <div className="flex flex-col gap-y-2 md:gap-y-6 -mt-6 md:-mt-16 relative z-20">
+      <div className="flex flex-col gap-y-0 -mt-6 md:-mt-16 relative z-20 pb-20">
         {data.rows.map(row => (
           <MovieRow key={row.id} title={row.title} movies={row.movies} />
         ))}

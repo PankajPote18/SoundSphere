@@ -60,8 +60,8 @@ const SearchPage = () => {
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
               {filteredMovies.map((movie, idx) => (
                 <Link to={`/movie/${movie.id}`} key={movie.id} className="flex flex-col group cursor-pointer">
-                  {/* Square Card */}
-                  <div className="aspect-square bg-[#111827] rounded-2xl border border-gray-800 relative overflow-hidden flex flex-col items-center justify-center mb-3 transition-transform duration-300 group-hover:scale-105">
+                  {/* Video Aspect Card */}
+                  <div className="aspect-video bg-[#111827] rounded-lg border border-gray-800 relative overflow-hidden flex flex-col items-center justify-center mb-3 transition-transform duration-300 group-hover:scale-105 group-hover:border-[#00A8E1]/30">
                     
                     {/* Render poster image if we want it, or keep the circular design. The user requested white color boxes in reference to the grid. 
                         Let's render the poster image with rounded corners to match standard movies. */}

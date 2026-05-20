@@ -33,7 +33,7 @@ const Navbar = () => {
       </div>
 
       <div className="flex-1 max-w-2xl mx-auto hidden md:flex items-center">
-        {location.pathname !== '/search' && (
+        {location.pathname !== '/search' && location.pathname !== '/settings' && (
           <div 
             onClick={() => navigate('/search')}
             className="w-full flex items-center bg-transparent border border-gray-600 rounded-full px-4 py-2 hover:border-[#00A8E1] transition-colors cursor-text group"

@@ -13,7 +13,7 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#0f1115] pt-24 pb-12 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-[#0f1115] flex items-center justify-center px-4">
       <div className="w-full max-w-sm bg-[#1a1d24] border border-gray-800 rounded-3xl p-8 shadow-2xl">
         
         {/* Placeholder Logo / Top Graphic */}

@@ -103,6 +103,31 @@ const PlayerPage = () => {
     return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
   }, []);
 
+  // Attempt to lock screen orientation to landscape on mobile
+  useEffect(() => {
+    const lockOrientation = async () => {
+      try {
+        if (screen.orientation && screen.orientation.lock) {
+          await screen.orientation.lock("landscape");
+        }
+      } catch (err) {
+        // This will often fail if not triggered by user gesture or if not supported
+        console.log("Orientation lock failed or not supported:", err);
+      }
+    };
+    lockOrientation();
+
+    return () => {
+      try {
+        if (screen.orientation && screen.orientation.unlock) {
+          screen.orientation.unlock();
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+  }, []);
+
   const formatTime = (timeInSeconds) => {
     if (isNaN(timeInSeconds)) return "00:00";
     const m = Math.floor(timeInSeconds / 60).toString().padStart(2, '0');

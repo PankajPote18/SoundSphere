@@ -52,10 +52,10 @@ const DetailPage = () => {
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-8 md:gap-16">
         
         {/* Left Column: Poster Card */}
-        <div className="w-full md:w-1/3 shrink-0 flex justify-center md:justify-start">
-          <div className="w-64 h-96 md:w-80 md:h-[450px] bg-[#111827] rounded-3xl border border-gray-800 relative overflow-hidden flex flex-col items-center justify-center shadow-2xl">
+        <div className="w-full md:w-1/2 shrink-0 flex justify-center md:justify-start">
+          <div className="w-full aspect-video bg-[#111827] rounded-xl border border-gray-800 relative overflow-hidden flex flex-col items-center justify-center shadow-2xl">
             <img 
-              src={movie.posterUrl || movie.backdropUrl} 
+              src={movie.backdropUrl || movie.posterUrl} 
               alt={movie.title} 
               className="absolute inset-0 w-full h-full object-cover"
             />
@@ -123,9 +123,9 @@ const DetailPage = () => {
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
             {related.map((relMovie, idx) => (
               <div key={idx} className="flex flex-col group cursor-pointer">
-                {/* Square Card */}
-                <div className="aspect-square bg-[#111827] rounded-2xl border border-gray-800 relative overflow-hidden flex flex-col items-center justify-center mb-3 transition-transform duration-300 group-hover:scale-105">
-                  <img src={relMovie.posterUrl || relMovie.backdropUrl} alt={relMovie.title} className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" />
+                {/* Video Aspect Card */}
+                <div className="aspect-video bg-[#111827] rounded-lg border border-gray-800 relative overflow-hidden flex flex-col items-center justify-center mb-3 transition-transform duration-300 group-hover:scale-105 group-hover:border-[#00A8E1]/30">
+                  <img src={relMovie.backdropUrl || relMovie.posterUrl} alt={relMovie.title} className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" />
                 </div>
                 
                 {/* Title and Subtitle */}

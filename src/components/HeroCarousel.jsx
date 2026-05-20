@@ -44,10 +44,9 @@ const HeroCarousel = ({ movies }) => {
                 className="w-full h-full object-cover object-center"
                 onError={(e) => {
                   e.target.onerror = null;
-                  e.target.src = 'https://images.unsplash.com/photo-1440404653325-ab127d49abc1?q=80&w=1920&auto=format&fit=crop'; // Cinematic fallback
+                  e.target.src = 'https://images.unsplash.com/photo-1440404653325-ab127d49abc1?q=80&w=1920&auto=format&fit=crop';
                 }}
               />
-              {/* Lighter overlays to ensure image is visible while text remains readable */}
               <div className="absolute inset-0 bg-gradient-to-r from-[#0a0f1c] via-[#0a0f1c]/50 to-transparent w-full md:w-2/3 z-10"></div>
               <div className="absolute inset-0 bg-gradient-to-t from-[#0a0f1c] via-[#0a0f1c]/70 to-transparent z-10"></div>
             </div>
