@@ -38,8 +38,8 @@ const MovieRow = ({ title, movies }) => {
             swiper.params.navigation.prevEl = prevRef.current;
             swiper.params.navigation.nextEl = nextRef.current;
           }}
-          slidesPerView={2}
-          spaceBetween={16}
+          slidesPerView={2.5}
+          spaceBetween={12}
           slidesPerGroup={2}
           breakpoints={{
             640: { slidesPerView: 3, slidesPerGroup: 3, spaceBetween: 16 },

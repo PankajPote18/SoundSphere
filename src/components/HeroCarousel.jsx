@@ -67,16 +67,9 @@ const HeroCarousel = ({ movies }) => {
                 {/* Metadata */}
                 <div className="flex flex-col space-y-1 mb-4 md:mb-6 text-xs md:text-sm text-gray-300 font-medium">
                   <div className="flex flex-wrap items-center space-x-1 md:space-x-2">
-                     <span>Season 1</span>
+                     <span>{movie.ageRating || 'U/A 13+'}</span>
                      <span>•</span>
-                     <span>8 Episodes</span>
-                     <span>•</span>
-                     <span>{movie.ageRating || '18+'}</span>
-                     <span className="hidden md:inline">•</span>
-                     <span className="hidden md:inline">Drama</span>
-                  </div>
-                  <div className="text-gray-400 truncate">
-                     English • Hindi • Tamil • Telugu • Malayalam
+                     <span>English</span>
                   </div>
                 </div>
 
