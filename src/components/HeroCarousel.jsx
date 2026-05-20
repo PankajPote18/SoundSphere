@@ -18,7 +18,7 @@ const HeroCarousel = ({ movies }) => {
   if (!movies || movies.length === 0) return null;
 
   return (
-    <div className="relative w-full h-[60vh] md:h-[75vh] lg:h-[95vh] -mt-20 group">
+    <div className="relative w-full h-[30vh] -mt-20 group">
       <Swiper
         modules={[Autoplay, EffectFade, Pagination, Navigation]}
         effect="fade"
@@ -51,21 +51,21 @@ const HeroCarousel = ({ movies }) => {
               <div className="absolute inset-0 bg-gradient-to-t from-[#0a0f1c] via-[#0a0f1c]/70 to-transparent z-10"></div>
             </div>
 
-            <div className="absolute bottom-0 left-0 w-full px-4 md:px-16 pb-6 md:pb-24 pt-20 z-20 flex items-end h-full">
+            <div className="absolute bottom-0 left-0 w-full px-4 md:px-16 pb-4 md:pb-6 pt-20 z-20 flex items-end h-full">
               <div className="max-w-xl md:max-w-2xl mb-2 md:mb-0 w-full">
 
                 {/* Badge */}
-                <div className="inline-flex items-center px-2 py-0.5 md:px-3 md:py-1 bg-[#00A8E1] text-white text-[9px] md:text-xs font-bold rounded shadow-md uppercase tracking-widest mb-2 md:mb-4">
+                <div className="inline-flex items-center px-2 py-0.5 md:px-3 md:py-1 bg-[#00A8E1] text-white text-[9px] md:text-xs font-bold rounded shadow-md uppercase tracking-widest mb-1.5 md:mb-2">
                   <span className="mr-1">⚡</span> NEW SERIES • 2026
                 </div>
 
                 {/* Title */}
-                <h1 className="text-4xl md:text-7xl font-bold text-white mb-2 md:mb-4 leading-tight tracking-tight drop-shadow-lg">
+                <h1 className="text-xl md:text-3xl font-bold text-white mb-1 md:mb-2 leading-tight tracking-tight drop-shadow-lg">
                   {movie.title}
                 </h1>
 
                 {/* Metadata */}
-                <div className="flex flex-col space-y-1 mb-4 md:mb-6 text-xs md:text-sm text-gray-300 font-medium">
+                <div className="flex flex-col space-y-1 mb-2 md:mb-3 text-[10px] md:text-xs text-gray-300 font-medium">
                   <div className="flex flex-wrap items-center space-x-1 md:space-x-2">
                      <span>{movie.ageRating || 'U/A 13+'}</span>
                      <span>•</span>
@@ -74,7 +74,7 @@ const HeroCarousel = ({ movies }) => {
                 </div>
 
                 {/* Description */}
-                <p className="text-gray-300 text-xs md:text-base leading-relaxed max-w-xl mb-6 md:mb-8 line-clamp-2 md:line-clamp-none">
+                <p className="text-gray-300 text-[10px] md:text-sm leading-relaxed max-w-xl mb-3 md:mb-4 line-clamp-1 md:line-clamp-2">
                   {movie.description || "An epic journey across uncharted continents — testing the limits of endurance, loyalty, and the human spirit. When everything is at stake, who do you trust?"}
                 </p>
 
@@ -82,12 +82,12 @@ const HeroCarousel = ({ movies }) => {
                 <div className="flex items-center gap-3 md:gap-4">
                   <Link 
                     to={`/movie/${movie.id}`}
-                    className="flex-1 max-w-[160px] md:max-w-none flex items-center justify-center px-4 md:px-8 py-2 md:py-3.5 bg-white text-black hover:bg-gray-200 font-bold rounded transition text-sm md:text-base shadow-lg"
+                    className="flex-1 max-w-[120px] md:max-w-none flex items-center justify-center px-3 md:px-6 py-1.5 md:py-2 bg-white text-black hover:bg-gray-200 font-bold rounded transition text-xs md:text-sm shadow-lg"
                   >
-                    <span className="text-lg md:text-xl mr-1.5 md:mr-2 mb-0.5">▷</span> Watch now
+                    <span className="text-base md:text-lg mr-1 mb-0.5">▷</span> Watch now
                   </Link>
-                  <button className="flex-1 max-w-[160px] md:max-w-none flex items-center justify-center px-4 md:px-6 py-2 md:py-3.5 bg-[#1e2330]/80 border border-gray-600 hover:border-gray-400 text-white font-bold rounded transition backdrop-blur-md text-sm md:text-base">
-                    <Plus size={18} className="mr-1.5 md:mr-2" /> My list
+                  <button className="flex-1 max-w-[120px] md:max-w-none flex items-center justify-center px-3 md:px-5 py-1.5 md:py-2 bg-[#1e2330]/80 border border-gray-600 hover:border-gray-400 text-white font-bold rounded transition backdrop-blur-md text-xs md:text-sm">
+                    <Plus size={14} className="mr-1" /> My list
                   </button>
                 </div>
               </div>
