@@ -45,8 +45,8 @@ const Navbar = () => {
     >
       {/* Top Row: Logo & Search */}
       <div className="flex items-center justify-between w-full py-3">
-        {/* Mobile Logo */}
-        <div className="md:hidden flex items-center">
+        {/* Logo */}
+        <div className="lg:hidden flex items-center">
           <span className="text-xl font-bold text-white tracking-tight">Nex<span className="text-[#00A8E1]">ora</span></span>
         </div>
 

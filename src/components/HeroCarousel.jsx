@@ -64,7 +64,7 @@ const HeroCarousel = ({ movies }) => {
   }
 
   return (
-    <div className={`relative w-full ${heightClass} -mt-20 group overflow-hidden px-4 md:px-0 pt-28 md:pt-0 pb-4 md:pb-0`}>
+    <div className={`relative w-full ${heightClass} mt-24 md:-mt-20 group overflow-hidden px-4 md:px-0 pb-4 md:pb-0`}>
       <Swiper
         modules={[Autoplay, EffectFade, Pagination, Navigation]}
         effect="fade"
@@ -98,10 +98,10 @@ const HeroCarousel = ({ movies }) => {
             <div className={contentClass}>
               <div className="max-w-xl md:max-w-2xl mb-6 md:mb-0 w-full">
                 {/* Action Buttons */}
-                <div className="flex items-center gap-2 md:gap-4">
+                <div className="flex flex-wrap items-center gap-3 md:gap-4">
                   <Link 
                     to={`/movie/${movie.id}`}
-                    className={`flex items-center justify-center bg-white text-black hover:bg-gray-200 font-bold rounded-lg transition shadow-lg cursor-pointer ${
+                    className={`flex-shrink-0 flex items-center justify-center bg-white text-black hover:bg-gray-200 font-bold rounded-lg transition shadow-lg cursor-pointer ${
                       deviceMode === 'mobile-desktop' 
                         ? 'px-4 py-1.5 text-xs' 
                         : 'px-3.5 md:px-8 py-1.5 md:py-3.5 text-xs md:text-base'
@@ -110,7 +110,7 @@ const HeroCarousel = ({ movies }) => {
                     <span className={`mr-1 mb-0.5 ${deviceMode === 'mobile-desktop' ? 'text-sm' : 'text-sm md:text-lg'}`}>▷</span> Watch now
                   </Link>
                   <button 
-                    className={`flex items-center justify-center bg-[#1e2330]/80 border border-gray-600 hover:border-gray-400 text-white font-bold rounded-lg transition backdrop-blur-md cursor-pointer ${
+                    className={`flex-shrink-0 flex items-center justify-center bg-[#1e2330]/80 border border-gray-600 hover:border-gray-400 text-white font-bold rounded-lg transition backdrop-blur-md cursor-pointer ${
                       deviceMode === 'mobile-desktop' 
                         ? 'px-4 py-1.5 text-xs' 
                         : 'px-3.5 md:px-6 py-1.5 md:py-3.5 text-xs md:text-base'
