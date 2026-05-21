@@ -15,7 +15,25 @@ const PlayerPage = () => {
   const [showControls, setShowControls] = useState(true);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [movie, setMovie] = useState(null);
+  const [isPortrait, setIsPortrait] = useState(false);
   const controlsTimeoutRef = useRef(null);
+
+  // Monitor portrait mode orientation on mobile touch devices
+  useEffect(() => {
+    const checkOrientation = () => {
+      const isMobile = window.innerWidth < 1024 || ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+      setIsPortrait(isMobile && window.innerHeight > window.innerWidth);
+    };
+
+    checkOrientation();
+    window.addEventListener('resize', checkOrientation);
+    window.addEventListener('orientationchange', checkOrientation);
+    
+    return () => {
+      window.removeEventListener('resize', checkOrientation);
+      window.removeEventListener('orientationchange', checkOrientation);
+    };
+  }, []);
 
   // Fetch basic movie details for the title
   useEffect(() => {
@@ -58,6 +76,17 @@ const PlayerPage = () => {
         videoRef.current.pause();
       } else {
         videoRef.current.play();
+        // Request fullscreen & orientation lock on play click if not already fullscreen (mobile only)
+        const isMobile = window.innerWidth < 1024 || ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+        if (isMobile && !document.fullscreenElement && containerRef.current?.requestFullscreen) {
+          containerRef.current.requestFullscreen()
+            .then(() => {
+              if (screen.orientation && screen.orientation.lock) {
+                screen.orientation.lock("landscape").catch(err => console.log(err));
+              }
+            })
+            .catch(err => console.log("Play gesture auto-fullscreen failed:", err));
+        }
       }
       setIsPlaying(!isPlaying);
     }
@@ -87,9 +116,15 @@ const PlayerPage = () => {
 
   const toggleFullscreen = () => {
     if (!document.fullscreenElement) {
-      containerRef.current.requestFullscreen().catch(err => {
-        console.log(`Error attempting to enable fullscreen: ${err.message}`);
-      });
+      containerRef.current.requestFullscreen()
+        .then(() => {
+          if (screen.orientation && screen.orientation.lock) {
+            screen.orientation.lock("landscape").catch(err => console.log("Orientation lock failed:", err));
+          }
+        })
+        .catch(err => {
+          console.log(`Error attempting to enable fullscreen: ${err.message}`);
+        });
     } else {
       document.exitFullscreen();
     }
@@ -97,7 +132,25 @@ const PlayerPage = () => {
 
   useEffect(() => {
     const handleFullscreenChange = () => {
-      setIsFullscreen(!!document.fullscreenElement);
+      const isFull = !!document.fullscreenElement;
+      setIsFullscreen(isFull);
+      if (!isFull) {
+        try {
+          if (screen.orientation && screen.orientation.unlock) {
+            screen.orientation.unlock();
+          }
+        } catch (err) {
+          console.log(err);
+        }
+      } else {
+        try {
+          if (screen.orientation && screen.orientation.lock) {
+            screen.orientation.lock("landscape").catch(err => console.log("Orientation lock failed:", err));
+          }
+        } catch (err) {
+          console.log(err);
+        }
+      }
     };
     document.addEventListener('fullscreenchange', handleFullscreenChange);
     return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
@@ -111,13 +164,16 @@ const PlayerPage = () => {
           await screen.orientation.lock("landscape");
         }
       } catch (err) {
-        // This will often fail if not triggered by user gesture or if not supported
-        console.log("Orientation lock failed or not supported:", err);
+        console.log("Orientation lock failed or not supported on load:", err);
       }
     };
     lockOrientation();
 
     return () => {
+      // Exit fullscreen if still active
+      if (document.fullscreenElement) {
+        document.exitFullscreen().catch(err => console.log(err));
+      }
       try {
         if (screen.orientation && screen.orientation.unlock) {
           screen.orientation.unlock();
@@ -135,9 +191,22 @@ const PlayerPage = () => {
     return `${m}:${s}`;
   };
 
+  const portraitStyles = isPortrait ? {
+    position: 'fixed',
+    top: '50%',
+    left: '50%',
+    width: '100vh',
+    height: '100vw',
+    transform: 'translate(-50%, -50%) rotate(90deg)',
+    transformOrigin: 'center',
+    zIndex: 9999,
+    overflow: 'hidden',
+  } : {};
+
   return (
     <div 
       ref={containerRef}
+      style={portraitStyles}
       className="relative w-screen h-screen bg-black overflow-hidden select-none"
       onMouseMove={resetControlsTimeout}
       onClick={resetControlsTimeout}

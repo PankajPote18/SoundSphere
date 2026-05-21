@@ -124,12 +124,7 @@ const HeroCarousel = ({ movies }) => {
                   </div>
                 </div>
 
-                {/* Description - only shown on standard mobile and standard PC/laptop */}
-                {deviceMode !== 'mobile-desktop' && (
-                  <p className="text-gray-300 text-xs md:text-base leading-relaxed max-w-xl mb-6 md:mb-8 line-clamp-2 md:line-clamp-none">
-                    {movie.description || "An epic journey across uncharted continents — testing the limits of endurance, loyalty, and the human spirit. When everything is at stake, who do you trust?"}
-                  </p>
-                )}
+
 
                 {/* Action Buttons */}
                 <div className="flex items-center gap-3 md:gap-4">

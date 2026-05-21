@@ -16,6 +16,15 @@ const DetailPage = () => {
     if (!user || !user.isSubscribed) {
       e.preventDefault();
       showModal();
+      return;
+    }
+
+    // Request fullscreen on mobile/touch devices to enable native landscape lock
+    const isMobile = window.innerWidth < 1024 || ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+    if (isMobile && document.documentElement.requestFullscreen) {
+      document.documentElement.requestFullscreen().catch(err => {
+        console.log("Auto-fullscreen on click failed:", err);
+      });
     }
   };
 
