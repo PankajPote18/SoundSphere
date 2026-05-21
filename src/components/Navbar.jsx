@@ -4,6 +4,7 @@ import { Search } from 'lucide-react';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [deviceMode, setDeviceMode] = useState('desktop');
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -14,6 +15,29 @@ const Navbar = () => {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    const isSmallScreen = window.innerWidth < 768;
+
+    if (isMobileDevice && !isSmallScreen) {
+      setDeviceMode('mobile-desktop');
+    } else if (isMobileDevice && isSmallScreen) {
+      setDeviceMode('mobile');
+    } else {
+      setDeviceMode('desktop');
+    }
+
+    const handleResize = () => {
+      const small = window.innerWidth < 768;
+      if (isMobileDevice && !small) setDeviceMode('mobile-desktop');
+      else if (isMobileDevice && small) setDeviceMode('mobile');
+      else setDeviceMode('desktop');
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   // Keyboard shortcut listener for ⌘K / Ctrl+K
@@ -40,26 +64,26 @@ const Navbar = () => {
   return (
     <nav 
       className={`fixed top-0 left-0 md:left-16 right-0 z-40 transition-all duration-300 px-4 md:px-6 flex flex-col justify-center border-none outline-none ${
-        isScrolled ? 'bg-bg-dark/95 backdrop-blur-md shadow-lg shadow-black/40' : 'bg-gradient-to-b from-bg-dark/90 to-transparent'
+        isScrolled ? 'bg-bg-dark/95 backdrop-blur-md shadow-lg shadow-black/40' : 'bg-transparent'
       }`}
     >
       {/* Top Row: Logo & Search */}
-      <div className="flex items-center justify-between w-full py-3">
+      <div className={`flex ${deviceMode === 'mobile-desktop' ? 'flex-col items-start gap-3 py-4' : 'items-center justify-between py-3'} w-full`}>
         {/* Logo */}
-        <div className="lg:hidden flex items-center">
+        <div className="flex items-center">
           <span className="text-xl font-bold text-white tracking-tight">Nex<span className="text-[#00A8E1]">ora</span></span>
         </div>
 
         {/* Desktop Search Bar (Hidden on Mobile home, visible otherwise or handled by sidebar) */}
-        <div className="hidden md:flex flex-1 max-w-md items-center">
+        <div className="hidden md:flex flex-1 max-w-sm items-center">
           {showSearchBar && (
             <div 
               onClick={() => navigate('/search')}
-              className="w-full flex items-center justify-between bg-white/5 border border-white/10 rounded-xl px-4 py-2 hover:bg-white/10 hover:border-white/25 transition-all duration-300 cursor-pointer group"
+              className="w-full flex items-center justify-between bg-white/10 backdrop-blur-xl border border-white/20 rounded-full px-4 py-1.5 hover:bg-white/20 hover:border-white/30 transition-all duration-300 cursor-pointer shadow-2xl"
             >
-              <div className="flex items-center space-x-3">
-                <Search size={18} className="text-gray-400 group-hover:text-white transition-colors" />
-                <span className="text-gray-400 text-sm font-medium group-hover:text-gray-200 transition-colors">
+              <div className="flex items-center space-x-2">
+                <Search size={16} className="text-gray-300 group-hover:text-white transition-colors" />
+                <span className="text-gray-300 text-xs font-medium group-hover:text-white transition-colors pr-6">
                   Search movies, web series...
                 </span>
               </div>
