@@ -7,23 +7,53 @@ import MovieCard from './MovieCard';
 import { Link } from 'react-router-dom';
 import { useRef, useState } from 'react';
 
-const MovieRow = ({ title, movies }) => {
+const MovieRow = ({ title, movies, cardType = 'square' }) => {
   const [isHovered, setIsHovered] = useState(false);
   const prevRef = useRef(null);
   const nextRef = useRef(null);
 
   if (!movies || movies.length === 0) return null;
 
+  // Determine Swiper view counts based on rectangle vs. square card proportions
+  const isRectangle = cardType === 'rectangle';
+  const slidesSettings = isRectangle
+    ? {
+        defaultSlides: 2.2,
+        defaultGroup: 1,
+        breakpoints: {
+          320: { slidesPerView: 2.2, slidesPerGroup: 2, spaceBetween: 8 },
+          480: { slidesPerView: 2.8, slidesPerGroup: 2, spaceBetween: 10 },
+          640: { slidesPerView: 3.8, slidesPerGroup: 3, spaceBetween: 10 },
+          768: { slidesPerView: 4.5, slidesPerGroup: 3, spaceBetween: 12 },
+          1024: { slidesPerView: 5.5, slidesPerGroup: 4, spaceBetween: 12 },
+          1280: { slidesPerView: 6.2, slidesPerGroup: 5, spaceBetween: 14 },
+          1536: { slidesPerView: 7.2, slidesPerGroup: 6, spaceBetween: 16 },
+        },
+      }
+    : {
+        defaultSlides: 3.2,
+        defaultGroup: 2,
+        breakpoints: {
+          320: { slidesPerView: 3.2, slidesPerGroup: 3, spaceBetween: 8 },
+          480: { slidesPerView: 4.2, slidesPerGroup: 4, spaceBetween: 10 },
+          640: { slidesPerView: 5.2, slidesPerGroup: 4, spaceBetween: 10 },
+          768: { slidesPerView: 6.5, slidesPerGroup: 5, spaceBetween: 12 },
+          1024: { slidesPerView: 7.5, slidesPerGroup: 6, spaceBetween: 12 },
+          1280: { slidesPerView: 8.5, slidesPerGroup: 7, spaceBetween: 14 },
+          1536: { slidesPerView: 9.5, slidesPerGroup: 8, spaceBetween: 16 },
+        },
+      };
+
   return (
     <div 
-      className="py-4 px-4 md:px-6 relative group"
+      className="py-1 px-4 md:px-6 relative row-container"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="flex items-end mb-3">
-        <h2 className="text-xl font-bold text-white tracking-wide">{title}</h2>
-        <Link to="#" className="ml-4 text-brand text-sm font-semibold flex items-center hover:text-white transition opacity-0 group-hover:opacity-100">
-          See more <ChevronRight size={16} />
+      <div className="flex items-center justify-between mb-1.5 md:mb-2 w-full">
+        <h2 className="text-base font-semibold md:text-lg text-white tracking-wide">{title}</h2>
+        <Link to="#" className="text-brand hover:text-white transition-colors text-[10px] md:text-xs font-semibold flex items-center">
+          See All <ChevronRight size={12} className="ml-0.5" />
         </Link>
       </div>
 
@@ -38,40 +68,39 @@ const MovieRow = ({ title, movies }) => {
             swiper.params.navigation.prevEl = prevRef.current;
             swiper.params.navigation.nextEl = nextRef.current;
           }}
-          slidesPerView={2.5}
+          slidesPerView={slidesSettings.defaultSlides}
           spaceBetween={12}
-          slidesPerGroup={2}
-          breakpoints={{
-            640: { slidesPerView: 3, slidesPerGroup: 3, spaceBetween: 16 },
-            768: { slidesPerView: 4, slidesPerGroup: 4, spaceBetween: 20 },
-            1024: { slidesPerView: 5, slidesPerGroup: 5, spaceBetween: 20 },
-            1280: { slidesPerView: 6, slidesPerGroup: 6, spaceBetween: 24 },
-          }}
+          slidesPerGroup={slidesSettings.defaultGroup}
+          breakpoints={slidesSettings.breakpoints}
           className="!overflow-visible"
         >
-          {movies.map((movie) => (
-            <SwiperSlide key={movie.id} className="!h-auto py-4">
-              <MovieCard movie={movie} />
+          {movies.map((movie, index) => (
+            <SwiperSlide key={movie.id} className="!h-auto py-2 !overflow-visible">
+              <MovieCard 
+                movie={movie} 
+                cardType={cardType} 
+                rank={index + 1} 
+              />
             </SwiperSlide>
           ))}
         </Swiper>
 
-        {/* Custom Navigation Buttons */}
+        {/* Custom Navigation Buttons (Desktop only) */}
         <button
           ref={prevRef}
-          className={`absolute top-0 bottom-0 left-[-24px] z-40 w-12 bg-black/50 hover:bg-black/80 flex items-center justify-center text-white transition-opacity duration-300 backdrop-blur-sm ${
+          className={`absolute top-0 bottom-0 left-[-20px] z-40 w-10 bg-black/60 hover:bg-black/95 hidden md:flex items-center justify-center text-white transition-opacity duration-300 backdrop-blur-sm rounded-l-xl cursor-pointer ${
             isHovered ? 'opacity-100' : 'opacity-0'
           }`}
         >
-          <ChevronLeft size={36} />
+          <ChevronLeft size={28} />
         </button>
         <button
           ref={nextRef}
-          className={`absolute top-0 bottom-0 right-[-24px] z-40 w-12 bg-black/50 hover:bg-black/80 flex items-center justify-center text-white transition-opacity duration-300 backdrop-blur-sm ${
+          className={`absolute top-0 bottom-0 right-[-20px] z-40 w-10 bg-black/60 hover:bg-black/95 hidden md:flex items-center justify-center text-white transition-opacity duration-300 backdrop-blur-sm rounded-r-xl cursor-pointer ${
             isHovered ? 'opacity-100' : 'opacity-0'
           }`}
         >
-          <ChevronRight size={36} />
+          <ChevronRight size={28} />
         </button>
       </div>
     </div>

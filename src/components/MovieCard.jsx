@@ -1,102 +1,156 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { Play, Plus, ThumbsUp, ThumbsDown, Info } from 'lucide-react';
-import { usePremiumModal } from '../context/PremiumModalContext';
+import { Link } from 'react-router-dom';
+import { Play, MoreVertical } from 'lucide-react';
 
-const MovieCard = ({ movie }) => {
-  const [isHovered, setIsHovered] = useState(false);
-  const navigate = useNavigate();
-  const { showModal } = usePremiumModal();
+const MovieCard = ({ movie, cardType = 'square', rank = 1 }) => {
+  // Layout 1: Continue Watching (Rectangle aspect-video)
+  if (cardType === 'rectangle') {
+    const mockProgress = movie.progress || (20 + (movie.id * 17) % 65);
+    const mockLeftTime = movie.leftTime || `${12 + (movie.id * 9) % 38}m left`;
+
+    return (
+      <Link to={`/movie/${movie.id}`} className="block w-full group relative">
+        <div 
+          className="relative aspect-video rounded-xl overflow-hidden bg-gray-900 border border-white/5 transition-transform duration-300 ease-out shadow-md group-hover:scale-[1.04] group-hover:z-20 group-hover:border-[#00A8E1]/40 group-hover:shadow-[0_12px_24px_rgba(0,0,0,0.8),0_0_15px_rgba(0,168,225,0.15)]"
+        >
+          <img 
+            src={movie.backdropUrl || movie.posterUrl} 
+            alt={movie.title} 
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            loading="lazy"
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.src = 'https://images.unsplash.com/photo-1440404653325-ab127d49abc1?q=80&w=640&auto=format&fit=crop';
+            }}
+          />
+          
+          {/* Always Visible Play Button at Bottom-Left */}
+          <div className="absolute bottom-2 left-2 z-20">
+            <div className="w-8 h-8 rounded-full bg-black/50 border border-white/30 text-white flex items-center justify-center shadow-lg backdrop-blur-sm transition-transform duration-300 group-hover:scale-110">
+              <Play size={10} className="ml-0.5 text-white" fill="currentColor" />
+            </div>
+          </div>
+
+          {/* Progress Bar at Bottom */}
+          <div className="absolute bottom-0 left-0 right-0 h-1 bg-white/20 z-10 overflow-hidden">
+            <div 
+              className="h-full bg-[#00A8E1] transition-all duration-500"
+              style={{ width: `${mockProgress}%` }}
+            ></div>
+          </div>
+        </div>
+
+        {/* Title, leftTime and Dot Menu */}
+        <div className="mt-1.5 flex items-start justify-between px-1">
+          <div className="flex-1 min-w-0 pr-2">
+            <h3 className="text-[11px] md:text-[12px] font-semibold text-white truncate group-hover:text-[#00A8E1] transition-colors">{movie.title}</h3>
+            <p className="text-[9px] md:text-[10px] text-gray-400 mt-0.5 truncate">{mockLeftTime}</p>
+          </div>
+          <button 
+            type="button"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+            }}
+            className="text-gray-400 hover:text-white p-1 rounded-full transition-colors cursor-pointer"
+          >
+            <MoreVertical size={14} />
+          </button>
+        </div>
+      </Link>
+    );
+  }
+
+  // Layout 2: Trending Now (Square aspect-square with Overlapping Number)
+  if (cardType === 'trending') {
+    return (
+      <Link to={`/movie/${movie.id}`} className="block w-full group relative mt-2 md:mt-0">
+        {/* Large overlay Rank Number */}
+        <div 
+          className="absolute -left-3 bottom-0 md:-left-6 md:bottom-3 z-20 text-6xl sm:text-[90px] font-black select-none pointer-events-none tracking-tighter leading-none"
+          style={{ 
+            WebkitTextStroke: '2px rgba(255,255,255,0.45)', 
+            color: '#02040a',
+            textShadow: '0 0 10px rgba(0,0,0,0.8)' 
+          }}
+        >
+          {rank}
+        </div>
+
+        <div 
+          className="relative w-full aspect-square rounded-xl overflow-hidden bg-gray-900 border border-white/5 transition-transform duration-300 ease-out z-10 shadow-md group-hover:scale-[1.04] group-hover:z-30 group-hover:border-[#00A8E1]/40 group-hover:shadow-[0_12px_24px_rgba(0,0,0,0.8),0_0_15px_rgba(0,168,225,0.15)]"
+        >
+          <img 
+            src={movie.posterUrl} 
+            alt={movie.title} 
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            loading="lazy"
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.src = 'https://images.unsplash.com/photo-1440404653325-ab127d49abc1?q=80&w=480&auto=format&fit=crop';
+            }}
+          />
+
+          {/* Top 10 Red Badge */}
+          <div className="absolute top-2 left-2 bg-red-600 text-white text-[8px] font-black px-1.5 py-0.5 rounded tracking-wide uppercase shadow z-20">
+            TOP 10
+          </div>
+
+          {/* Title Overlay on Hover */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-0 group-hover:opacity-100 flex flex-col justify-end p-3 transition-opacity duration-300 z-20">
+            <span className="text-[#00A8E1] text-[9px] font-bold uppercase tracking-wider mb-0.5">
+              {movie.category || movie.genre || 'TRENDING'}
+            </span>
+            <h4 className="text-xs font-bold text-white leading-tight line-clamp-2">
+              {movie.title}
+            </h4>
+          </div>
+        </div>
+
+        <div className="mt-1.5 px-1 text-gray-300 font-semibold text-[11px] md:text-[12px] truncate group-hover:text-[#00A8E1] transition-colors relative z-10">
+          {movie.title}
+        </div>
+      </Link>
+    );
+  }
+
+  // Layout 3: Standard Square (Square aspect-square)
+  const isNewMovie = movie.isNew || movie.id % 4 === 0;
 
   return (
-    <Link to={`/movie/${movie.id}`} className="block relative h-full">
-      <motion.div 
-        className="relative rounded-lg overflow-hidden bg-gray-900 aspect-video shadow-lg group-hover:shadow-2xl z-10 border border-transparent group-hover:border-[#00A8E1]/30 transition-all duration-300"
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-        whileHover={{ 
-          scale: 1.05,
-          zIndex: 50,
-          transition: { duration: 0.3 }
-        }}
+    <Link to={`/movie/${movie.id}`} className="block w-full group relative">
+      <div 
+        className="relative w-full aspect-square rounded-xl overflow-hidden bg-gray-900 border border-white/5 transition-transform duration-300 ease-out shadow-md group-hover:scale-[1.04] group-hover:z-20 group-hover:border-[#00A8E1]/40 group-hover:shadow-[0_12px_24px_rgba(0,0,0,0.8),0_0_15px_rgba(0,168,225,0.15)]"
       >
         <img 
           src={movie.posterUrl} 
           alt={movie.title} 
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
           loading="lazy"
+          onError={(e) => {
+            e.target.onerror = null;
+            e.target.src = 'https://images.unsplash.com/photo-1440404653325-ab127d49abc1?q=80&w=480&auto=format&fit=crop';
+          }}
         />
-        
-        {/* Badges */}
-        <div className="absolute top-2 left-2 flex flex-col space-y-1">
-          {movie.isNew && (
-            <span className="bg-white text-black text-[10px] font-bold px-1.5 py-0.5 rounded-sm uppercase tracking-wider">
-              New Movie
-            </span>
-          )}
-        </div>
 
-
-
-        {/* Hover State Info */}
-        <motion.div 
-          className="absolute inset-0 bg-bg-card p-4 flex flex-col justify-end opacity-0 hover:opacity-100 transition-opacity duration-300"
-          initial={false}
-          animate={{ opacity: isHovered ? 1 : 0 }}
-        >
-          {/* Mock Video Playing State on Hover */}
-          {isHovered && (
-             <div className="absolute inset-0 z-0">
-                 <img src={movie.backdropUrl} className="w-full h-full object-cover opacity-60" />
-                 <div className="absolute inset-0 bg-gradient-to-t from-bg-card via-bg-card/80 to-transparent"></div>
-             </div>
-          )}
-
-          <div className="relative z-10">
-            <div className="flex items-center justify-between mb-2">
-              <div className="flex space-x-2">
-                <button className="w-8 h-8 rounded-full bg-white text-black flex items-center justify-center hover:bg-gray-200 transition">
-                  <Play size={16} className="ml-0.5" fill="currentColor" />
-                </button>
-                <button className="w-8 h-8 rounded-full bg-gray-800 border border-gray-500 text-white flex items-center justify-center hover:border-white transition">
-                  <Plus size={16} />
-                </button>
-                <button className="w-8 h-8 rounded-full bg-gray-800 border border-gray-500 text-white flex items-center justify-center hover:border-white transition">
-                  <ThumbsUp size={16} />
-                </button>
-                <button className="w-8 h-8 rounded-full bg-gray-800 border border-gray-500 text-white flex items-center justify-center hover:border-white transition">
-                  <ThumbsDown size={16} />
-                </button>
-              </div>
-              <button className="w-8 h-8 rounded-full bg-gray-800 border border-gray-500 text-white flex items-center justify-center hover:border-white transition">
-                <Info size={16} />
-              </button>
-            </div>
-            
-            <div className="text-white text-sm font-semibold truncate">
-              {movie.title}
-            </div>
-            
-            <div className="flex items-center space-x-2 text-[11px] text-gray-300 mt-1">
-              <span className="text-green-500 font-semibold">{movie.ageRating}</span>
-              <span>{movie.year}</span>
-              <span>{movie.duration}</span>
-              <span className="border border-gray-600 px-1 rounded text-[9px]">HD</span>
-            </div>
-            
-            <div className="flex flex-wrap gap-1 mt-1.5">
-              {movie.genres.slice(0, 3).map((genre, idx) => (
-                <span key={idx} className="text-[11px] text-gray-400 flex items-center">
-                  {idx > 0 && <span className="w-1 h-1 rounded-full bg-gray-600 mx-1.5"></span>}
-                  {genre}
-                </span>
-              ))}
-            </div>
+        {/* New Movie Badge */}
+        {isNewMovie && (
+          <div className="absolute top-2 left-2 bg-white text-black text-[9px] font-black px-2 py-0.5 rounded shadow tracking-wide uppercase z-20">
+            NEW MOVIE
           </div>
-        </motion.div>
-      </motion.div>
-      <div className="mt-3 px-1 text-gray-200 font-bold text-sm md:text-base truncate group-hover:text-[#00A8E1] transition-colors">
+        )}
+
+        {/* Title Overlay on Hover */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-0 group-hover:opacity-100 flex flex-col justify-end p-3 transition-opacity duration-300 z-20">
+          <span className="text-[#00A8E1] text-[9px] font-bold uppercase tracking-wider mb-0.5">
+            {movie.category || movie.genre || 'SHOW'}
+          </span>
+          <h4 className="text-xs font-bold text-white leading-tight line-clamp-2">
+            {movie.title}
+          </h4>
+        </div>
+      </div>
+
+      <div className="mt-1.5 px-1 text-gray-300 font-semibold text-[11px] md:text-[12px] truncate group-hover:text-[#00A8E1] transition-colors">
         {movie.title}
       </div>
     </Link>

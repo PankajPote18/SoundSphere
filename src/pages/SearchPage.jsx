@@ -29,19 +29,19 @@ const SearchPage = () => {
     : movies.slice(0, 24); // Show some defaults initially
 
   return (
-    <div className="w-full bg-[#0a0f1c] pt-24 px-4 md:px-12 pb-4">
+    <div className="w-full bg-bg-dark pt-16 md:pt-24 px-4 md:px-12 pb-16 min-h-[calc(100vh-80px)]">
       
       <div className="max-w-7xl mx-auto">
         {/* Search Input Area */}
-        <div className="max-w-4xl mb-12">
-          <div className="flex items-center bg-[#1a1d24] rounded-xl px-4 py-3 border-none">
-            <div className="text-gray-500 mr-3">
+        <div className="max-w-4xl mb-8 md:mb-12 mt-2 md:mt-0">
+          <div className="flex items-center bg-white/5 border border-white/10 focus-within:border-[#00A8E1]/40 focus-within:bg-white/10 rounded-2xl px-5 py-3.5 transition-all duration-300">
+            <div className="text-gray-400 mr-3.5">
               <Search size={22} />
             </div>
             <input 
               type="text"
-              placeholder="Search audio or video..."
-              className="w-full bg-transparent text-white text-lg outline-none placeholder-gray-600"
+              placeholder="Search movies, web series, genres..."
+              className="w-full bg-transparent text-white text-lg outline-none placeholder-gray-500"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               autoFocus
@@ -58,20 +58,25 @@ const SearchPage = () => {
             <div className="text-white">Loading...</div>
           ) : (
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
-              {filteredMovies.map((movie, idx) => (
+              {filteredMovies.map((movie) => (
                 <Link to={`/movie/${movie.id}`} key={movie.id} className="flex flex-col group cursor-pointer">
                   {/* Video Aspect Card */}
-                  <div className="aspect-video bg-[#111827] rounded-lg border border-gray-800 relative overflow-hidden flex flex-col items-center justify-center mb-3 transition-transform duration-300 group-hover:scale-105 group-hover:border-[#00A8E1]/30">
-                    
-                    {/* Render poster image if we want it, or keep the circular design. The user requested white color boxes in reference to the grid. 
-                        Let's render the poster image with rounded corners to match standard movies. */}
-                    <img src={movie.posterUrl} alt={movie.title} className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" />
-                    
+                  <div className="aspect-video bg-bg-card rounded-xl border border-white/5 relative overflow-hidden flex flex-col items-center justify-center mb-2.5 transition-all duration-300 group-hover:scale-105 group-hover:border-[#00A8E1]/30 group-hover:shadow-xl shadow-black/80">
+                    <img 
+                      src={movie.backdropUrl || movie.posterUrl} 
+                      alt={movie.title} 
+                      className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-300"
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = 'https://images.unsplash.com/photo-1440404653325-ab127d49abc1?q=80&w=640&auto=format&fit=crop';
+                      }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/55 to-transparent z-10"></div>
                   </div>
                   
                   {/* Title and Subtitle */}
-                  <h3 className="text-white font-bold text-sm truncate">{movie.title}</h3>
-                  <p className="text-gray-500 text-xs mt-0.5">{movie.year} • Video</p>
+                  <h3 className="text-white font-bold text-sm truncate group-hover:text-[#00A8E1] transition-colors">{movie.title}</h3>
+                  <p className="text-gray-400 text-xs mt-0.5">{movie.year} • {movie.duration?.includes('Season') ? 'Show' : 'Movie'}</p>
                 </Link>
               ))}
             </div>

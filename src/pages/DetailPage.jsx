@@ -57,37 +57,37 @@ const DetailPage = () => {
   if (!movie) return <div className="min-h-screen bg-bg-dark text-white flex items-center justify-center text-xl">Movie not found</div>;
 
   return (
-    <div className="w-full bg-[#0a0f1c] text-white pt-24 pb-4 px-4 md:px-12">
+    <div className="w-full bg-bg-dark text-white pt-24 pb-16 px-4 md:px-12 min-h-[calc(100vh-80px)]">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-8 md:gap-16">
         
         {/* Left Column: Poster Card */}
         <div className="w-full md:w-1/2 shrink-0 flex justify-center md:justify-start">
-          <div className="w-full aspect-video bg-[#111827] rounded-xl border border-gray-800 relative overflow-hidden flex flex-col items-center justify-center shadow-2xl">
+          <div className="w-full aspect-video bg-bg-card rounded-xl border border-white/10 relative overflow-hidden flex flex-col items-center justify-center shadow-2xl">
             <img 
               src={movie.backdropUrl || movie.posterUrl} 
               alt={movie.title} 
               className="absolute inset-0 w-full h-full object-cover"
             />
-            {/* Dark gradient overlay at bottom for text readability if needed */}
-            <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/80 to-transparent"></div>
+            {/* Dark gradient overlay at bottom for text readability */}
+            <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#02040a]/90 to-transparent"></div>
           </div>
         </div>
 
         {/* Right Column: Details */}
         <div className="w-full md:w-2/3 flex flex-col pt-4 md:pt-10">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 tracking-tight">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-black mb-4 tracking-tight">
             {movie.title}
           </h1>
 
           {/* Badges & Genres */}
           <div className="flex flex-wrap items-center gap-4 mb-8">
-            <span className="px-3 py-1 bg-teal-500/10 text-teal-400 border border-teal-500/30 rounded font-semibold text-sm">
+            <span className="px-3 py-1 bg-[#00A8E1]/10 text-[#00A8E1] border border-[#00A8E1]/30 rounded-lg font-semibold text-sm">
               {movie.ageRating || 'U/A 13+'}
             </span>
             
             <div className="flex flex-wrap gap-2">
               {movie.genres.map((genre, idx) => (
-                <span key={idx} className="px-4 py-1.5 bg-[#1f2937] rounded-full text-sm text-gray-300 font-medium">
+                <span key={idx} className="px-4 py-1.5 bg-white/5 border border-white/10 rounded-full text-sm text-gray-300 font-medium">
                   {genre}
                 </span>
               ))}
@@ -106,14 +106,14 @@ const DetailPage = () => {
             <Link 
               to={`/player/${movie.id}`} 
               onClick={handleWatchClick}
-              className="flex items-center justify-center px-8 py-4 bg-[#38bdf8] text-black font-bold rounded-2xl hover:bg-[#0284c7] hover:text-white transition-all duration-300 hover:scale-105"
+              className="flex items-center justify-center px-8 py-3.5 bg-white text-black font-bold rounded-xl hover:bg-gray-200 transition-all duration-300 hover:scale-105 cursor-pointer shadow-lg"
             >
-              <Play size={20} fill="currentColor" className="mr-2" />
+              <Play size={18} fill="currentColor" className="mr-2" />
               Watch now
             </Link>
             
-            <button className="flex items-center justify-center px-8 py-4 bg-[#1f2937] text-white font-bold rounded-2xl hover:bg-[#374151] transition-all duration-300 hover:scale-105">
-              <Plus size={20} className="mr-2" />
+            <button className="flex items-center justify-center px-8 py-3.5 bg-white/5 border border-white/10 text-white font-bold rounded-xl hover:bg-white/10 transition-all duration-300 hover:scale-105 cursor-pointer">
+              <Plus size={18} className="mr-2" />
               Watchlist
             </button>
           </div>
@@ -126,20 +126,20 @@ const DetailPage = () => {
         <div className="max-w-7xl mx-auto mt-24">
           <div className="flex items-center justify-between mb-8">
             <h2 className="text-gray-400 font-bold tracking-widest text-sm uppercase">More Like This</h2>
-            <button className="text-teal-400 text-sm font-semibold hover:text-teal-300 transition">See all</button>
+            <button className="text-[#00A8E1] text-sm font-semibold hover:text-white transition cursor-pointer">See all</button>
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
             {related.map((relMovie, idx) => (
               <div key={idx} className="flex flex-col group cursor-pointer">
                 {/* Video Aspect Card */}
-                <div className="aspect-video bg-[#111827] rounded-lg border border-gray-800 relative overflow-hidden flex flex-col items-center justify-center mb-3 transition-transform duration-300 group-hover:scale-105 group-hover:border-[#00A8E1]/30">
+                <div className="aspect-video bg-bg-card rounded-xl border border-white/5 relative overflow-hidden flex flex-col items-center justify-center mb-3 transition-transform duration-300 group-hover:scale-105 group-hover:border-[#00A8E1]/30 shadow-lg shadow-black/65">
                   <img src={relMovie.backdropUrl || relMovie.posterUrl} alt={relMovie.title} className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" />
                 </div>
                 
                 {/* Title and Subtitle */}
-                <h3 className="text-white font-bold text-sm truncate">{relMovie.title}</h3>
-                <p className="text-gray-500 text-xs mt-0.5">{relMovie.year} • {relMovie.genres[0]}</p>
+                <h3 className="text-white font-bold text-sm truncate group-hover:text-[#00A8E1] transition-colors">{relMovie.title}</h3>
+                <p className="text-gray-400 text-xs mt-0.5">{relMovie.year} • {relMovie.genres[0]}</p>
               </div>
             ))}
           </div>

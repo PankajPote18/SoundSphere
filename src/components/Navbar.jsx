@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { Search } from 'lucide-react';
 
 const Navbar = () => {
@@ -9,46 +9,84 @@ const Navbar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 0) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
+      setIsScrolled(window.scrollY > 0);
     };
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Keyboard shortcut listener for ⌘K / Ctrl+K
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        navigate('/search');
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [navigate]);
+
+  // Hide search bar on specific pages
+  const isSearchPage = location.pathname === '/search';
+  const isSettingsPage = location.pathname === '/settings';
+  const isPlansPage = location.pathname === '/plans';
+  const isDetailPage = location.pathname.startsWith('/movie/');
+
+  const showSearchBar = !isSearchPage && !isSettingsPage && !isPlansPage && !isDetailPage;
+  const showMobileTabs = !isSearchPage && !isSettingsPage && !isPlansPage && !isDetailPage;
+
   return (
     <nav 
-      className={`fixed top-0 left-0 md:left-16 right-0 z-40 transition-all duration-300 px-4 md:px-6 py-3 md:py-4 flex items-center justify-between ${
-        isScrolled ? 'bg-[#0a0f1c]/90 backdrop-blur-md shadow-lg' : 'bg-gradient-to-b from-[#0a0f1c]/80 to-transparent'
+      className={`fixed top-0 left-0 md:left-16 right-0 z-40 transition-all duration-300 px-4 md:px-6 flex flex-col justify-center border-none outline-none ${
+        isScrolled ? 'bg-bg-dark/95 backdrop-blur-md shadow-lg shadow-black/40' : 'bg-gradient-to-b from-bg-dark/90 to-transparent'
       }`}
     >
-      <div className="flex items-center w-full md:w-1/4 justify-between md:justify-start">
-        <Link to="/" className="text-xl md:text-2xl font-bold tracking-tight text-white flex items-center">
-          <span className="text-[#00A8E1]">Nexora</span>
-        </Link>
-      </div>
+      {/* Top Row: Logo & Search */}
+      <div className="flex items-center justify-between w-full py-3">
+        {/* Mobile Logo */}
+        <div className="md:hidden flex items-center">
+          <span className="text-xl font-bold text-white tracking-tight">Nex<span className="text-[#00A8E1]">ora</span></span>
+        </div>
 
-      <div className="flex-1 max-w-2xl mx-auto hidden md:flex items-center">
-        {location.pathname !== '/search' && location.pathname !== '/settings' && location.pathname !== '/plans' && (
-          <div 
-            onClick={() => navigate('/search')}
-            className="w-full flex items-center bg-transparent border border-gray-600 rounded-full px-4 py-2 hover:border-[#00A8E1] transition-colors cursor-text group"
-          >
-            <div className="text-[#00A8E1] mr-2">
-              <Search size={18} />
+        {/* Desktop Search Bar (Hidden on Mobile home, visible otherwise or handled by sidebar) */}
+        <div className="hidden md:flex flex-1 max-w-md items-center">
+          {showSearchBar && (
+            <div 
+              onClick={() => navigate('/search')}
+              className="w-full flex items-center justify-between bg-white/5 border border-white/10 rounded-xl px-4 py-2 hover:bg-white/10 hover:border-white/25 transition-all duration-300 cursor-pointer group"
+            >
+              <div className="flex items-center space-x-3">
+                <Search size={18} className="text-gray-400 group-hover:text-white transition-colors" />
+                <span className="text-gray-400 text-sm font-medium group-hover:text-gray-200 transition-colors">
+                  Search movies, web series...
+                </span>
+              </div>
+              <div className="hidden sm:flex items-center space-x-1 bg-white/10 border border-white/10 rounded px-1.5 py-0.5 text-[10px] font-medium text-gray-400">
+                <span>⌘</span>
+                <span>K</span>
+              </div>
             </div>
-            <span className="text-gray-400 text-sm font-medium group-hover:text-gray-300 transition-colors">Search series...</span>
-          </div>
-        )}
+          )}
+        </div>
       </div>
 
-      <div className="flex items-center justify-end w-1/4 space-x-4">
-        {/* Removed My Space */}
-      </div>
+      {/* Mobile Navigation Tabs */}
+      {showMobileTabs && (
+        <div className="md:hidden flex items-center space-x-6 pb-2 w-full px-1">
+          <Link to="/" className="text-white text-sm font-bold relative pb-1">
+            Home
+            <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#00A8E1] rounded-full"></div>
+          </Link>
+          <Link to="#" className="text-gray-400 hover:text-white transition-colors text-sm font-medium pb-1">
+            Movies
+          </Link>
+          <Link to="#" className="text-gray-400 hover:text-white transition-colors text-sm font-medium pb-1">
+            Web Series
+          </Link>
+        </div>
+      )}
     </nav>
   );
 };

@@ -3,9 +3,9 @@
 @theme {
   --color-brand: #00A8E1;
   --color-brand-hover: #007799;
-  --color-bg-dark: #0a0f1c;
-  --color-bg-card: #111827;
-  --color-bg-lighter: #1f2937;
+  --color-bg-dark: #02040a;
+  --color-bg-card: #090d16;
+  --color-bg-lighter: #151c2c;
 }
 
 @layer base {
@@ -25,13 +25,30 @@
 
 /* Premium gradient overlays */
 .banner-gradient {
-  background: linear-gradient(to top, #0f172a 0%, transparent 100%);
+  background: linear-gradient(to top, #02040a 0%, transparent 100%);
 }
 
 .banner-gradient-right {
-  background: linear-gradient(to left, #0f172a 0%, transparent 100%);
+  background: linear-gradient(to left, #02040a 0%, transparent 100%);
 }
 
 .card-gradient {
-  background: linear-gradient(to top, rgba(15, 23, 42, 0.9) 0%, transparent 50%);
+  background: linear-gradient(to top, rgba(2, 4, 10, 0.95) 0%, transparent 70%);
+}
+
+/* Custom Swiper pagination indicators */
+.custom-hero-pagination .swiper-pagination-bullet {
+  width: 12px !important;
+  height: 3px !important;
+  border-radius: 2px !important;
+  background-color: rgba(255, 255, 255, 0.4) !important;
+  opacity: 1 !important;
+  transition: all 0.3s ease !important;
+  margin: 0 2px !important;
+}
+
+.custom-hero-pagination .swiper-pagination-bullet-active {
+  background-color: #00A8E1 !important;
+  width: 20px !important;
+  box-shadow: 0 0 8px rgba(0, 168, 225, 0.4) !important;
 }

@@ -15,11 +15,13 @@ import AdminMovies from './pages/admin/AdminMovies';
 import AdminSubscriptions from './pages/admin/AdminSubscriptions';
 import AdminAboutUs from './pages/admin/AdminAboutUs';
 import PlayerPage from './pages/PlayerPage';
+import ScrollToTop from './components/ScrollToTop';
 import { PremiumModalProvider } from './context/PremiumModalContext';
 
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <PremiumModalProvider>
         <Routes>
           {/* Player Route - Standalone Fullscreen */}
@@ -41,7 +43,7 @@ function App() {
 
           {/* Public Routes with Navbar/Sidebar */}
           <Route path="*" element={
-            <div className="min-h-dvh bg-[#0a0f1c] flex flex-col md:pl-16 pb-16 md:pb-0 relative">
+            <div className="min-h-dvh bg-bg-dark flex flex-col md:pl-16 pb-16 md:pb-0 relative">
               <Sidebar />
               <Navbar />
               <main className="flex-grow overflow-x-hidden w-full">

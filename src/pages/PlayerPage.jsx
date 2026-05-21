@@ -244,18 +244,12 @@ const PlayerPage = () => {
             <button onClick={() => navigate(-1)} className="text-white hover:text-gray-300 transition p-2">
               <X size={32} />
             </button>
-            <button className="text-white hover:text-gray-300 transition p-2">
-              <Cast size={28} />
-            </button>
             <div className="flex flex-col ml-4">
               <h1 className="text-white text-xl font-bold">{movie ? movie.title : 'Loading...'}</h1>
               <p className="text-gray-300 text-sm">S1 E1 • Sample Video</p>
             </div>
           </div>
           <div className="flex items-center space-x-6">
-            <button className="text-white hover:text-gray-300 transition p-2">
-              <Subtitles size={28} />
-            </button>
             <button className="text-white hover:text-gray-300 transition p-2">
               <Settings size={28} />
             </button>
