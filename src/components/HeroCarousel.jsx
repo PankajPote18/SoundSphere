@@ -46,7 +46,7 @@ const HeroCarousel = ({ movies }) => {
   if (deviceMode === 'mobile') {
     heightClass = "h-[50vh]";
   } else if (deviceMode === 'mobile-desktop') {
-    heightClass = "h-[35vh]";
+    heightClass = "h-[45vh] min-h-[320px]";
   }
 
   // Determine content container alignment dynamically
@@ -54,7 +54,7 @@ const HeroCarousel = ({ movies }) => {
   if (deviceMode === 'mobile') {
     contentClass = "absolute bottom-0 left-0 w-full px-4 pb-2 flex items-end h-full z-20";
   } else if (deviceMode === 'mobile-desktop') {
-    contentClass = "absolute bottom-0 left-0 w-full px-6 pb-4 pt-10 z-20 flex items-end h-full";
+    contentClass = "absolute bottom-0 left-0 w-full px-6 pb-12 pt-10 z-20 flex items-end h-full";
   }
 
   // Determine title sizes dynamically

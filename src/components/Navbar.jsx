@@ -63,10 +63,6 @@ const Navbar = () => {
                   Search movies, web series...
                 </span>
               </div>
-              <div className="hidden sm:flex items-center space-x-1 bg-white/10 border border-white/10 rounded px-1.5 py-0.5 text-[10px] font-medium text-gray-400">
-                <span>⌘</span>
-                <span>K</span>
-              </div>
             </div>
           )}
         </div>
