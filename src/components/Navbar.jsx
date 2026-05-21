@@ -52,13 +52,12 @@ const Navbar = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [navigate]);
 
-  // Hide search bar on specific pages
+  // Hide mobile tabs on specific pages
   const isSearchPage = location.pathname === '/search';
   const isSettingsPage = location.pathname === '/settings';
   const isPlansPage = location.pathname === '/plans';
   const isDetailPage = location.pathname.startsWith('/movie/');
 
-  const showSearchBar = !isSearchPage && !isSettingsPage && !isPlansPage && !isDetailPage;
   const showMobileTabs = !isSearchPage && !isSettingsPage && !isPlansPage && !isDetailPage;
 
   return (
@@ -67,28 +66,11 @@ const Navbar = () => {
         isScrolled ? 'bg-bg-dark/95 backdrop-blur-md shadow-lg shadow-black/40' : 'bg-transparent'
       }`}
     >
-      {/* Top Row: Logo & Search */}
+      {/* Top Row: Logo */}
       <div className={`flex ${deviceMode === 'mobile-desktop' ? 'flex-col items-start gap-3 py-4' : 'items-center justify-between py-3'} w-full`}>
         {/* Logo */}
         <div className="flex items-center">
           <span className="text-xl font-bold text-white tracking-tight">Nex<span className="text-[#00A8E1]">ora</span></span>
-        </div>
-
-        {/* Desktop Search Bar (Hidden on Mobile home, visible otherwise or handled by sidebar) */}
-        <div className="hidden md:flex flex-1 max-w-sm items-center">
-          {showSearchBar && (
-            <div 
-              onClick={() => navigate('/search')}
-              className="w-full flex items-center justify-between bg-white/10 backdrop-blur-xl border border-white/20 rounded-full px-4 py-1.5 hover:bg-white/20 hover:border-white/30 transition-all duration-300 cursor-pointer shadow-2xl"
-            >
-              <div className="flex items-center space-x-2">
-                <Search size={16} className="text-gray-300 group-hover:text-white transition-colors" />
-                <span className="text-gray-300 text-xs font-medium group-hover:text-white transition-colors pr-6">
-                  Search movies, web series...
-                </span>
-              </div>
-            </div>
-          )}
         </div>
       </div>
 

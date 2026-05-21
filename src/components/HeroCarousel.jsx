@@ -4,13 +4,14 @@ import 'swiper/css';
 import 'swiper/css/effect-fade';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
-import { Plus, ChevronLeft, ChevronRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Plus, ChevronLeft, ChevronRight, Search } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
-const HeroCarousel = ({ movies }) => {
+const HeroCarousel = ({ movies, showSearch = false }) => {
   const [prevEl, setPrevEl] = useState(null);
   const [nextEl, setNextEl] = useState(null);
+  const navigate = useNavigate();
   const [deviceMode, setDeviceMode] = useState('desktop');
 
   useEffect(() => {
@@ -63,69 +64,95 @@ const HeroCarousel = ({ movies }) => {
     titleClass = "text-3xl font-black text-white mb-2 tracking-tight drop-shadow-xl";
   }
 
-  return (
-    <div className={`relative w-full ${heightClass} mt-24 md:-mt-20 group overflow-hidden px-4 md:px-0 pb-4 md:pb-0`}>
-      <Swiper
-        modules={[Autoplay, EffectFade, Pagination, Navigation]}
-        effect="fade"
-        navigation={{ prevEl, nextEl }}
-        autoplay={{
-          delay: 6000,
-          disableOnInteraction: false,
-        }}
-        pagination={{
-          clickable: true,
-          el: '.custom-hero-pagination',
-        }}
-        className="w-full h-full rounded-2xl md:rounded-none overflow-hidden border border-white/10 md:border-none shadow-2xl shadow-black/50 md:shadow-none"
-      >
-        {movies.map((movie) => (
-          <SwiperSlide key={movie.id} className="relative w-full h-full bg-[#02040a]">
-            <div className="absolute inset-0 w-full h-full">
-              <img
-                src={movie.backdropUrl || movie.posterUrl}
-                alt={movie.title}
-                className="w-full h-full object-cover object-center"
-                onError={(e) => {
-                  e.target.onerror = null;
-                  e.target.src = 'https://images.unsplash.com/photo-1440404653325-ab127d49abc1?q=80&w=1920&auto=format&fit=crop';
-                }}
-              />
-              <div className="absolute inset-0 bg-gradient-to-r from-[#02040a] via-[#02040a]/40 to-transparent w-full md:w-2/3 z-10"></div>
-              <div className="absolute inset-0 bg-gradient-to-t from-[#02040a] via-[#02040a]/40 to-transparent z-10"></div>
-            </div>
+  // Search bar top offset
+  // Mobile (width < 768): HeroCarousel has mt-24, so it starts below navbar -> top-4.
+  // Desktop & mobile-desktop (width >= 768): HeroCarousel has md:-mt-20, so it starts at top of screen.
+  // We need it below the desktop navbar + a little bit lower -> top-28 or top-32.
+  let searchTopClass = 'top-4 md:top-6';        // mobile default
+  if (deviceMode === 'desktop' || deviceMode === 'mobile-desktop') searchTopClass = 'top-28 md:top-32';
 
-            <div className={contentClass}>
-              <div className="max-w-xl md:max-w-2xl mb-6 md:mb-0 w-full">
-                {/* Action Buttons */}
-                <div className="flex flex-wrap items-center gap-3 md:gap-4">
-                  <Link 
-                    to={`/movie/${movie.id}`}
-                    className={`flex-shrink-0 flex items-center justify-center bg-white text-black hover:bg-gray-200 font-bold rounded-lg transition shadow-lg cursor-pointer ${
-                      deviceMode === 'mobile-desktop' 
-                        ? 'px-4 py-1.5 text-xs' 
-                        : 'px-3.5 md:px-8 py-1.5 md:py-3.5 text-xs md:text-base'
-                    }`}
-                  >
-                    <span className={`mr-1 mb-0.5 ${deviceMode === 'mobile-desktop' ? 'text-sm' : 'text-sm md:text-lg'}`}>▷</span> Watch now
-                  </Link>
-                  <button 
-                    className={`flex-shrink-0 flex items-center justify-center bg-[#1e2330]/80 border border-gray-600 hover:border-gray-400 text-white font-bold rounded-lg transition backdrop-blur-md cursor-pointer ${
-                      deviceMode === 'mobile-desktop' 
-                        ? 'px-4 py-1.5 text-xs' 
-                        : 'px-3.5 md:px-6 py-1.5 md:py-3.5 text-xs md:text-base'
-                    }`}
-                  >
-                    <Plus size={deviceMode === 'desktop' ? 18 : 14} className="mr-1.5" /> My list
-                  </button>
+  return (
+    <div className={`relative w-full ${heightClass} mt-24 md:-mt-20 group px-4 md:px-0 pb-4 md:pb-0`}>
+
+      {/* Search Bar — sits in outer wrapper, never clipped */}
+      {showSearch && (
+        <div className={`absolute ${searchTopClass} left-0 z-30 px-4 md:px-6 w-[55%] sm:w-[250px] md:w-[400px] lg:w-[450px] pointer-events-none`}>
+          <div
+            onClick={() => navigate('/search')}
+            className="pointer-events-auto w-full flex items-center space-x-2 bg-black/60 backdrop-blur-md border border-white/10 rounded-full px-3 py-1.5 md:px-4 md:py-2 hover:bg-black/80 hover:border-white/20 transition-all duration-300 cursor-pointer shadow-lg"
+          >
+            <Search size={15} className="text-gray-400 shrink-0" />
+            <span className="text-gray-400 text-[13px] font-medium truncate">
+              Search for movies, shows and more...
+            </span>
+          </div>
+        </div>
+      )}
+      {/* Inner: overflow-hidden clips the Swiper images only */}
+      <div className="absolute inset-0 overflow-hidden rounded-2xl md:rounded-none border border-white/10 md:border-none shadow-2xl shadow-black/50 md:shadow-none">
+        <Swiper
+          modules={[Autoplay, EffectFade, Pagination, Navigation]}
+          effect="fade"
+          navigation={{ prevEl, nextEl }}
+          autoplay={{
+            delay: 6000,
+            disableOnInteraction: false,
+          }}
+          pagination={{
+            clickable: true,
+            el: '.custom-hero-pagination',
+          }}
+          className="w-full h-full"
+        >
+          {movies.map((movie) => (
+            <SwiperSlide key={movie.id} className="relative w-full h-full bg-[#02040a]">
+              <div className="absolute inset-0 w-full h-full">
+                <img
+                  src={movie.backdropUrl || movie.posterUrl}
+                  alt={movie.title}
+                  className="w-full h-full object-cover object-center"
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = 'https://images.unsplash.com/photo-1440404653325-ab127d49abc1?q=80&w=1920&auto=format&fit=crop';
+                  }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-r from-[#02040a] via-[#02040a]/40 to-transparent w-full md:w-2/3 z-10"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-[#02040a] via-[#02040a]/40 to-transparent z-10"></div>
+              </div>
+
+              <div className={contentClass}>
+                <div className="max-w-xl md:max-w-2xl mb-6 md:mb-0 w-full">
+                  {/* Action Buttons */}
+                  <div className="flex flex-wrap items-center gap-3 md:gap-4">
+                    <Link 
+                      to={`/movie/${movie.id}`}
+                      className={`flex-shrink-0 flex items-center justify-center bg-white text-black hover:bg-gray-200 font-bold rounded-lg transition shadow-lg cursor-pointer ${
+                        deviceMode === 'mobile-desktop' 
+                          ? 'px-4 py-1.5 text-xs' 
+                          : 'px-3.5 md:px-8 py-1.5 md:py-3.5 text-xs md:text-base'
+                      }`}
+                    >
+                      <span className={`mr-1 mb-0.5 ${deviceMode === 'mobile-desktop' ? 'text-sm' : 'text-sm md:text-lg'}`}>▷</span> Watch now
+                    </Link>
+                    <button 
+                      className={`flex-shrink-0 flex items-center justify-center bg-[#1e2330]/80 border border-gray-600 hover:border-gray-400 text-white font-bold rounded-lg transition backdrop-blur-md cursor-pointer ${
+                        deviceMode === 'mobile-desktop' 
+                          ? 'px-4 py-1.5 text-xs' 
+                          : 'px-3.5 md:px-6 py-1.5 md:py-3.5 text-xs md:text-base'
+                      }`}
+                    >
+                      <Plus size={deviceMode === 'desktop' ? 18 : 14} className="mr-1.5" /> My list
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          </SwiperSlide>
-        ))}
-        {/* Custom Pagination Container */}
-        <div className="custom-hero-pagination absolute bottom-3 md:bottom-6 left-0 right-0 z-30 flex justify-center"></div>
-      </Swiper>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
+
+      {/* Pagination — outside inner wrapper so z-index works correctly */}
+      <div className="custom-hero-pagination absolute bottom-3 md:bottom-6 left-0 right-0 z-30 flex justify-center"></div>
 
       {/* Custom Bottom-Right Navigation Buttons for Desktop */}
       {deviceMode === 'desktop' && (
