@@ -45,9 +45,9 @@ const HeroCarousel = ({ movies, showSearch = false }) => {
   // Determine heights dynamically
   let heightClass = "h-[55vh] md:h-[65vh] lg:h-[68vh]";
   if (deviceMode === 'mobile') {
-    heightClass = "h-[50vh]";
+    heightClass = "h-[28vh]";
   } else if (deviceMode === 'mobile-desktop') {
-    heightClass = "h-[45vh] min-h-[320px]";
+    heightClass = "h-[35vh] min-h-[260px]";
   }
 
   // Determine content container alignment dynamically
@@ -68,26 +68,9 @@ const HeroCarousel = ({ movies, showSearch = false }) => {
   // Mobile (width < 768): HeroCarousel has mt-24, so it starts below navbar -> top-4.
   // Desktop & mobile-desktop (width >= 768): HeroCarousel has md:-mt-20, so it starts at top of screen.
   // We need it below the desktop navbar + a little bit lower -> top-28 or top-32.
-  let searchTopClass = 'top-4 md:top-6';        // mobile default
-  if (deviceMode === 'desktop' || deviceMode === 'mobile-desktop') searchTopClass = 'top-28 md:top-32';
-
   return (
-    <div className={`relative w-full ${heightClass} mt-24 md:-mt-20 group px-4 md:px-0 pb-4 md:pb-0`}>
+    <div className={`relative w-full ${heightClass} mt-14 md:-mt-20 group px-4 md:px-0 pb-4 md:pb-0`}>
 
-      {/* Search Bar — sits in outer wrapper, never clipped */}
-      {showSearch && (
-        <div className={`absolute ${searchTopClass} left-0 z-30 px-4 md:px-6 w-[55%] sm:w-[250px] md:w-[400px] lg:w-[450px] pointer-events-none`}>
-          <div
-            onClick={() => navigate('/search')}
-            className="pointer-events-auto w-full flex items-center space-x-2 bg-black/60 backdrop-blur-md border border-white/10 rounded-full px-3 py-1.5 md:px-4 md:py-2 hover:bg-black/80 hover:border-white/20 transition-all duration-300 cursor-pointer shadow-lg"
-          >
-            <Search size={15} className="text-gray-400 shrink-0" />
-            <span className="text-gray-400 text-[13px] font-medium truncate">
-              Search for movies, shows and more...
-            </span>
-          </div>
-        </div>
-      )}
       {/* Inner: overflow-hidden clips the Swiper images only */}
       <div className="absolute inset-0 overflow-hidden rounded-2xl md:rounded-none border border-white/10 md:border-none shadow-2xl shadow-black/50 md:shadow-none">
         <Swiper
@@ -128,8 +111,8 @@ const HeroCarousel = ({ movies, showSearch = false }) => {
                       to={`/movie/${movie.id}`}
                       className={`flex-shrink-0 flex items-center justify-center bg-white text-black hover:bg-gray-200 font-bold rounded-lg transition shadow-lg cursor-pointer ${
                         deviceMode === 'mobile-desktop' 
-                          ? 'px-4 py-1.5 text-xs' 
-                          : 'px-3.5 md:px-8 py-1.5 md:py-3.5 text-xs md:text-base'
+                          ? 'px-6 py-2.5 text-sm' 
+                          : 'px-5 md:px-8 py-2 md:py-3.5 text-sm md:text-base'
                       }`}
                     >
                       <span className={`mr-1 mb-0.5 ${deviceMode === 'mobile-desktop' ? 'text-sm' : 'text-sm md:text-lg'}`}>▷</span> Watch now
@@ -137,8 +120,8 @@ const HeroCarousel = ({ movies, showSearch = false }) => {
                     <button 
                       className={`flex-shrink-0 flex items-center justify-center bg-[#1e2330]/80 border border-gray-600 hover:border-gray-400 text-white font-bold rounded-lg transition backdrop-blur-md cursor-pointer ${
                         deviceMode === 'mobile-desktop' 
-                          ? 'px-4 py-1.5 text-xs' 
-                          : 'px-3.5 md:px-6 py-1.5 md:py-3.5 text-xs md:text-base'
+                          ? 'px-6 py-2.5 text-sm' 
+                          : 'px-5 md:px-6 py-2 md:py-3.5 text-sm md:text-base'
                       }`}
                     >
                       <Plus size={deviceMode === 'desktop' ? 18 : 14} className="mr-1.5" /> My list

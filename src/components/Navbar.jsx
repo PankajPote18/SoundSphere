@@ -61,34 +61,29 @@ const Navbar = () => {
   const showMobileTabs = !isSearchPage && !isSettingsPage && !isPlansPage && !isDetailPage;
 
   return (
-    <nav 
-      className={`fixed top-0 left-0 md:left-16 right-0 z-40 transition-all duration-300 px-4 md:px-6 flex flex-col justify-center border-none outline-none ${
-        isScrolled ? 'bg-bg-dark/95 backdrop-blur-md shadow-lg shadow-black/40' : 'bg-transparent'
-      }`}
+    <nav
+      className={`fixed top-0 left-0 md:left-16 right-0 z-40 transition-all duration-300 px-4 md:px-6 flex flex-col justify-center border-none outline-none ${isScrolled ? 'bg-bg-dark/95 backdrop-blur-md shadow-lg shadow-black/40' : 'bg-transparent'
+        }`}
     >
-      {/* Top Row: Logo */}
-      <div className={`flex ${deviceMode === 'mobile-desktop' ? 'flex-col items-start gap-3 py-4' : 'items-center justify-between py-3'} w-full`}>
+      <div className="flex items-center w-full py-3 space-x-4">
         {/* Logo */}
         <div className="flex items-center">
           <span className="text-xl font-bold text-white tracking-tight">Nex<span className="text-[#00A8E1]">ora</span></span>
         </div>
+        {/* Search Bar (desktop & mobile-desktop) */}
+        {deviceMode !== 'mobile' && (
+          <div className="flex-1 max-w-md">
+            <div
+              onClick={() => navigate('/search')}
+              className="w-full flex items-center bg-transparent backdrop-blur-none border border-white/15 rounded-full px-3 py-1.5 hover:bg-white/5 hover:border-white/25 cursor-pointer transition"
+            >
+              <Search size={16} className="text-gray-400 mr-2" />
+              <span className="text-gray-400 text-sm">Search movies, web series...</span>
+            </div>
+          </div>
+        )}
       </div>
 
-      {/* Mobile Navigation Tabs */}
-      {showMobileTabs && (
-        <div className="md:hidden flex items-center space-x-6 pb-2 w-full px-1">
-          <Link to="/" className="text-white text-sm font-bold relative pb-1">
-            Home
-            <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#00A8E1] rounded-full"></div>
-          </Link>
-          <Link to="#" className="text-gray-400 hover:text-white transition-colors text-sm font-medium pb-1">
-            Movies
-          </Link>
-          <Link to="#" className="text-gray-400 hover:text-white transition-colors text-sm font-medium pb-1">
-            Web Series
-          </Link>
-        </div>
-      )}
     </nav>
   );
 };

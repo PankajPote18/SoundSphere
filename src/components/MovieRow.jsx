@@ -52,7 +52,7 @@ const MovieRow = ({ title, movies, cardType = 'square' }) => {
     >
       <div className="flex items-center justify-between mb-1.5 md:mb-2 w-full">
         <h2 className="text-base font-semibold md:text-lg text-white tracking-wide">{title}</h2>
-        <Link to="#" className="text-brand hover:text-white transition-colors text-[10px] md:text-xs font-semibold flex items-center">
+        <Link to="#" className="text-brand hover:text-white transition-colors text-[10px] md:text-xs font-semibold flex items-center whitespace-nowrap flex-shrink-0">
           See All <ChevronRight size={12} className="ml-0.5" />
         </Link>
       </div>
