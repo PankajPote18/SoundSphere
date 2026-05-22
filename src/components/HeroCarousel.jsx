@@ -45,9 +45,9 @@ const HeroCarousel = ({ movies, showSearch = false }) => {
   // Determine heights dynamically
   let heightClass = "h-[55vh] md:h-[65vh] lg:h-[68vh]";
   if (deviceMode === 'mobile') {
-    heightClass = "h-[28vh]";
+    heightClass = "h-[50vh]";
   } else if (deviceMode === 'mobile-desktop') {
-    heightClass = "h-[35vh] min-h-[260px]";
+    heightClass = "h-[30vh] min-h-[220px]";
   }
 
   // Determine content container alignment dynamically
@@ -110,16 +110,16 @@ const HeroCarousel = ({ movies, showSearch = false }) => {
                     <Link
                       to={`/movie/${movie.id}`}
                       className={`flex-shrink-0 flex items-center justify-center bg-white text-black hover:bg-gray-200 font-bold rounded-lg transition shadow-lg cursor-pointer ${deviceMode === 'mobile-desktop'
-                          ? 'px-6 py-2.5 text-sm'
-                          : 'px-5 md:px-8 py-2 md:py-3.5 text-sm md:text-base'
+                        ? 'px-8 py-3 text-base'
+                        : 'px-5 md:px-8 py-2 md:py-3.5 text-sm md:text-base'
                         }`}
                     >
                       <span className={`mr-1 mb-0.5 ${deviceMode === 'mobile-desktop' ? 'text-sm' : 'text-sm md:text-lg'}`}>▷</span> Watch now
                     </Link>
                     <button
                       className={`flex-shrink-0 flex items-center justify-center bg-[#1e2330]/80 border border-gray-600 hover:border-gray-400 text-white font-bold rounded-lg transition backdrop-blur-md cursor-pointer ${deviceMode === 'mobile-desktop'
-                          ? 'px-6 py-2.5 text-sm'
-                          : 'px-5 md:px-6 py-2 md:py-3.5 text-sm md:text-base'
+                        ? 'px-8 py-3 text-base'
+                        : 'px-5 md:px-6 py-2 md:py-3.5 text-sm md:text-base'
                         }`}
                     >
                       <Plus size={deviceMode === 'desktop' ? 18 : 14} className="mr-1.5" /> My list

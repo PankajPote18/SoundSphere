@@ -67,9 +67,11 @@ const Navbar = () => {
     >
       <div className="flex items-center w-full py-3 space-x-4">
         {/* Logo */}
-        <div className="flex items-center">
-          <span className="text-xl font-bold text-white tracking-tight">Nex<span className="text-[#00A8E1]">ora</span></span>
-        </div>
+        {!isDetailPage && (
+          <div className="flex items-center">
+            <span className="text-xl font-bold text-white tracking-tight">Nex<span className="text-[#00A8E1]">ora</span></span>
+          </div>
+        )}
         {/* Search Bar (desktop & mobile-desktop) */}
         {deviceMode !== 'mobile' && isHomePage && (
           <div className="flex-1 max-w-md">

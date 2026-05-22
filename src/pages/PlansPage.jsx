@@ -1,6 +1,9 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { ArrowLeft } from 'lucide-react';
 
 const PlansPage = () => {
+  const navigate = useNavigate();
   const [selectedPlan, setSelectedPlan] = useState('Monthly');
 
   const plans = [
@@ -28,10 +31,16 @@ const PlansPage = () => {
   ];
 
   return (
-    <div className="w-full bg-[#0a0f1c] pt-24 pb-8 flex flex-col items-center px-4">
+    <div className="w-full bg-bg-dark pt-24 pb-12 flex flex-col items-center px-4 min-h-[calc(100vh-80px)]">
       
       <div className="w-full max-w-md bg-black border border-gray-800 rounded-3xl p-6 sm:p-8 shadow-2xl relative overflow-hidden mt-8">
         
+        <button 
+          onClick={() => navigate(-1)}
+          className="absolute top-6 left-6 text-gray-400 hover:text-white transition-colors cursor-pointer"
+        >
+          <ArrowLeft size={24} />
+        </button>
         <h1 className="text-white text-2xl font-bold text-center mb-8 tracking-wide">
           EXPLORE PLANS
         </h1>

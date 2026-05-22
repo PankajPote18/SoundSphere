@@ -34,7 +34,7 @@ const SearchPage = () => {
       <div className="max-w-7xl mx-auto">
         {/* Search Input Area */}
         <div className="max-w-4xl mb-8 md:mb-12 mt-2 md:mt-0">
-          <div className="flex items-center bg-white/5 border border-white/10 focus-within:border-[#00A8E1]/40 focus-within:bg-white/10 rounded-2xl px-5 py-3.5 transition-all duration-300">
+          <div className="flex items-center bg-white/5 border border-white/10 focus-within:border-[#00A8E1]/40 focus-within:bg-white/10 rounded-full px-5 py-3.5 transition-all duration-300">
             <div className="text-gray-400 mr-3.5">
               <Search size={22} />
             </div>

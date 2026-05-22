@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Info, Shield, LineChart, FileText, LayoutDashboard, LogOut, ChevronRight, Zap } from 'lucide-react';
+import { Info, Shield, LineChart, FileText, LayoutDashboard, LogOut, ChevronRight, Zap, Bookmark } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const SettingsPage = () => {
@@ -8,6 +8,7 @@ const SettingsPage = () => {
 
   const menuItems = [
     { name: 'Explore Plans', icon: Zap, path: '/plans', isHighlight: true },
+    { name: 'My List', icon: Bookmark, path: '/mylist' },
     { name: 'About', icon: Info },
     { name: 'Privacy Policy', icon: Shield },
     { name: 'Refund Policy', icon: LineChart },
@@ -36,7 +37,7 @@ const SettingsPage = () => {
   const user = userStr ? JSON.parse(userStr) : null;
 
   return (
-    <div className="w-full bg-bg-dark pt-16 md:pt-24 pb-12 flex flex-col items-center min-h-[calc(100vh-80px)]">
+    <div className="w-full bg-bg-dark pt-16 md:pt-24 pb-12 flex flex-col items-center justify-center min-h-[calc(100vh-80px)]">
       
       {/* User Profile */}
       <div className="flex flex-col items-center mt-2 md:mt-8 mb-6 md:mb-10">
@@ -53,9 +54,9 @@ const SettingsPage = () => {
           >
             <div className="flex items-center space-x-4 md:space-x-6">
               <div className={`w-10 h-10 md:w-12 md:h-12 rounded-xl flex items-center justify-center border transition-colors ${item.isHighlight ? 'bg-[#00A8E1]/20 border-[#00A8E1]' : 'bg-white/5 border-white/10 group-hover:border-[#00A8E1]/40'}`}>
-                <item.icon className={`w-5 h-5 md:w-6 md:h-6 ${item.isLogout ? 'text-red-500' : 'text-[#00A8E1]'}`} strokeWidth={2.2} />
+                <item.icon className={`w-5 h-5 md:w-6 md:h-6 ${item.isLogout ? 'text-[#00A8E1]' : 'text-[#00A8E1]'}`} strokeWidth={2.2} />
               </div>
-              <span className={`font-bold text-sm md:text-base tracking-wide ${item.isLogout ? 'text-red-500' : 'text-gray-200'} group-hover:text-white transition-colors`}>
+              <span className={`font-bold text-sm md:text-base tracking-wide text-gray-200 group-hover:text-white transition-colors`}>
                 {item.name}
               </span>
             </div>
@@ -79,7 +80,7 @@ const SettingsPage = () => {
               </button>
               <button 
                 onClick={handleConfirmLogout}
-                className="flex-1 py-3 px-4 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold transition-all duration-300 cursor-pointer text-sm shadow-lg shadow-red-600/20"
+                className="flex-1 py-3 px-4 rounded-xl bg-[#00A8E1] hover:bg-[#008bc0] text-white font-bold transition-all duration-300 cursor-pointer text-sm shadow-lg shadow-[#00A8E1]/20"
               >
                 Logout
               </button>

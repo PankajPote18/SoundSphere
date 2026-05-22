@@ -57,7 +57,7 @@ const DetailPage = () => {
   if (!movie) return <div className="min-h-screen bg-bg-dark text-white flex items-center justify-center text-xl">Movie not found</div>;
 
   return (
-    <div className="w-full bg-bg-dark text-white pt-24 pb-16 px-4 md:px-12 min-h-[calc(100vh-80px)]">
+    <div className="w-full bg-bg-dark text-white pt-8 md:pt-12 pb-16 px-4 md:px-12 min-h-[calc(100vh-80px)]">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-8 md:gap-16">
         
         {/* Left Column: Poster Card */}
@@ -80,7 +80,7 @@ const DetailPage = () => {
           </h1>
 
           {/* Badges & Genres */}
-          <div className="flex flex-wrap items-center gap-4 mb-8">
+          <div className="flex flex-wrap items-center gap-4 mb-4">
             <span className="px-3 py-1 bg-[#00A8E1]/10 text-[#00A8E1] border border-[#00A8E1]/30 rounded-lg font-semibold text-sm">
               {movie.ageRating || 'U/A 13+'}
             </span>
@@ -95,25 +95,25 @@ const DetailPage = () => {
           </div>
 
           {/* Description */}
-          <div className="max-w-3xl mb-10">
-            <p className="text-gray-400 text-lg leading-relaxed">
+          <div className="max-w-3xl mb-6">
+            <p className="text-[11px] md:text-[12px] text-gray-400 font-semibold leading-relaxed">
               {movie.description}
             </p>
           </div>
 
           {/* Buttons */}
-          <div className="flex flex-wrap gap-4">
+          <div className="flex flex-row flex-nowrap gap-2 md:gap-4 w-full">
             <Link 
               to={`/player/${movie.id}`} 
               onClick={handleWatchClick}
-              className="flex items-center justify-center px-8 py-3.5 bg-white text-black font-bold rounded-xl hover:bg-gray-200 transition-all duration-300 hover:scale-105 cursor-pointer shadow-lg"
+              className="flex-1 flex items-center justify-center px-2 md:px-8 py-3 bg-white text-black text-sm md:text-base font-bold rounded-xl hover:bg-gray-200 transition-all duration-300 hover:scale-105 cursor-pointer shadow-lg whitespace-nowrap"
             >
-              <Play size={18} fill="currentColor" className="mr-2" />
+              <Play size={18} fill="currentColor" className="mr-1.5 md:mr-2" />
               Watch now
             </Link>
             
-            <button className="flex items-center justify-center px-8 py-3.5 bg-white/5 border border-white/10 text-white font-bold rounded-xl hover:bg-white/10 transition-all duration-300 hover:scale-105 cursor-pointer">
-              <Plus size={18} className="mr-2" />
+            <button className="flex-1 flex items-center justify-center px-2 md:px-8 py-3 bg-white/5 border border-white/10 text-white text-sm md:text-base font-bold rounded-xl hover:bg-white/10 transition-all duration-300 hover:scale-105 cursor-pointer whitespace-nowrap">
+              <Plus size={18} className="mr-1.5 md:mr-2" />
               Watchlist
             </button>
           </div>
@@ -123,23 +123,23 @@ const DetailPage = () => {
 
       {/* More Like This Section */}
       {related && related.length > 0 && (
-        <div className="max-w-7xl mx-auto mt-24">
+        <div className="max-w-7xl mx-auto mt-8 md:mt-12">
           <div className="flex items-center justify-between mb-8">
             <h2 className="text-gray-400 font-bold tracking-widest text-sm uppercase">More Like This</h2>
             <button className="text-[#00A8E1] text-sm font-semibold hover:text-white transition cursor-pointer">See all</button>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+          <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 md:gap-6">
             {related.map((relMovie, idx) => (
               <div key={idx} className="flex flex-col group cursor-pointer">
-                {/* Video Aspect Card */}
-                <div className="aspect-video bg-bg-card rounded-xl border border-white/5 relative overflow-hidden flex flex-col items-center justify-center mb-3 transition-transform duration-300 group-hover:scale-105 group-hover:border-[#00A8E1]/30 shadow-lg shadow-black/65">
+                {/* Square Aspect Card */}
+                <div className="aspect-square bg-bg-card rounded-xl border border-white/5 relative overflow-hidden flex flex-col items-center justify-center mb-2 md:mb-3 transition-transform duration-300 group-hover:scale-105 group-hover:border-[#00A8E1]/30 shadow-lg shadow-black/65">
                   <img src={relMovie.backdropUrl || relMovie.posterUrl} alt={relMovie.title} className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" />
                 </div>
                 
                 {/* Title and Subtitle */}
-                <h3 className="text-white font-bold text-sm truncate group-hover:text-[#00A8E1] transition-colors">{relMovie.title}</h3>
-                <p className="text-gray-400 text-xs mt-0.5">{relMovie.year} • {relMovie.genres[0]}</p>
+                <h3 className="text-white font-semibold text-[11px] md:text-[12px] truncate group-hover:text-[#00A8E1] transition-colors">{relMovie.title}</h3>
+                <p className="text-gray-400 text-[9px] md:text-[10px] mt-0.5">{relMovie.year} • {relMovie.genres[0]}</p>
               </div>
             ))}
           </div>
