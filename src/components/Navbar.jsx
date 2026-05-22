@@ -57,7 +57,7 @@ const Navbar = () => {
   const isSettingsPage = location.pathname === '/settings';
   const isPlansPage = location.pathname === '/plans';
   const isDetailPage = location.pathname.startsWith('/movie/');
-
+  const isHomePage = location.pathname === '/';
   const showMobileTabs = !isSearchPage && !isSettingsPage && !isPlansPage && !isDetailPage;
 
   return (
@@ -71,7 +71,7 @@ const Navbar = () => {
           <span className="text-xl font-bold text-white tracking-tight">Nex<span className="text-[#00A8E1]">ora</span></span>
         </div>
         {/* Search Bar (desktop & mobile-desktop) */}
-        {deviceMode !== 'mobile' && (
+        {deviceMode !== 'mobile' && isHomePage && (
           <div className="flex-1 max-w-md">
             <div
               onClick={() => navigate('/search')}

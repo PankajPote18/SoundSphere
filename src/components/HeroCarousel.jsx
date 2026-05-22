@@ -20,10 +20,10 @@ const HeroCarousel = ({ movies, showSearch = false }) => {
       const isUADataMobile = navigator.userAgentData?.mobile;
       const isIOSDesktopMode = (navigator.platform === 'MacIntel' || navigator.userAgent.includes('Macintosh')) && navigator.maxTouchPoints > 1;
       const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
-      
+
       const isMobileDevice = isMobileUA || isUADataMobile || isIOSDesktopMode || (isTouchDevice && window.screen.width < 1024);
       const width = window.innerWidth;
-      
+
       if (isMobileDevice) {
         if (width < 768) {
           setDeviceMode('mobile');
@@ -34,7 +34,7 @@ const HeroCarousel = ({ movies, showSearch = false }) => {
         setDeviceMode('desktop');
       }
     };
-    
+
     handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
@@ -107,22 +107,20 @@ const HeroCarousel = ({ movies, showSearch = false }) => {
                 <div className="max-w-xl md:max-w-2xl mb-6 md:mb-0 w-full">
                   {/* Action Buttons */}
                   <div className="flex flex-wrap items-center gap-3 md:gap-4">
-                    <Link 
+                    <Link
                       to={`/movie/${movie.id}`}
-                      className={`flex-shrink-0 flex items-center justify-center bg-white text-black hover:bg-gray-200 font-bold rounded-lg transition shadow-lg cursor-pointer ${
-                        deviceMode === 'mobile-desktop' 
-                          ? 'px-6 py-2.5 text-sm' 
+                      className={`flex-shrink-0 flex items-center justify-center bg-white text-black hover:bg-gray-200 font-bold rounded-lg transition shadow-lg cursor-pointer ${deviceMode === 'mobile-desktop'
+                          ? 'px-6 py-2.5 text-sm'
                           : 'px-5 md:px-8 py-2 md:py-3.5 text-sm md:text-base'
-                      }`}
+                        }`}
                     >
                       <span className={`mr-1 mb-0.5 ${deviceMode === 'mobile-desktop' ? 'text-sm' : 'text-sm md:text-lg'}`}>▷</span> Watch now
                     </Link>
-                    <button 
-                      className={`flex-shrink-0 flex items-center justify-center bg-[#1e2330]/80 border border-gray-600 hover:border-gray-400 text-white font-bold rounded-lg transition backdrop-blur-md cursor-pointer ${
-                        deviceMode === 'mobile-desktop' 
-                          ? 'px-6 py-2.5 text-sm' 
+                    <button
+                      className={`flex-shrink-0 flex items-center justify-center bg-[#1e2330]/80 border border-gray-600 hover:border-gray-400 text-white font-bold rounded-lg transition backdrop-blur-md cursor-pointer ${deviceMode === 'mobile-desktop'
+                          ? 'px-6 py-2.5 text-sm'
                           : 'px-5 md:px-6 py-2 md:py-3.5 text-sm md:text-base'
-                      }`}
+                        }`}
                     >
                       <Plus size={deviceMode === 'desktop' ? 18 : 14} className="mr-1.5" /> My list
                     </button>
