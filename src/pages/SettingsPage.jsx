@@ -46,50 +46,54 @@ const SettingsPage = () => {
   const user = userStr ? JSON.parse(userStr) : null;
 
   return (
-    <div className="w-full bg-bg-dark pt-12 md:pt-16 pb-8 flex flex-col items-center min-h-[calc(100vh-80px)]">
-      <div className="flex-1 w-full max-w-3xl flex flex-col justify-center">
-        {/* User Profile */}
-        <div className="flex flex-col items-center mb-5 md:mb-8">
-          <h1 className="text-xl md:text-2xl font-black text-white mb-1 tracking-wide">
-            {user?.name || 'Jon deo'}
-          </h1>
-        </div>
+    <div className="w-full bg-bg-dark pt-6 md:pt-10 pb-4 min-h-[calc(100dvh-80px)] overflow-hidden">
+      <div className="w-full max-w-3xl h-[calc(100dvh-104px)] mx-auto px-4 md:px-6 flex flex-col justify-between">
 
-        {/* Settings Menu - all grouped together including logout */}
-        <div className="w-full px-6 space-y-3">
-          {menuItems.map((item, index) => (
-            <button
-              key={index}
-              onClick={() => handleNavigation(item)}
-              className={`w-full flex items-center justify-between px-4 md:px-5 py-3.5 md:py-4 bg-bg-card hover:bg-white/5 border ${item.isHighlight
-                ? 'border-[#00A8E1]/40 shadow-[0_0_12px_rgba(0,168,225,0.12)]'
-                : 'border-white/5'
-                } rounded-2xl transition-all duration-300 group shadow-sm hover:shadow-md cursor-pointer`}
-            >
-              <div className="flex items-center space-x-3 md:space-x-5">
-                <div
-                  className={`w-9 h-9 md:w-10 md:h-10 rounded-full flex items-center justify-center border transition-colors ${item.isHighlight
-                    ? 'bg-[#00A8E1]/15 border-[#00A8E1]/70'
-                    : 'bg-white/5 border-white/10 group-hover:border-[#00A8E1]/30'
-                    }`}
-                >
-                  <item.icon className="w-4 h-4 md:w-5 md:h-5 text-[#00A8E1]" strokeWidth={2.2} />
+        {/* Top Section */}
+        <div>
+          {/* User Profile */}
+          <div className="flex flex-col items-center mb-4 md:mb-6">
+            <h1 className="text-lg md:text-2xl font-black text-white mb-1 tracking-wide text-center">
+              {user?.name || 'Jon deo'}
+            </h1>
+          </div>
+
+          {/* Settings Menu */}
+          <div className="w-full space-y-2.5 md:space-y-3">
+            {menuItems.map((item, index) => (
+              <button
+                key={index}
+                onClick={() => handleNavigation(item)}
+                className={`w-full flex items-center justify-between px-3.5 md:px-5 py-3 md:py-4 bg-bg-card hover:bg-white/5 border ${item.isHighlight
+                    ? 'border-[#00A8E1]/40 shadow-[0_0_12px_rgba(0,168,225,0.12)]'
+                    : 'border-white/5'
+                  } rounded-2xl transition-all duration-300 group shadow-sm hover:shadow-md cursor-pointer`}
+              >
+                <div className="flex items-center space-x-3 md:space-x-5 min-w-0">
+                  <div
+                    className={`w-8 h-8 md:w-10 md:h-10 shrink-0 rounded-full flex items-center justify-center border transition-colors ${item.isHighlight
+                        ? 'bg-[#00A8E1]/15 border-[#00A8E1]/70'
+                        : 'bg-white/5 border-white/10 group-hover:border-[#00A8E1]/30'
+                      }`}
+                  >
+                    <item.icon className="w-4 h-4 md:w-5 md:h-5 text-[#00A8E1]" strokeWidth={2.2} />
+                  </div>
+
+                  <span className="font-semibold text-[13px] md:text-[15px] tracking-wide text-gray-200 group-hover:text-white transition-colors text-left truncate">
+                    {item.name}
+                  </span>
                 </div>
 
-                <span className="font-semibold text-sm md:text-[15px] tracking-wide text-gray-200 group-hover:text-white transition-colors">
-                  {item.name}
-                </span>
-              </div>
-
-              <ChevronRight
-                size={18}
-                className={`${item.isHighlight
-                  ? 'text-[#00A8E1]'
-                  : 'text-gray-600 group-hover:text-gray-400'
-                  } transition-colors`}
-              />
-            </button>
-          ))}
+                <ChevronRight
+                  size={16}
+                  className={`shrink-0 ${item.isHighlight
+                      ? 'text-[#00A8E1]'
+                      : 'text-gray-600 group-hover:text-gray-400'
+                    } transition-colors`}
+                />
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 
