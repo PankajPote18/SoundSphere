@@ -251,7 +251,7 @@ const HomePage = () => {
   return (
     <div className="w-full bg-bg-dark relative">
       <HeroCarousel movies={data.hero} showSearch={true} />
-      
+
       {/* Dynamic Rows aligned tight to hero without overlapping content */}
       <div className="flex flex-col gap-y-4 md:gap-y-6 relative z-20 pb-12 mt-4 md:mt-6">
         <MovieRow title="Continue Watching" movies={data.continueWatching} cardType="rectangle" />

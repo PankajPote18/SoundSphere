@@ -37,7 +37,7 @@ const SettingsPage = () => {
   const user = userStr ? JSON.parse(userStr) : null;
 
   return (
-    <div className="w-full bg-bg-dark pt-16 md:pt-24 pb-12 flex flex-col items-center justify-center min-h-[calc(100vh-80px)]">
+    <div className="w-full bg-bg-dark pt-16 md:pt-20 pb-32 flex flex-col items-center justify-center min-h-[calc(100vh-80px)]">
       
       {/* User Profile */}
       <div className="flex flex-col items-center mt-2 md:mt-8 mb-6 md:mb-10">

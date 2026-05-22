@@ -9,12 +9,12 @@ const MovieCard = ({ movie, cardType = 'square', rank = 1 }) => {
 
     return (
       <Link to={`/movie/${movie.id}`} className="block w-full group relative">
-        <div 
+        <div
           className="relative aspect-video rounded-xl overflow-hidden bg-gray-900 border border-white/5 transition-transform duration-300 ease-out shadow-md group-hover:scale-[1.04] group-hover:z-20 group-hover:border-[#00A8E1]/40 group-hover:shadow-[0_12px_24px_rgba(0,0,0,0.8),0_0_15px_rgba(0,168,225,0.15)]"
         >
-          <img 
-            src={movie.backdropUrl || movie.posterUrl} 
-            alt={movie.title} 
+          <img
+            src={movie.backdropUrl || movie.posterUrl}
+            alt={movie.title}
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
             loading="lazy"
             onError={(e) => {
@@ -22,7 +22,7 @@ const MovieCard = ({ movie, cardType = 'square', rank = 1 }) => {
               e.target.src = 'https://images.unsplash.com/photo-1440404653325-ab127d49abc1?q=80&w=640&auto=format&fit=crop';
             }}
           />
-          
+
           {/* Always Visible Play Button at Bottom-Left */}
           <div className="absolute bottom-2 left-2 z-20">
             <div className="w-8 h-8 rounded-full bg-black/50 border border-white/30 text-white flex items-center justify-center shadow-lg backdrop-blur-sm transition-transform duration-300 group-hover:scale-110">
@@ -32,7 +32,7 @@ const MovieCard = ({ movie, cardType = 'square', rank = 1 }) => {
 
           {/* Progress Bar at Bottom */}
           <div className="absolute bottom-0 left-0 right-0 h-1 bg-white/20 z-10 overflow-hidden">
-            <div 
+            <div
               className="h-full bg-[#00A8E1] transition-all duration-500"
               style={{ width: `${mockProgress}%` }}
             ></div>
@@ -45,7 +45,7 @@ const MovieCard = ({ movie, cardType = 'square', rank = 1 }) => {
             <h3 className="text-[11px] md:text-[12px] font-semibold text-white truncate group-hover:text-[#00A8E1] transition-colors">{movie.title}</h3>
             <p className="text-[9px] md:text-[10px] text-gray-400 mt-0.5 truncate">{mockLeftTime}</p>
           </div>
-          <button 
+          <button
             type="button"
             onClick={(e) => {
               e.preventDefault();
@@ -65,23 +65,23 @@ const MovieCard = ({ movie, cardType = 'square', rank = 1 }) => {
     return (
       <Link to={`/movie/${movie.id}`} className="block w-full group relative mt-2 md:mt-0">
         {/* Large overlay Rank Number */}
-        <div 
+        <div
           className="absolute -left-3 bottom-0 md:-left-6 md:bottom-3 z-20 text-6xl sm:text-[90px] font-black select-none pointer-events-none tracking-tighter leading-none"
-          style={{ 
-            WebkitTextStroke: '2px rgba(255,255,255,0.45)', 
+          style={{
+            WebkitTextStroke: '2px rgba(255,255,255,0.45)',
             color: '#02040a',
-            textShadow: '0 0 10px rgba(0,0,0,0.8)' 
+            textShadow: '0 0 10px rgba(0,0,0,0.8)'
           }}
         >
           {rank}
         </div>
 
-        <div 
+        <div
           className="relative w-full aspect-square rounded-xl overflow-hidden bg-gray-900 border border-white/5 transition-transform duration-300 ease-out z-10 shadow-md group-hover:scale-[1.04] group-hover:z-30 group-hover:border-[#00A8E1]/40 group-hover:shadow-[0_12px_24px_rgba(0,0,0,0.8),0_0_15px_rgba(0,168,225,0.15)]"
         >
-          <img 
-            src={movie.posterUrl} 
-            alt={movie.title} 
+          <img
+            src={movie.posterUrl}
+            alt={movie.title}
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
             loading="lazy"
             onError={(e) => {
@@ -118,12 +118,12 @@ const MovieCard = ({ movie, cardType = 'square', rank = 1 }) => {
 
   return (
     <Link to={`/movie/${movie.id}`} className="block w-full group relative">
-      <div 
+      <div
         className="relative w-full aspect-square rounded-xl overflow-hidden bg-gray-900 border border-white/5 transition-transform duration-300 ease-out shadow-md group-hover:scale-[1.04] group-hover:z-20 group-hover:border-[#00A8E1]/40 group-hover:shadow-[0_12px_24px_rgba(0,0,0,0.8),0_0_15px_rgba(0,168,225,0.15)]"
       >
-        <img 
-          src={movie.posterUrl} 
-          alt={movie.title} 
+        <img
+          src={movie.posterUrl}
+          alt={movie.title}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
           loading="lazy"
           onError={(e) => {
