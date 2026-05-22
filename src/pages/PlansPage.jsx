@@ -92,7 +92,7 @@ const PlansPage = () => {
         </div>
 
         {/* Pay Now Button */}
-        <button className="w-full py-4 bg-[#00A8E1] hover:bg-[#008bc0] text-white font-bold text-lg rounded-xl shadow-lg hover:scale-[1.02] transition-all duration-200">
+        <button className="w-full py-4 bg-[#00A8E1] hover:bg-[#008bc0] text-white font-bold text-lg rounded-full shadow-lg hover:scale-[1.02] transition-all duration-200">
           Pay Now
         </button>
 

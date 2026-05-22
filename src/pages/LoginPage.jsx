@@ -28,7 +28,7 @@ const LoginPage = () => {
         <form onSubmit={handleContinue} className="space-y-4">
           
           {/* Input Field */}
-          <div className="flex items-center bg-[#252833] border border-gray-600 rounded-lg overflow-hidden focus-within:border-[#00A8E1] transition-colors">
+          <div className="flex items-center bg-[#252833] border border-gray-600 rounded-full overflow-hidden focus-within:border-[#00A8E1] transition-colors">
             <div className="px-4 py-3 text-white font-medium border-r border-gray-600">
               +91
             </div>
@@ -47,7 +47,7 @@ const LoginPage = () => {
           <button 
             type="submit"
             disabled={mobileNo.length < 10}
-            className={`w-full py-3 rounded-lg font-bold transition-colors ${
+            className={`w-full py-3 rounded-full font-bold transition-colors ${
               mobileNo.length >= 10 
                 ? 'bg-[#00A8E1] hover:bg-[#008bc0] text-white shadow-lg' 
                 : 'bg-gray-600 text-gray-400 cursor-not-allowed'
