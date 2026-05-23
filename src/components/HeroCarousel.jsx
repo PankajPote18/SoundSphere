@@ -45,7 +45,7 @@ const HeroCarousel = ({ movies, showSearch = false }) => {
   // Determine heights dynamically
   let heightClass = "h-[55vh] md:h-[65vh] lg:h-[68vh]";
   if (deviceMode === 'mobile') {
-    heightClass = "h-[47vh] min-h-[320px]";
+    heightClass = "h-[44vh] min-h-[300px]";
   } else if (deviceMode === 'mobile-desktop') {
     heightClass = "h-[30vh] min-h-[220px]";
   }
