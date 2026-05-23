@@ -46,7 +46,7 @@ const SettingsPage = () => {
   const user = userStr ? JSON.parse(userStr) : null;
 
   return (
-    <div className="w-full bg-bg-dark py-4 md:py-8">
+    <div className="w-full bg-bg-dark pt-20 md:pt-24 pb-8 min-h-[calc(100vh-80px)] flex flex-col justify-center">
       <div className="w-full max-w-3xl mx-auto px-4 md:px-6">
 
         {/* Top Section */}
@@ -65,15 +65,15 @@ const SettingsPage = () => {
                 key={index}
                 onClick={() => handleNavigation(item)}
                 className={`w-full flex items-center justify-between px-3.5 md:px-5 py-3 md:py-4 bg-bg-card hover:bg-white/5 border ${item.isHighlight
-                    ? 'border-[#00A8E1]/40 shadow-[0_0_12px_rgba(0,168,225,0.12)]'
-                    : 'border-white/5'
+                  ? 'border-[#00A8E1]/40 shadow-[0_0_12px_rgba(0,168,225,0.12)]'
+                  : 'border-white/5'
                   } rounded-2xl transition-all duration-300 group shadow-sm hover:shadow-md cursor-pointer`}
               >
                 <div className="flex items-center space-x-3 md:space-x-5 min-w-0">
                   <div
                     className={`w-8 h-8 md:w-10 md:h-10 shrink-0 rounded-full flex items-center justify-center border transition-colors ${item.isHighlight
-                        ? 'bg-[#00A8E1]/15 border-[#00A8E1]/70'
-                        : 'bg-white/5 border-white/10 group-hover:border-[#00A8E1]/30'
+                      ? 'bg-[#00A8E1]/15 border-[#00A8E1]/70'
+                      : 'bg-white/5 border-white/10 group-hover:border-[#00A8E1]/30'
                       }`}
                   >
                     <item.icon className="w-4 h-4 md:w-5 md:h-5 text-[#00A8E1]" strokeWidth={2.2} />
@@ -87,8 +87,8 @@ const SettingsPage = () => {
                 <ChevronRight
                   size={16}
                   className={`shrink-0 ${item.isHighlight
-                      ? 'text-[#00A8E1]'
-                      : 'text-gray-600 group-hover:text-gray-400'
+                    ? 'text-[#00A8E1]'
+                    : 'text-gray-600 group-hover:text-gray-400'
                     } transition-colors`}
                 />
               </button>
