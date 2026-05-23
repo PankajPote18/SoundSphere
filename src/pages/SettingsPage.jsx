@@ -46,7 +46,7 @@ const SettingsPage = () => {
   const user = userStr ? JSON.parse(userStr) : null;
 
   return (
-    <div className="w-full bg-bg-dark pt-20 md:pt-32 pb-8">
+    <div className="w-full bg-bg-dark pt-[56px] md:pt-[30px] pb-8 md:pb-32">
       <div className="w-full max-w-3xl mx-auto px-4 md:px-6">
 
         {/* Top Section */}
