@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Info,
   Shield,
@@ -8,27 +8,41 @@ import {
   LogOut,
   ChevronRight,
   Zap,
-  Bookmark
+  Bookmark,
+  Loader2,
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { settingsMenuApi } from '../services/api';
+
+// Map icon_key strings (stored in DB) back to Lucide components
+const ICON_MAP = {
+  Info,
+  Shield,
+  LineChart,
+  FileText,
+  LayoutDashboard,
+  LogOut,
+  Zap,
+  Bookmark,
+};
 
 const SettingsPage = () => {
   const navigate = useNavigate();
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
+  const [menuItems, setMenuItems] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const menuItems = [
-    { name: 'Explore Plans', icon: Zap, path: '/plans', isHighlight: true },
-    { name: 'My List', icon: Bookmark, path: '/mylist' },
-    { name: 'About', icon: Info },
-    { name: 'Privacy Policy', icon: Shield },
-    { name: 'Refund Policy', icon: LineChart },
-    { name: 'Terms and Conditions', icon: FileText },
-    { name: 'Dashboard', icon: LayoutDashboard },
-    { name: 'Logout', icon: LogOut, isLogout: true },
-  ];
+  useEffect(() => {
+    // Fetch only active menu items from backend
+    settingsMenuApi
+      .getAll(true)
+      .then((data) => setMenuItems(data))
+      .catch((err) => console.error('Settings menu fetch failed:', err))
+      .finally(() => setLoading(false));
+  }, []);
 
   const handleNavigation = (item) => {
-    if (item.isLogout) {
+    if (item.is_logout) {
       setShowLogoutConfirm(true);
       return;
     }
@@ -60,44 +74,59 @@ const SettingsPage = () => {
 
           {/* Settings Menu */}
           <div className="w-full space-y-2.5 md:space-y-3">
-            {menuItems.map((item, index) => (
-              <button
-                key={index}
-                onClick={() => handleNavigation(item)}
-                className={`w-full flex items-center justify-between px-3.5 md:px-5 py-3 md:py-4 bg-bg-card hover:bg-white/5 border ${item.isHighlight
-                  ? 'border-[#00A8E1]/40 shadow-[0_0_12px_rgba(0,168,225,0.12)]'
-                  : 'border-white/5'
-                  } rounded-2xl transition-all duration-300 group shadow-sm hover:shadow-md cursor-pointer`}
-              >
-                <div className="flex items-center space-x-3 md:space-x-5 min-w-0">
-                  <div
-                    className={`w-8 h-8 md:w-10 md:h-10 shrink-0 rounded-full flex items-center justify-center border transition-colors ${item.isHighlight
-                      ? 'bg-[#00A8E1]/15 border-[#00A8E1]/70'
-                      : 'bg-white/5 border-white/10 group-hover:border-[#00A8E1]/30'
-                      }`}
+            {loading ? (
+              <div className="flex justify-center py-10">
+                <Loader2 className="animate-spin text-[#00A8E1]" size={28} />
+              </div>
+            ) : (
+              menuItems.map((item) => {
+                const IconComponent = ICON_MAP[item.icon_key] || Info;
+                return (
+                  <button
+                    key={item.id}
+                    onClick={() => handleNavigation(item)}
+                    className={`w-full flex items-center justify-between px-3.5 md:px-5 py-3 md:py-4 bg-bg-card hover:bg-white/5 border ${
+                      item.is_highlight
+                        ? 'border-[#00A8E1]/40 shadow-[0_0_12px_rgba(0,168,225,0.12)]'
+                        : 'border-white/5'
+                    } rounded-2xl transition-all duration-300 group shadow-sm hover:shadow-md cursor-pointer`}
                   >
-                    <item.icon className="w-4 h-4 md:w-5 md:h-5 text-[#00A8E1]" strokeWidth={2.2} />
-                  </div>
+                    <div className="flex items-center space-x-3 md:space-x-5 min-w-0">
+                      <div
+                        className={`w-8 h-8 md:w-10 md:h-10 shrink-0 rounded-full flex items-center justify-center border transition-colors ${
+                          item.is_highlight
+                            ? 'bg-[#00A8E1]/15 border-[#00A8E1]/70'
+                            : 'bg-white/5 border-white/10 group-hover:border-[#00A8E1]/30'
+                        }`}
+                      >
+                        <IconComponent
+                          className="w-4 h-4 md:w-5 md:h-5 text-[#00A8E1]"
+                          strokeWidth={2.2}
+                        />
+                      </div>
 
-                  <span className="font-semibold text-[13px] md:text-[15px] tracking-wide text-gray-200 group-hover:text-white transition-colors text-left truncate">
-                    {item.name}
-                  </span>
-                </div>
+                      <span className="font-semibold text-[13px] md:text-[15px] tracking-wide text-gray-200 group-hover:text-white transition-colors text-left truncate">
+                        {item.name}
+                      </span>
+                    </div>
 
-                <ChevronRight
-                  size={16}
-                  className={`shrink-0 ${item.isHighlight
-                    ? 'text-[#00A8E1]'
-                    : 'text-gray-600 group-hover:text-gray-400'
-                    } transition-colors`}
-                />
-              </button>
-            ))}
+                    <ChevronRight
+                      size={16}
+                      className={`shrink-0 ${
+                        item.is_highlight
+                          ? 'text-[#00A8E1]'
+                          : 'text-gray-600 group-hover:text-gray-400'
+                      } transition-colors`}
+                    />
+                  </button>
+                );
+              })
+            )}
           </div>
         </div>
       </div>
 
-      {/* Logout Modal */}
+      {/* Logout Modal — unchanged */}
       {showLogoutConfirm && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 animate-fade-in">
           <div className="w-full max-w-sm bg-bg-card border border-white/10 rounded-2xl p-6 shadow-2xl">

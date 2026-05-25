@@ -5,6 +5,7 @@ import Footer from './components/Footer';
 import HomePage from './pages/HomePage';
 import DetailPage from './pages/DetailPage';
 import SettingsPage from './pages/SettingsPage';
+import SettingsDetailPage from './pages/SettingsDetailPage';
 import SearchPage from './pages/SearchPage';
 import LoginPage from './pages/LoginPage';
 import OtpPage from './pages/OtpPage';
@@ -14,6 +15,8 @@ import AdminDashboard from './pages/admin/AdminDashboard';
 import AdminMovies from './pages/admin/AdminMovies';
 import AdminSubscriptions from './pages/admin/AdminSubscriptions';
 import AdminAboutUs from './pages/admin/AdminAboutUs';
+import AdminSettings from './pages/admin/AdminSettings';   // ← NEW
+import AdminPages from './pages/admin/AdminPages';
 import PlayerPage from './pages/PlayerPage';
 import ScrollToTop from './components/ScrollToTop';
 import { PremiumModalProvider } from './context/PremiumModalContext';
@@ -37,8 +40,9 @@ function App() {
             <Route path="movies" element={<AdminMovies />} />
             <Route path="users" element={<div className="text-xl">Users Management Coming Soon</div>} />
             <Route path="subscriptions" element={<AdminSubscriptions />} />
+            <Route path="settings" element={<AdminSettings />} />  {/* ← NEW */}
             <Route path="about-us" element={<AdminAboutUs />} />
-            <Route path="pages" element={<div className="text-xl p-8">Page Listing Coming Soon</div>} />
+            <Route path="pages" element={<AdminPages />} />
           </Route>
 
           {/* Public Routes with Navbar/Sidebar */}
@@ -52,6 +56,7 @@ function App() {
                   <Route path="/search" element={<SearchPage />} />
                   <Route path="/movie/:id" element={<DetailPage />} />
                   <Route path="/settings" element={<SettingsPage />} />
+                  <Route path="/page/:slug" element={<SettingsDetailPage />} />
                   <Route path="/plans" element={<PlansPage />} />
                 </Routes>
               </main>
