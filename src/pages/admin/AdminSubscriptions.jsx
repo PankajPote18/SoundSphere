@@ -84,7 +84,7 @@ const AdminSubscriptions = () => {
   };
 
   return (
-    <div className="w-full h-full flex flex-col">
+    <div className="w-full flex flex-col min-w-max">
       {/* Header Area */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
         <div className="flex items-center space-x-2">
@@ -107,9 +107,9 @@ const AdminSubscriptions = () => {
       </div>
 
       {/* Table Area */}
-      <div className="flex-1 bg-[#141a29] rounded-xl border border-gray-800 overflow-hidden shadow-2xl flex flex-col">
-        <div className="overflow-x-auto custom-scrollbar">
-          <table className="w-full text-left text-sm text-gray-300 min-w-[800px]">
+      <div className="bg-[#141a29] rounded-xl border border-gray-800 overflow-hidden shadow-2xl flex flex-col">
+        <div className="custom-scrollbar">
+          <table className="w-full text-left text-sm text-gray-300 whitespace-nowrap">
             <thead className="bg-[#1e293b]/80 border-b border-gray-800 text-gray-300 font-semibold uppercase text-xs tracking-wider">
               <tr>
                 <th className="px-6 py-4 w-12"><div className="w-4 h-4 rounded bg-[#334155]"></div></th>

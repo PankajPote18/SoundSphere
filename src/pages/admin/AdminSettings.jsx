@@ -182,7 +182,7 @@ const AdminSettings = () => {
 
   // ══════════════════════════════════════════════════════════════════════
   return (
-    <div className="w-full h-full flex flex-col">
+    <div className="w-full flex flex-col min-w-max">
 
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
@@ -212,20 +212,20 @@ const AdminSettings = () => {
       </div>
 
       {/* Table */}
-      <div className="flex-1 bg-[#141a29] rounded-xl border border-gray-800 overflow-hidden shadow-2xl flex flex-col">
-        <div className="overflow-x-auto custom-scrollbar">
-          <table className="w-full text-left text-sm text-gray-300 min-w-[700px]">
+      <div className="bg-[#141a29] rounded-xl border border-gray-800 overflow-hidden shadow-2xl flex flex-col">
+        <div className="custom-scrollbar">
+          <table className="w-full text-left text-sm text-gray-300 whitespace-nowrap">
             <thead className="bg-[#1e293b]/80 border-b border-gray-800 text-gray-300 font-semibold uppercase text-xs tracking-wider">
               <tr>
-                <th className="px-6 py-4">Name</th>
-                <th className="px-6 py-4">Icon</th>
-                <th className="px-6 py-4">Path</th>
-                <th className="px-6 py-4 text-center">Highlight</th>
-                <th className="px-6 py-4 text-center">Logout</th>
-                <th className="px-6 py-4 text-center">Sort</th>
-                <th className="px-6 py-4 text-center">Status</th>
-                <th className="px-6 py-4 text-center">Preview</th>
-                <th className="px-6 py-4 text-center">Actions</th>
+                <th className="px-4 py-3">Name</th>
+                <th className="px-4 py-3">Icon</th>
+                <th className="px-4 py-3">Path</th>
+                <th className="px-4 py-3 text-center">Highlight</th>
+                <th className="px-4 py-3 text-center">Logout</th>
+                <th className="px-4 py-3 text-center">Sort</th>
+                <th className="px-4 py-3 text-center">Status</th>
+                <th className="px-4 py-3 text-center">Preview</th>
+                <th className="px-4 py-3 text-center">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-800/50">
@@ -246,35 +246,35 @@ const AdminSettings = () => {
                   const IconComponent = ICON_MAP[item.icon_key] || Info;
                   return (
                     <tr key={item.id} className="hover:bg-[#1e2638] transition-colors">
-                      <td className="px-6 py-4 font-medium text-white">{item.name}</td>
-                      <td className="px-6 py-4">
+                      <td className="px-4 py-3 font-medium text-white">{item.name}</td>
+                      <td className="px-4 py-3">
                         <div className="flex items-center gap-2">
                           <IconComponent size={16} className="text-[#00A8E1]" />
                           <span className="text-gray-400 text-xs">{item.icon_key}</span>
                         </div>
                       </td>
-                      <td className="px-6 py-4 text-gray-400">{item.path || '—'}</td>
-                      <td className="px-6 py-4 text-center">
+                      <td className="px-4 py-3 text-gray-400">{item.path || '—'}</td>
+                      <td className="px-4 py-3 text-center">
                         {item.is_highlight
                           ? <span className="text-[#00A8E1] font-bold">Yes</span>
                           : <span className="text-gray-600">No</span>}
                       </td>
-                      <td className="px-6 py-4 text-center">
+                      <td className="px-4 py-3 text-center">
                         {item.is_logout
                           ? <span className="text-red-400 font-bold">Yes</span>
                           : <span className="text-gray-600">No</span>}
                       </td>
-                      <td className="px-6 py-4 text-center">{item.sort_order}</td>
-                      <td className="px-6 py-4">
+                      <td className="px-4 py-3 text-center">{item.sort_order}</td>
+                      <td className="px-4 py-3">
                         <div className="flex justify-center">
                           <CustomToggle isOn={item.status} onToggle={() => toggleStatus(item)} />
                         </div>
                       </td>
                       {/* Live preview of exactly how it looks on SettingsPage */}
-                      <td className="px-6 py-4 min-w-[220px]">
+                      <td className="px-4 py-3 min-w-[200px]">
                         <PreviewCard item={item} />
                       </td>
-                      <td className="px-6 py-4">
+                      <td className="px-4 py-3">
                         <div className="flex justify-center gap-3">
                           <button onClick={() => openEdit(item)} className="text-gray-400 hover:text-[#3b82f6] transition-colors">
                             <Edit2 size={17} />
