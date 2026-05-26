@@ -2,15 +2,17 @@ import { useState } from 'react';
 
 const AdminMovieForm = ({ movie, onClose }) => {
   const [formData, setFormData] = useState(movie || {
-    title: '', description: '', category_id: 1, 
-    posterUrl: '', backdropUrl: '', videoUrl: '', 
+    title: '', description: '', category_id: 1,
+    posterUrl: '', backdropUrl: '', videoUrl: '',
     duration: '', year: new Date().getFullYear(), ageRating: 'U/A 13+',
     isNew: false, isTrending: false, cast: [], genres: []
   });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const url = movie ? `http://localhost:8000/api/movies/${movie.id}` : 'http://localhost:8000/api/movies';
+    const url = movie
+      ? `${import.meta.env.VITE_API_URL}/api/movies/${movie.id}`
+      : `${import.meta.env.VITE_API_URL}/api/movies`;
     const method = movie ? 'PUT' : 'POST';
 
     // Convert comma-separated strings to arrays if necessary
@@ -38,7 +40,7 @@ const AdminMovieForm = ({ movie, onClose }) => {
   return (
     <div className="bg-[#141824] rounded-xl border border-gray-800 p-6 max-w-3xl">
       <h2 className="text-2xl font-bold mb-6">{movie ? 'Edit Movie' : 'Add New Movie'}</h2>
-      
+
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="grid grid-cols-2 gap-6">
           <div>
@@ -68,7 +70,7 @@ const AdminMovieForm = ({ movie, onClose }) => {
         </div>
 
         <div className="grid grid-cols-3 gap-6">
-           <div>
+          <div>
             <label className="block text-sm font-bold text-gray-400 mb-2">Year</label>
             <input type="number" name="year" value={formData.year} onChange={handleChange} className="w-full bg-[#1a1f2e] border border-gray-700 rounded-lg px-4 py-2 text-white focus:border-[#00A8E1] outline-none" />
           </div>

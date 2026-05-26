@@ -4,11 +4,11 @@ const AdminDashboard = () => {
   const [stats, setStats] = useState({ movies: 0, categories: 0 });
 
   useEffect(() => {
-    fetch('http://localhost:8000/api/movies')
+    fetch(`${import.meta.env.VITE_API_URL}/api/movies`)
       .then(res => res.json())
       .then(data => setStats(s => ({ ...s, movies: data.length })));
-      
-    fetch('http://localhost:8000/api/categories')
+
+    fetch(`${import.meta.env.VITE_API_URL}/api/categories`)
       .then(res => res.json())
       .then(data => setStats(s => ({ ...s, categories: data.length })));
   }, []);
