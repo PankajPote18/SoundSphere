@@ -76,7 +76,7 @@ const SettingsPage = () => {
           <div className="w-full space-y-2.5 md:space-y-3">
             {loading ? (
               <div className="flex justify-center py-10">
-                <Loader2 className="animate-spin text-[#00A8E1]" size={28} />
+                <Loader2 className="animate-spin text-[#FF6B00]" size={28} />
               </div>
             ) : (
               menuItems.map((item) => {
@@ -85,22 +85,22 @@ const SettingsPage = () => {
                   <button
                     key={item.id}
                     onClick={() => handleNavigation(item)}
-                    className={`w-full flex items-center justify-between px-3.5 md:px-5 py-3 md:py-4 bg-bg-card hover:bg-white/5 border ${
+                    className={`w-full flex items-center justify-between px-3.5 md:px-5 py-3 md:py-4 bg-[#0A0A0A] hover:bg-white/5 border ${
                       item.is_highlight
-                        ? 'border-[#00A8E1]/40 shadow-[0_0_12px_rgba(0,168,225,0.12)]'
-                        : 'border-white/5'
-                    } rounded-2xl transition-all duration-300 group shadow-sm hover:shadow-md cursor-pointer`}
+                        ? 'border-[#FF6B00]/40 shadow-[0_0_12px_rgba(255,107,0,0.12)]'
+                        : 'border-[#FF6B00]/10'
+                    } rounded-2xl transition-all duration-300 group shadow-sm hover:shadow-[0_0_15px_rgba(255,107,0,0.15)] hover:border-[#FF6B00]/30 cursor-pointer`}
                   >
                     <div className="flex items-center space-x-3 md:space-x-5 min-w-0">
                       <div
-                        className={`w-8 h-8 md:w-10 md:h-10 shrink-0 rounded-full flex items-center justify-center border transition-colors ${
+                        className={`w-8 h-8 md:w-10 md:h-10 shrink-0 rounded-lg flex items-center justify-center border transition-colors ${
                           item.is_highlight
-                            ? 'bg-[#00A8E1]/15 border-[#00A8E1]/70'
-                            : 'bg-white/5 border-white/10 group-hover:border-[#00A8E1]/30'
+                            ? 'bg-[#FF6B00]/15 border-[#FF6B00]/70 shadow-[0_0_10px_rgba(255,107,0,0.2)]'
+                            : 'bg-white/5 border-[#FF6B00]/20 group-hover:border-[#FF6B00]/50 group-hover:bg-[#FF6B00]/10'
                         }`}
                       >
                         <IconComponent
-                          className="w-4 h-4 md:w-5 md:h-5 text-[#00A8E1]"
+                          className="w-4 h-4 md:w-5 md:h-5 text-[#FF6B00]"
                           strokeWidth={2.2}
                         />
                       </div>
@@ -114,8 +114,8 @@ const SettingsPage = () => {
                       size={16}
                       className={`shrink-0 ${
                         item.is_highlight
-                          ? 'text-[#00A8E1]'
-                          : 'text-gray-600 group-hover:text-gray-400'
+                          ? 'text-[#FF6B00]'
+                          : 'text-gray-600 group-hover:text-[#FF6B00]'
                       } transition-colors`}
                     />
                   </button>
@@ -143,7 +143,7 @@ const SettingsPage = () => {
               </button>
               <button
                 onClick={handleConfirmLogout}
-                className="flex-1 py-2.5 px-4 rounded-full bg-[#00A8E1] hover:bg-[#008bc0] text-white font-bold transition-all duration-300 cursor-pointer text-sm shadow-lg shadow-[#00A8E1]/20"
+                className="flex-1 py-2.5 px-4 rounded-full bg-gradient-to-r from-[#FF6B00] to-[#FF8C1A] text-white font-bold transition-all duration-300 cursor-pointer text-sm shadow-[0_0_15px_rgba(255,107,0,0.4)] hover:shadow-[0_0_20px_rgba(255,107,0,0.6)] hover:scale-105"
               >
                 Logout
               </button>

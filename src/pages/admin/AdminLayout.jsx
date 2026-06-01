@@ -12,7 +12,7 @@ const AdminLayout = () => {
 
   const menu = [
     { name: 'Dashboard',     path: '/admin',               icon: LayoutDashboard },
-    { name: 'Movies',        path: '/admin/movies',         icon: Film },
+    { name: 'Audios',        path: '/admin/audios',         icon: Film },
     { name: 'Users',         path: '/admin/users',          icon: Users },
     { name: 'Subscriptions', path: '/admin/subscriptions',  icon: CreditCard },
     // ── NEW ──────────────────────────────────────────────────────────────
@@ -43,7 +43,7 @@ const AdminLayout = () => {
 
         <div className="flex-1 py-6 space-y-1 px-4 overflow-y-auto custom-scrollbar">
 
-          {/* First 3 items: Dashboard, Movies, Users */}
+          {/* First 3 items: Dashboard, Audios, Users */}
           {menu.slice(0, 3).map((item) => (
             <Link
               key={item.name}

@@ -63,13 +63,13 @@ export const plansApi = {
   toggle: (id) => patch(`/subscription-plans/${id}/toggle`),
 };
 
-// ── Movies (existing) ────────────────────────────────────────────────────────
+// ── Audios (existing) ────────────────────────────────────────────────────────
 export const moviesApi = {
-  getAll: (params = '') => get(`/movies${params}`),
-  getOne: (id) => get(`/movies/${id}`),
-  create: (data) => post('/movies', data),
-  update: (id, data) => put(`/movies/${id}`, data),
-  remove: (id) => del(`/movies/${id}`),
+  getAll: (params = '') => get(`/audios${params}`),
+  getOne: (id) => get(`/audios/${id}`),
+  create: (data) => post('/audios', data),
+  update: (id, data) => put(`/audios/${id}`, data),
+  remove: (id) => del(`/audios/${id}`),
 };
 
 // ── Settings Pages ───────────────────────────────────────────────────────────

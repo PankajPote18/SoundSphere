@@ -12,12 +12,11 @@ import OtpPage from './pages/OtpPage';
 import PlansPage from './pages/PlansPage';
 import AdminLayout from './pages/admin/AdminLayout';
 import AdminDashboard from './pages/admin/AdminDashboard';
-import AdminMovies from './pages/admin/AdminMovies';
+import AdminAudios from './pages/admin/AdminAudios';
 import AdminSubscriptions from './pages/admin/AdminSubscriptions';
 import AdminAboutUs from './pages/admin/AdminAboutUs';
 import AdminSettings from './pages/admin/AdminSettings';   // ← NEW
 import AdminPages from './pages/admin/AdminPages';
-import PlayerPage from './pages/PlayerPage';
 import ScrollToTop from './components/ScrollToTop';
 import { PremiumModalProvider } from './context/PremiumModalContext';
 
@@ -27,9 +26,6 @@ function App() {
       <ScrollToTop />
       <PremiumModalProvider>
         <Routes>
-          {/* Player Route - Standalone Fullscreen */}
-          <Route path="/player/:id" element={<PlayerPage />} />
-
           {/* Auth Routes - Standalone Fullscreen */}
           <Route path="/login" element={<LoginPage />} />
           <Route path="/verify-otp" element={<OtpPage />} />
@@ -37,7 +33,7 @@ function App() {
           {/* Admin Routes - Standalone Layout */}
           <Route path="/admin" element={<AdminLayout />}>
             <Route index element={<AdminDashboard />} />
-            <Route path="movies" element={<AdminMovies />} />
+            <Route path="audios" element={<AdminAudios />} />
             <Route path="users" element={<div className="text-xl">Users Management Coming Soon</div>} />
             <Route path="subscriptions" element={<AdminSubscriptions />} />
             <Route path="settings" element={<AdminSettings />} />  {/* ← NEW */}
@@ -54,7 +50,7 @@ function App() {
                 <Routes>
                   <Route path="/" element={<HomePage />} />
                   <Route path="/search" element={<SearchPage />} />
-                  <Route path="/movie/:id" element={<DetailPage />} />
+                  <Route path="/audio/:id" element={<DetailPage />} />
                   <Route path="/settings" element={<SettingsPage />} />
                   <Route path="/page/:slug" element={<SettingsDetailPage />} />
                   <Route path="/plans" element={<PlansPage />} />

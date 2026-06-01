@@ -1,18 +1,18 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\CategoryController;
-use App\Http\Controllers\Api\MovieController;
+use App\Http\Controllers\Api\AudioCategoryController;
+use App\Http\Controllers\Api\AudioController;
 use App\Http\Controllers\Api\SettingsMenuController;
 use App\Http\Controllers\Api\SubscriptionPlanController;
 
-// ── Movies ──────────────────────────────────────────────────────────────────
-Route::get('/categories',      [CategoryController::class, 'index']);
-Route::get('/movies',          [MovieController::class, 'index']);
-Route::get('/movies/{id}',     [MovieController::class, 'show']);
-Route::post('/movies',         [MovieController::class, 'store']);
-Route::put('/movies/{id}',     [MovieController::class, 'update']);
-Route::delete('/movies/{id}',  [MovieController::class, 'destroy']);
+// ── Audios ──────────────────────────────────────────────────────────────────
+Route::get('/audio-categories', [AudioCategoryController::class, 'index']);
+Route::get('/audios',          [AudioController::class, 'index']);
+Route::get('/audios/{id}',     [AudioController::class, 'show']);
+Route::post('/audios',         [AudioController::class, 'store']);
+Route::put('/audios/{id}',     [AudioController::class, 'update']);
+Route::delete('/audios/{id}',  [AudioController::class, 'destroy']);
 
 // ── Settings Menu ────────────────────────────────────────────────────────────
 Route::get('/settings-menu',                [SettingsMenuController::class, 'index']);

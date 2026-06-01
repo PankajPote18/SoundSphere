@@ -16,17 +16,17 @@ const SearchBar = ({ variant = 'mobile' }) => {
 
           onClick={() => navigate('/search')}
 
-          className="w-[380px] flex items-center justify-between bg-[#000000]/50 backdrop-blur-md border border-white/10 rounded-full px-4 py-2 hover:bg-[#000000]/70 hover:border-white/20 transition-all duration-300 cursor-pointer shadow-lg"
+          className="w-[380px] flex items-center justify-between bg-[#000000]/50 backdrop-blur-md border border-white/10 rounded-full px-4 py-2 hover:bg-[#000000]/70 hover:border-[#FF6B00]/50 hover:shadow-[0_0_15px_rgba(255,107,0,0.2)] transition-all duration-300 cursor-pointer shadow-lg group"
 
         >
 
           <div className="flex items-center space-x-2 flex-grow">
 
-            <Search size={16} className="text-gray-400" />
+            <Search size={16} className="text-[#FF6B00] group-hover:drop-shadow-[0_0_8px_rgba(255,107,0,0.8)] transition-all" />
 
             <span className="text-gray-400 text-sm font-medium w-full text-left truncate">
 
-              Search for movies, shows and more...
+              Search songs, podcasts, albums...
 
             </span>
 
@@ -50,15 +50,15 @@ const SearchBar = ({ variant = 'mobile' }) => {
 
         onClick={() => navigate('/search')}
 
-        className="pointer-events-auto w-full flex items-center bg-[#000000]/50 backdrop-blur-md border border-white/10 rounded-full px-3 py-1.5 hover:bg-[#000000]/70 hover:border-white/20 transition-all duration-300 cursor-pointer shadow-lg"
+        className="pointer-events-auto w-full flex items-center bg-[#000000]/50 backdrop-blur-md border border-white/10 rounded-full px-3 py-1.5 hover:bg-[#000000]/70 hover:border-[#FF6B00]/50 hover:shadow-[0_0_15px_rgba(255,107,0,0.2)] transition-all duration-300 cursor-pointer shadow-lg group"
 
       >
 
-        <Search size={13} className="text-gray-400 shrink-0" />
+        <Search size={13} className="text-[#FF6B00] shrink-0 group-hover:drop-shadow-[0_0_8px_rgba(255,107,0,0.8)] transition-all" />
 
         <span className="text-gray-400 text-[12px] font-medium ml-2 truncate">
 
-          Search for movies, shows and more...
+          Search songs, podcasts, albums...
 
         </span>
 

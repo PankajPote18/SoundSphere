@@ -30,7 +30,7 @@ const SettingsDetailPage = () => {
   if (loading) {
     return (
       <div className="w-full bg-bg-dark flex items-center justify-center min-h-[calc(100vh-80px)]">
-        <Loader2 className="animate-spin text-[#00A8E1]" size={36} />
+        <Loader2 className="animate-spin text-[#FF6B00]" size={36} />
       </div>
     );
   }
@@ -52,7 +52,7 @@ const SettingsDetailPage = () => {
 
   return (
     <div className="w-full bg-bg-dark flex flex-col items-center min-h-[calc(100vh-80px)] pt-24 pb-12 px-4 md:px-8">
-      <div className="w-full max-w-4xl bg-bg-card border border-white/5 shadow-xl rounded-2xl overflow-hidden p-6 md:p-10">
+      <div className="w-full max-w-4xl bg-[#0A0A0A] border border-white/5 shadow-[0_0_30px_rgba(0,0,0,0.8)] rounded-3xl overflow-hidden p-6 md:p-10">
         
         {/* Back Button */}
         <button
@@ -66,15 +66,21 @@ const SettingsDetailPage = () => {
         </button>
 
         {/* Header */}
-        <div className="mb-10">
-          <h1 className="text-2xl md:text-4xl font-black text-white mb-4 tracking-wide leading-tight">
-            {pageData.title}
-          </h1>
-          {pageData.short_description && (
-            <p className="text-base md:text-lg text-[#00A8E1] font-medium leading-relaxed max-w-3xl">
-              {pageData.short_description}
-            </p>
-          )}
+        <div className="mb-10 flex items-center space-x-4">
+          <div className="w-12 h-12 bg-gradient-to-r from-[#FF6B00] to-[#FF8C1A] rounded-xl flex items-center justify-center shadow-[0_0_15px_rgba(255,107,0,0.4)]">
+             <ArrowLeft size={24} className="text-white hidden" /> {/* Placeholder for actual icon */}
+             <span className="text-white font-black text-xl">S</span>
+          </div>
+          <div>
+            <h1 className="text-2xl md:text-4xl font-black text-white tracking-wide leading-tight">
+              {pageData.title}
+            </h1>
+            {pageData.short_description && (
+              <p className="text-base md:text-lg text-[#FF6B00] font-medium leading-relaxed max-w-3xl mt-1">
+                {pageData.short_description}
+              </p>
+            )}
+          </div>
         </div>
 
         {/* Content Body */}

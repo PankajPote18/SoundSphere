@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
 
 const AdminDashboard = () => {
-  const [stats, setStats] = useState({ movies: 0, categories: 0 });
+  const [stats, setStats] = useState({ audios: 0, categories: 0 });
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/api/movies`)
+    fetch(`${import.meta.env.VITE_API_URL}/api/audios`)
       .then(res => res.json())
-      .then(data => setStats(s => ({ ...s, movies: data.length })));
+      .then(data => setStats(s => ({ ...s, audios: data.length })));
 
-    fetch(`${import.meta.env.VITE_API_URL}/api/categories`)
+    fetch(`${import.meta.env.VITE_API_URL}/api/audio-categories`)
       .then(res => res.json())
       .then(data => setStats(s => ({ ...s, categories: data.length })));
   }, []);
@@ -18,8 +18,8 @@ const AdminDashboard = () => {
       <h2 className="text-2xl font-bold mb-6">Platform Overview</h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="bg-[#141824] p-6 rounded-xl border border-gray-800 shadow-sm">
-          <p className="text-gray-400 text-sm font-bold uppercase tracking-wider mb-2">Total Movies</p>
-          <p className="text-4xl font-bold text-white">{stats.movies}</p>
+          <p className="text-gray-400 text-sm font-bold uppercase tracking-wider mb-2">Total Audios</p>
+          <p className="text-4xl font-bold text-white">{stats.audios}</p>
         </div>
         <div className="bg-[#141824] p-6 rounded-xl border border-gray-800 shadow-sm">
           <p className="text-gray-400 text-sm font-bold uppercase tracking-wider mb-2">Total Categories</p>

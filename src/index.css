@@ -1,20 +1,21 @@
 @import "tailwindcss";
 
 @theme {
-  --color-brand: #00A8E1;
-  --color-brand-hover: #007799;
-  --color-bg-dark: #02040a;
-  --color-bg-card: #090d16;
-  --color-bg-lighter: #151c2c;
+  --color-brand: #FF6B00;
+  --color-brand-hover: #FF8C1A;
+  --color-bg-dark: #050505;
+  --color-bg-card: #0A0A0A;
+  --color-bg-lighter: #151515;
 }
 
 @layer base {
   body {
-    @apply bg-bg-dark text-white font-sans antialiased overflow-x-hidden;
+    @apply bg-bg-dark text-white antialiased overflow-x-hidden;
+    font-family: 'Poppins', sans-serif;
   }
 }
 
-/* Custom scrollbar for horizontal scrolling movie rows */
+/* Custom scrollbar for horizontal scrolling audio rows */
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
 }
@@ -25,15 +26,15 @@
 
 /* Premium gradient overlays */
 .banner-gradient {
-  background: linear-gradient(to top, #02040a 0%, transparent 100%);
+  background: linear-gradient(to top, #050505 0%, transparent 100%);
 }
 
 .banner-gradient-right {
-  background: linear-gradient(to left, #02040a 0%, transparent 100%);
+  background: linear-gradient(to left, #050505 0%, transparent 100%);
 }
 
 .card-gradient {
-  background: linear-gradient(to top, rgba(2, 4, 10, 0.95) 0%, transparent 70%);
+  background: linear-gradient(to top, rgba(5, 5, 5, 0.95) 0%, transparent 70%);
 }
 
 /* Custom Swiper pagination indicators */
@@ -48,7 +49,7 @@
 }
 
 .custom-hero-pagination .swiper-pagination-bullet-active {
-  background-color: #00A8E1 !important;
+  background-color: #FF6B00 !important;
   width: 20px !important;
-  box-shadow: 0 0 8px rgba(0, 168, 225, 0.4) !important;
+  box-shadow: 0 0 8px rgba(255, 107, 0, 0.4) !important;
 }

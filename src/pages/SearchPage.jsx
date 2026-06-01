@@ -4,19 +4,19 @@ import { Link } from 'react-router-dom';
 
 const SearchPage = () => {
   const [query, setQuery] = useState('');
-  const [movies, setMovies] = useState([]);
+  const [audios, setMovies] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  // Using existing movie endpoint for now, fetching everything and filtering locally
+  // Using existing audio endpoint for now, fetching everything and filtering locally
   useEffect(() => {
     const fetchMovies = async () => {
       setLoading(true);
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/movies`);
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/audios`);
         const data = await response.json();
         setMovies(data);
       } catch (error) {
-        console.error("Error fetching movies for search:", error);
+        console.error("Error fetching audios for search:", error);
       } finally {
         setLoading(false);
       }
@@ -25,8 +25,8 @@ const SearchPage = () => {
   }, []);
 
   const filteredMovies = query 
-    ? movies.filter(m => m.title.toLowerCase().includes(query.toLowerCase()))
-    : movies.slice(0, 24); // Show some defaults initially
+    ? audios.filter(m => m.title.toLowerCase().includes(query.toLowerCase()))
+    : audios.slice(0, 24); // Show some defaults initially
 
   return (
     <div className="w-full bg-bg-dark pt-16 md:pt-24 px-4 md:px-12 pb-16 min-h-[calc(100vh-80px)]">
@@ -34,13 +34,13 @@ const SearchPage = () => {
       <div className="max-w-7xl mx-auto">
         {/* Search Input Area */}
         <div className="max-w-4xl mb-8 md:mb-12 mt-2 md:mt-0">
-          <div className="flex items-center bg-white/5 border border-white/10 focus-within:border-[#00A8E1]/40 focus-within:bg-white/10 rounded-full px-5 py-3.5 transition-all duration-300">
-            <div className="text-gray-400 mr-3.5">
+          <div className="flex items-center bg-[#0A0A0A] border border-[#FF6B00]/20 focus-within:border-[#FF6B00]/80 focus-within:shadow-[0_0_20px_rgba(255,107,0,0.3)] focus-within:bg-[#0A0A0A] rounded-full px-5 py-3.5 transition-all duration-300">
+            <div className="text-[#FF6B00] mr-3.5">
               <Search size={22} />
             </div>
             <input 
               type="text"
-              placeholder="Search movies, web series, genres..."
+              placeholder="Search songs, podcasts, albums..."
               className="w-full bg-transparent text-white text-lg outline-none placeholder-gray-500"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
@@ -58,13 +58,13 @@ const SearchPage = () => {
             <div className="text-white">Loading...</div>
           ) : (
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
-              {filteredMovies.map((movie) => (
-                <Link to={`/movie/${movie.id}`} key={movie.id} className="flex flex-col group cursor-pointer">
-                  {/* Video Aspect Card */}
-                  <div className="aspect-video bg-bg-card rounded-xl border border-white/5 relative overflow-hidden flex flex-col items-center justify-center mb-2.5 transition-all duration-300 group-hover:scale-105 group-hover:border-[#00A8E1]/30 group-hover:shadow-xl shadow-black/80">
+              {filteredMovies.map((audio) => (
+                <Link to={`/audio/${audio.id}`} key={audio.id} className="flex flex-col group cursor-pointer">
+                  {/* Audio Aspect Card (Square) */}
+                  <div className="aspect-square bg-[#0A0A0A] rounded-xl border border-[#FF6B00]/10 relative overflow-hidden flex flex-col items-center justify-center mb-2.5 transition-all duration-300 group-hover:scale-105 group-hover:border-[#FF6B00]/50 group-hover:shadow-[0_12px_24px_rgba(0,0,0,0.9),0_0_20px_rgba(255,107,0,0.4)]">
                     <img 
-                      src={movie.backdropUrl || movie.posterUrl} 
-                      alt={movie.title} 
+                      src={audio.bannerImage || audio.coverImage} 
+                      alt={audio.title} 
                       className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-300"
                       onError={(e) => {
                         e.target.onerror = null;
@@ -75,8 +75,8 @@ const SearchPage = () => {
                   </div>
                   
                   {/* Title and Subtitle */}
-                  <h3 className="text-white font-bold text-sm truncate group-hover:text-[#00A8E1] transition-colors">{movie.title}</h3>
-                  <p className="text-gray-400 text-xs mt-0.5">{movie.year} • {movie.duration?.includes('Season') ? 'Show' : 'Movie'}</p>
+                  <h3 className="text-white font-bold text-sm truncate group-hover:text-[#FF6B00] transition-colors">{audio.title}</h3>
+                  <p className="text-gray-400 text-xs mt-0.5">{audio.director || 'Various Artists'} • {audio.duration || '3:45'}</p>
                 </Link>
               ))}
             </div>
