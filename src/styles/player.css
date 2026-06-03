@@ -1,0 +1,49 @@
+/* Custom slick animations and styles for the Player Page */
+
+.player-glass-panel {
+  background: rgba(10, 10, 10, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.player-progress-bar {
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.player-progress-bar::-webkit-slider-thumb {
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #FF6B00;
+  box-shadow: 0 0 10px rgba(255, 107, 0, 0.8);
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+
+.player-progress-bar:hover::-webkit-slider-thumb {
+  transform: scale(1.2);
+}
+
+.player-progress-bar::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #FF6B00;
+  box-shadow: 0 0 10px rgba(255, 107, 0, 0.8);
+  cursor: pointer;
+  border: none;
+  transition: transform 0.1s;
+}
+
+.player-progress-bar:hover::-moz-range-thumb {
+  transform: scale(1.2);
+}

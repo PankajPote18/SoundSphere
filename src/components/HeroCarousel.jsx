@@ -131,39 +131,42 @@ const HeroCarousel = ({ audios }) => {
           })}
         </Swiper>
 
-        {/* Bottom Center Thumbnail Carousel Navigation */}
+        {/* Bottom Navigation */}
         {carouselMovies.length > 0 && (
-          <div className="absolute bottom-6 md:bottom-8 left-1/2 transform -translate-x-1/2 z-30 flex items-center space-x-3 md:space-x-4 bg-black/60 backdrop-blur-xl px-4 py-3 rounded-full border border-white/10 shadow-2xl">
-            <button
-              onClick={() => swiperInstance?.slidePrev()}
-              className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-white/10 hover:bg-[#FF6B00] hover:shadow-[0_0_15px_rgba(255,107,0,0.5)] flex items-center justify-center text-white transition-all duration-300 border border-white/5 cursor-pointer"
-            >
-              <ChevronLeft size={18} />
-            </button>
-
-            <div className="flex items-center space-x-2 md:space-x-3">
+          <div className="absolute bottom-6 md:bottom-8 left-0 right-0 w-full z-30 pointer-events-none">
+            
+            {/* Center: Dash Pagination */}
+            <div className="absolute left-1/2 bottom-0 transform -translate-x-1/2 flex items-center space-x-2 pointer-events-auto">
               {carouselMovies.map((audio, idx) => {
                 const isActive = activeIndex === idx;
                 return (
-                  <div 
-                    key={audio.id} 
+                  <button
+                    key={audio.id}
                     onClick={() => swiperInstance?.slideToLoop(idx)}
-                    className={`w-14 h-8 md:w-20 md:h-12 rounded overflow-hidden cursor-pointer transition-all duration-300 border-2 ${
-                      isActive ? 'border-[#FF6B00] scale-110 shadow-[0_0_15px_rgba(255,107,0,0.6)] opacity-100 z-10 relative' : 'border-transparent opacity-50 hover:opacity-100 relative z-0'
+                    className={`h-1.5 rounded-full transition-all duration-300 ${
+                      isActive ? 'w-8 bg-[#FF6B00]' : 'w-4 bg-white/40 hover:bg-white/80'
                     }`}
-                  >
-                    <img src={audio.bannerImage || audio.coverImage} alt="thumbnail" className="w-full h-full object-cover" />
-                  </div>
+                    aria-label={`Go to slide ${idx + 1}`}
+                  />
                 );
               })}
             </div>
 
-            <button
-              onClick={() => swiperInstance?.slideNext()}
-              className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-white/10 hover:bg-[#FF6B00] hover:shadow-[0_0_15px_rgba(255,107,0,0.5)] flex items-center justify-center text-white transition-all duration-300 border border-white/5 cursor-pointer"
-            >
-              <ChevronRight size={18} />
-            </button>
+            {/* Right: Navigation Arrows (Hidden on Mobile) */}
+            <div className="hidden md:flex absolute right-6 md:right-12 lg:right-20 bottom-0 transform translate-y-1/2 items-center space-x-2 pointer-events-auto">
+              <button
+                onClick={() => swiperInstance?.slidePrev()}
+                className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-black/40 hover:bg-white/10 border border-white/30 flex items-center justify-center text-white transition-all duration-300 backdrop-blur-md cursor-pointer"
+              >
+                <ChevronLeft size={18} strokeWidth={2} />
+              </button>
+              <button
+                onClick={() => swiperInstance?.slideNext()}
+                className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-black/40 hover:bg-white/10 border border-white/30 flex items-center justify-center text-white transition-all duration-300 backdrop-blur-md cursor-pointer"
+              >
+                <ChevronRight size={18} strokeWidth={2} />
+              </button>
+            </div>
           </div>
         )}
       </div>

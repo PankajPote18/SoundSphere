@@ -49,36 +49,13 @@ const HomePage = () => {
 
         const audios = await moviesRes.json();
 
-        // High-quality cinematic backgrounds for Hero Carousel
-
-        const cinematicBackgrounds = [
-
-          'https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=1925&auto=format&fit=crop',
-
-          'https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?q=80&w=2070&auto=format&fit=crop',
-
-          'https://images.unsplash.com/photo-1574267432553-4b4628081c31?q=80&w=2069&auto=format&fit=crop',
-
-          'https://images.unsplash.com/photo-1604085572504-a392ddf0d86a?q=80&w=2126&auto=format&fit=crop',
-
-          'https://images.unsplash.com/photo-1505686994434-e3cc5abf1330?q=80&w=2073&auto=format&fit=crop'
-
-        ];
-
-        const heroMovies = audios.filter(m => m.category_id === 'hero').map((audio, index) => ({
-
-          ...audio,
-
-          bannerImage: cinematicBackgrounds[index % cinematicBackgrounds.length]
-
-        }));
-
-        // A fallback if no specific hero audios are seeded
-
-        const finalHero = audios.filter(m => m.audio_category_id === 'hero').map((audio, index) => ({
-          ...audio,
-          bannerImage: cinematicBackgrounds[index % cinematicBackgrounds.length]
-        }));
+        let finalHero = audios.filter(m => m.audio_category_id === 'hero');
+        
+        // Ensure we always have at least 6 items in the hero banner to show off the carousel
+        if (finalHero.length < 6) {
+          const extraAudios = audios.filter(m => m.audio_category_id !== 'hero').slice(0, 6 - finalHero.length);
+          finalHero = [...finalHero, ...extraAudios];
+        }
 
         // 3. Continue Listening
         const continueListening = audios.slice(10, 15).map((m, idx) => ({
@@ -100,7 +77,7 @@ const HomePage = () => {
           .slice(0, 12);
 
         const finalData = {
-          hero: finalHero.length > 0 ? finalHero : audios.slice(0, 5),
+          hero: finalHero,
           continueListening,
           trending,
           audios: audios.slice(0, 12),

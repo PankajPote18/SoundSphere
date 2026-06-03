@@ -10,6 +10,7 @@ import SearchPage from './pages/SearchPage';
 import LoginPage from './pages/LoginPage';
 import OtpPage from './pages/OtpPage';
 import PlansPage from './pages/PlansPage';
+import Player from './pages/Player';
 import AdminLayout from './pages/admin/AdminLayout';
 import AdminDashboard from './pages/admin/AdminDashboard';
 import AdminAudios from './pages/admin/AdminAudios';
@@ -26,9 +27,10 @@ function App() {
       <ScrollToTop />
       <PremiumModalProvider>
         <Routes>
-          {/* Auth Routes - Standalone Fullscreen */}
+          {/* Auth & Player Routes - Standalone Fullscreen */}
           <Route path="/login" element={<LoginPage />} />
           <Route path="/verify-otp" element={<OtpPage />} />
+          <Route path="/player/:id" element={<Player />} />
 
           {/* Admin Routes - Standalone Layout */}
           <Route path="/admin" element={<AdminLayout />}>

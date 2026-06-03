@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { Play, MoreVertical } from 'lucide-react';
 
 const AudioCard = ({ audio, cardType = 'square', rank = 1 }) => {
+
   // Layout 1: Continue Watching (Rectangle aspect-video)
   if (cardType === 'rectangle') {
     const mockProgress = audio.progress || (20 + (audio.id * 17) % 65);
@@ -24,10 +25,12 @@ const AudioCard = ({ audio, cardType = 'square', rank = 1 }) => {
           />
 
           {/* Always Visible Play Button at Bottom-Left */}
-          <div className="absolute bottom-2 left-2 z-20">
-            <div className="w-8 h-8 rounded-full bg-black/50 border border-white/30 text-white flex items-center justify-center shadow-lg backdrop-blur-sm transition-transform duration-300 group-hover:scale-110">
+          <div className="absolute bottom-2 left-2 z-30">
+            <button 
+              className="w-8 h-8 rounded-full bg-black/50 border border-white/30 text-white flex items-center justify-center shadow-lg backdrop-blur-sm transition-transform duration-300 hover:bg-[#FF6B00]/80 group-hover:scale-110 cursor-pointer"
+            >
               <Play size={10} className="ml-0.5 text-white" fill="currentColor" />
-            </div>
+            </button>
           </div>
 
           {/* Progress Bar at Bottom */}
@@ -95,8 +98,17 @@ const AudioCard = ({ audio, cardType = 'square', rank = 1 }) => {
             TOP 10
           </div>
 
+          {/* Play Button Overlay on Hover */}
+          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-30 pointer-events-none">
+            <button 
+              className="w-12 h-12 rounded-full bg-[#FF6B00]/90 text-white flex items-center justify-center shadow-[0_0_20px_rgba(255,107,0,0.5)] hover:scale-110 transition-transform cursor-pointer backdrop-blur-md border border-white/20"
+            >
+              <Play size={20} className="ml-1" fill="currentColor" />
+            </button>
+          </div>
+
           {/* Title Overlay on Hover */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-0 group-hover:opacity-100 flex flex-col justify-end p-3 transition-opacity duration-300 z-20">
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-0 group-hover:opacity-100 flex flex-col justify-end p-3 transition-opacity duration-300 z-20 pointer-events-none">
             <span className="text-[#FF6B00] text-[9px] font-bold uppercase tracking-wider mb-0.5">
               {audio.category || audio.genre || 'TRENDING'}
             </span>
@@ -139,8 +151,17 @@ const AudioCard = ({ audio, cardType = 'square', rank = 1 }) => {
           </div>
         )}
 
+        {/* Play Button Overlay on Hover */}
+        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-30 pointer-events-none">
+          <button 
+            className="w-12 h-12 rounded-full bg-[#FF6B00]/90 text-white flex items-center justify-center shadow-[0_0_20px_rgba(255,107,0,0.5)] hover:scale-110 transition-transform cursor-pointer backdrop-blur-md border border-white/20"
+          >
+            <Play size={20} className="ml-1" fill="currentColor" />
+          </button>
+        </div>
+
         {/* Title Overlay on Hover */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-0 group-hover:opacity-100 flex flex-col justify-end p-3 transition-opacity duration-300 z-20">
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-0 group-hover:opacity-100 flex flex-col justify-end p-3 transition-opacity duration-300 z-20 pointer-events-none">
           <span className="text-[#FF6B00] text-[9px] font-bold uppercase tracking-wider mb-0.5">
             {audio.category || audio.genre || 'AUDIO'}
           </span>
