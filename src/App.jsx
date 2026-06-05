@@ -12,6 +12,7 @@ import OtpPage from './pages/OtpPage';
 import PlansPage from './pages/PlansPage';
 import Player from './pages/Player';
 import AdminLayout from './pages/admin/AdminLayout';
+import AdminDashboard from './pages/admin/AdminDashboard';
 import AdminAudios from './pages/admin/AdminAudios';
 import AdminSubscriptions from './pages/admin/AdminSubscriptions';
 import AdminSettings from './pages/admin/AdminSettings';   // ← NEW
