@@ -48,10 +48,10 @@ const OtpPage = () => {
       // Demo Logic Authentication
       if (mobileNo === '9999999999' && otpValue === '1234') {
         localStorage.setItem('user', JSON.stringify({ phone: mobileNo, isSubscribed: true }));
-        navigate('/'); // Go home
+        navigate('/'); 
       } else if (mobileNo === '8888888888' && otpValue === '5678') {
         localStorage.setItem('user', JSON.stringify({ phone: mobileNo, isSubscribed: false }));
-        navigate('/'); // Go home, marked not subscribed
+        navigate('/'); 
       } else {
         setError('Invalid credentials');
       }
@@ -59,23 +59,29 @@ const OtpPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#0f1115] flex items-center justify-center px-4">
-      <div className="w-full max-w-sm bg-[#1a1d24] border border-gray-800 rounded-3xl p-8 shadow-2xl flex flex-col items-center">
+    <div className="min-h-screen bg-[#080808] flex items-center justify-center px-4 relative overflow-hidden">
+      
+      {/* Background Ambient Glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#FF6B00]/10 rounded-full blur-[150px] pointer-events-none z-0"></div>
+
+      <div className="w-full max-w-[420px] bg-[#0f0f0f]/80 backdrop-blur-xl border border-white/10 rounded-[2rem] p-8 md:p-10 shadow-[0_20px_50px_rgba(0,0,0,0.8)] relative z-10 flex flex-col items-center">
         
-        {/* Placeholder Logo / Top Graphic */}
-        <div className="w-32 h-16 bg-gray-700/50 rounded-2xl mb-6 flex items-center justify-center">
-           <span className="text-gray-400 text-xs font-bold">LOGO</span>
+        {/* SoundSphere Logo */}
+        <div className="flex justify-center mb-8 w-full">
+          <span className="text-2xl font-black text-white tracking-tight">
+            Sound<span className="text-[#FF6B00]">Sphere</span>
+          </span>
         </div>
 
-        <h2 className="text-white font-bold text-xl mb-2">OTP Verification</h2>
-        <p className="text-gray-400 text-xs mb-8 text-center">
-          OTP has been sent to +91 {mobileNo}
+        <h2 className="text-white font-bold text-2xl mb-2 tracking-wide text-center">Verify your number</h2>
+        <p className="text-gray-400 text-sm mb-8 text-center font-medium">
+          A 4-digit code was sent to <br/><span className="text-white mt-1 inline-block font-bold">+91 {mobileNo}</span>
         </p>
 
         <form onSubmit={handleContinue} className="w-full flex flex-col items-center">
           
           {/* OTP Inputs */}
-          <div className="flex justify-center space-x-3 mb-2">
+          <div className="flex justify-center space-x-4 mb-2 w-full">
             {otp.map((digit, index) => (
               <input
                 key={index}
@@ -85,46 +91,46 @@ const OtpPage = () => {
                 value={digit}
                 onChange={(e) => handleChange(index, e.target.value)}
                 onKeyDown={(e) => handleKeyDown(index, e)}
-                className={`w-12 h-12 bg-[#252833] border ${error ? 'border-red-500' : 'border-gray-600'} rounded-lg text-center text-white text-xl font-bold focus:border-[#00A8E1] focus:outline-none transition-colors`}
+                className={`w-14 h-16 bg-[#161616] border ${error ? 'border-red-500' : 'border-white/10'} rounded-xl text-center text-white text-2xl font-black focus:border-[#FF6B00] focus:shadow-[0_0_15px_rgba(255,107,0,0.2)] focus:outline-none transition-all duration-300`}
               />
             ))}
           </div>
 
           {/* Error Message */}
-          <div className="h-6 mb-4">
-            {error && <span className="text-red-500 text-xs font-bold">{error}</span>}
-          </div>
-
-          {/* Timer / Resend */}
-          <div className="text-center mb-8">
-            <div className="text-[#00A8E1] font-bold mb-1">
-              00:{timeLeft < 10 ? `0${timeLeft}` : timeLeft}
-            </div>
-            {timeLeft === 0 ? (
-              <button 
-                type="button"
-                onClick={() => setTimeLeft(30)}
-                className="text-gray-300 text-sm hover:text-white transition-colors underline"
-              >
-                Resend now
-              </button>
-            ) : (
-              <span className="text-gray-500 text-sm">Resend now</span>
-            )}
+          <div className="h-6 mb-6 mt-2 w-full text-center">
+            {error && <span className="text-red-500 text-xs font-bold uppercase tracking-wider">{error}</span>}
           </div>
 
           {/* Continue Button */}
           <button 
             type="submit"
             disabled={otp.join('').length < 4}
-            className={`w-full py-3 rounded-lg font-bold transition-colors ${
+            className={`w-full py-4 rounded-xl font-bold tracking-wider transition-all duration-300 uppercase text-sm mb-8 ${
               otp.join('').length === 4 
-                ? 'bg-[#00A8E1] hover:bg-[#008bc0] text-white shadow-lg' 
-                : 'bg-gray-600 text-gray-400 cursor-not-allowed'
+                ? 'bg-gradient-to-r from-[#FF6B00] to-[#FF8C1A] text-white shadow-[0_0_20px_rgba(255,107,0,0.3)] hover:shadow-[0_0_30px_rgba(255,107,0,0.5)] hover:scale-[1.02] cursor-pointer' 
+                : 'bg-[#161616] text-gray-500 cursor-not-allowed border border-white/5'
             }`}
           >
-            Continue
+            Verify
           </button>
+
+          {/* Timer / Resend */}
+          <div className="text-center w-full">
+            <div className="text-[#FF6B00] font-black text-lg mb-2 drop-shadow-[0_0_8px_rgba(255,107,0,0.4)]">
+              00:{timeLeft < 10 ? `0${timeLeft}` : timeLeft}
+            </div>
+            {timeLeft === 0 ? (
+              <button 
+                type="button"
+                onClick={() => setTimeLeft(30)}
+                className="text-gray-300 text-sm hover:text-white transition-colors underline decoration-white/30 underline-offset-4 cursor-pointer font-medium"
+              >
+                Resend Code
+              </button>
+            ) : (
+              <span className="text-gray-600 text-sm font-medium">Resend Code</span>
+            )}
+          </div>
 
         </form>
       </div>

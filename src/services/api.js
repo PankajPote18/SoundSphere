@@ -1,5 +1,5 @@
 // Central API base — change this once if your backend URL changes
-const BASE = 'https://nexora-backend1.onrender.com/api';
+const BASE = 'https://soundsphere-backend-nk2q.onrender.com/api';
 
 const get = (path) =>
   fetch(`${BASE}${path}`).then((r) => {

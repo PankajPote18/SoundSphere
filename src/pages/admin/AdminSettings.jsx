@@ -15,7 +15,6 @@ import {
   Plus,
   Loader2,
   Check,
-  X,
 } from 'lucide-react';
 import { settingsMenuApi } from '../../services/api';
 
@@ -29,42 +28,40 @@ const ICON_MAP = {
   Info, Shield, LineChart, FileText, LayoutDashboard, LogOut, Zap, Bookmark,
 };
 
-// ── Toggle (same component used across admin) ────────────────────────────────
+// ── Toggle (compact & orange theme) ──────────────────────────────────────────
 const CustomToggle = ({ isOn, onToggle }) => (
   <button
     onClick={onToggle}
-    className={`w-14 h-7 rounded-full relative transition-colors duration-300 flex items-center ${isOn ? 'bg-[#22c55e]' : 'bg-[#475569]'}`}
+    className={`w-10 h-5 rounded-full relative transition-colors duration-300 flex items-center shrink-0 ${isOn ? 'bg-[#FF6B00]' : 'bg-[#334155]'}`}
   >
-    <div className={`w-6 h-6 rounded-full bg-white absolute top-0.5 transition-transform duration-300 flex items-center justify-center ${isOn ? 'translate-x-7' : 'translate-x-0.5'}`}>
-      {isOn
-        ? <Check size={14} className="text-[#22c55e]" strokeWidth={3} />
-        : <X size={14} className="text-gray-400" strokeWidth={3} />}
+    <div className={`w-4 h-4 rounded-full bg-white absolute transition-transform duration-300 flex items-center justify-center ${isOn ? 'translate-x-5' : 'translate-x-1'}`}>
+      {isOn && <Check size={10} className="text-[#FF6B00]" strokeWidth={4} />}
     </div>
   </button>
 );
 
-// ── Live preview card (exact same markup as SettingsPage button) ─────────────
+// ── Compact Preview Card (Orange theme) ──────────────────────────────────────
 const PreviewCard = ({ item }) => {
   const IconComponent = ICON_MAP[item.icon_key] || Info;
   return (
     <div
-      className={`w-full flex items-center justify-between px-3.5 md:px-5 py-3 md:py-4 bg-bg-card border ${item.is_highlight
-          ? 'border-[#00A8E1]/40 shadow-[0_0_12px_rgba(0,168,225,0.12)]'
+      className={`w-full flex items-center justify-between px-3 py-2 bg-[#0A0A0A] border ${item.is_highlight
+          ? 'border-[#FF6B00]/40 shadow-[0_0_10px_rgba(255,107,0,0.1)]'
           : 'border-white/5'
-        } rounded-2xl shadow-sm`}
+        } rounded-xl shadow-sm`}
     >
-      <div className="flex items-center space-x-3 md:space-x-5 min-w-0">
-        <div className={`w-8 h-8 md:w-10 md:h-10 shrink-0 rounded-full flex items-center justify-center border ${item.is_highlight
-            ? 'bg-[#00A8E1]/15 border-[#00A8E1]/70'
+      <div className="flex items-center space-x-3 min-w-0">
+        <div className={`w-7 h-7 shrink-0 rounded-lg flex items-center justify-center border ${item.is_highlight
+            ? 'bg-[#FF6B00]/15 border-[#FF6B00]/70'
             : 'bg-white/5 border-white/10'
           }`}>
-          <IconComponent className="w-4 h-4 md:w-5 md:h-5 text-[#00A8E1]" strokeWidth={2.2} />
+          <IconComponent className="w-3.5 h-3.5 text-[#FF6B00]" strokeWidth={2.2} />
         </div>
-        <span className="font-semibold text-[13px] md:text-[15px] tracking-wide text-gray-200 text-left truncate">
+        <span className="font-semibold text-xs tracking-wide text-gray-200 truncate">
           {item.name || 'Menu Item'}
         </span>
       </div>
-      <ChevronRight size={16} className={item.is_highlight ? 'text-[#00A8E1]' : 'text-gray-600'} />
+      <ChevronRight size={14} className={item.is_highlight ? 'text-[#FF6B00]' : 'text-gray-600'} />
     </div>
   );
 };
@@ -191,9 +188,9 @@ const AdminSettings = () => {
         </h2>
         <button
           onClick={openCreate}
-          className="flex items-center gap-2 px-5 py-2 rounded-lg bg-[#3b82f6] text-white font-bold hover:bg-[#2563eb] transition-colors shadow-lg shadow-blue-500/20"
+          className="flex items-center gap-2 px-5 py-2 rounded-lg bg-gradient-to-r from-[#FF6B00] to-[#FF8C1A] text-white font-bold hover:shadow-[0_0_15px_rgba(255,107,0,0.4)] transition-all shadow-lg text-sm"
         >
-          <Plus size={18} /> Add Item
+          <Plus size={16} /> Add Item
         </button>
       </div>
 
@@ -202,42 +199,39 @@ const AdminSettings = () => {
         <div className="relative w-full sm:w-auto">
           <input
             type="text"
-            placeholder="Search..."
+            placeholder="Search menus..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="bg-[#141a29] border border-gray-700 text-white rounded-full pl-4 pr-10 py-1.5 outline-none focus:border-[#3b82f6] text-sm w-full sm:w-64 placeholder-gray-500 transition-all focus:shadow-[0_0_10px_rgba(59,130,246,0.3)]"
+            className="bg-[#141a29] border border-gray-700 text-white rounded-full pl-4 pr-10 py-2 outline-none focus:border-[#FF6B00] text-sm w-full sm:w-64 placeholder-gray-500 transition-all focus:shadow-[0_0_10px_rgba(255,107,0,0.2)]"
           />
           <Search size={16} className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400" />
         </div>
       </div>
 
-      {/* Table */}
+      {/* Modern Compact Table */}
       <div className="flex-none md:flex-1 bg-[#141a29] rounded-xl border border-gray-800 overflow-hidden shadow-2xl flex flex-col">
-        <div className="overflow-x-auto custom-scrollbar">
-          <table className="w-full text-left text-sm text-gray-300 min-w-[700px]">
-            <thead className="bg-[#1e293b]/80 border-b border-gray-800 text-gray-300 font-semibold uppercase text-xs tracking-wider">
+        <div className="overflow-x-auto w-full">
+          <table className="w-full text-left text-sm text-gray-300">
+            <thead className="bg-[#1e293b]/80 border-b border-gray-800 text-gray-400 font-semibold uppercase text-[10px] tracking-wider">
               <tr>
-                <th className="px-6 py-4">Name</th>
-                <th className="px-6 py-4">Icon</th>
-                <th className="px-6 py-4">Path</th>
-                <th className="px-6 py-4 text-center">Highlight</th>
-                <th className="px-6 py-4 text-center">Logout</th>
-                <th className="px-6 py-4 text-center">Sort</th>
-                <th className="px-6 py-4 text-center">Status</th>
-                <th className="px-6 py-4 text-center">Preview</th>
-                <th className="px-6 py-4 text-center">Actions</th>
+                <th className="px-4 py-3 w-1/3">Item Details</th>
+                <th className="px-4 py-3 hidden sm:table-cell max-w-[140px]">Path</th>
+                <th className="px-4 py-3 text-center w-16">Sort</th>
+                <th className="px-4 py-3 text-center w-20">Status</th>
+                <th className="px-4 py-3 hidden lg:table-cell w-[260px]">Preview</th>
+                <th className="px-4 py-3 text-right w-24">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-800/50">
               {loading ? (
                 <tr>
-                  <td colSpan={9} className="px-6 py-10 text-center">
-                    <Loader2 className="animate-spin mx-auto text-[#3b82f6]" size={24} />
+                  <td colSpan={6} className="px-4 py-10 text-center">
+                    <Loader2 className="animate-spin mx-auto text-[#FF6B00]" size={24} />
                   </td>
                 </tr>
               ) : filtered.length === 0 ? (
                 <tr>
-                  <td colSpan={9} className="px-6 py-10 text-center text-gray-500">
+                  <td colSpan={6} className="px-4 py-10 text-center text-gray-500">
                     No items found.
                   </td>
                 </tr>
@@ -245,45 +239,65 @@ const AdminSettings = () => {
                 filtered.map((item) => {
                   const IconComponent = ICON_MAP[item.icon_key] || Info;
                   return (
-                    <tr key={item.id} className="hover:bg-[#1e2638] transition-colors">
-                      <td className="px-6 py-4 font-medium text-white">{item.name}</td>
-                      <td className="px-6 py-4">
-                        <div className="flex items-center gap-2">
-                          <IconComponent size={16} className="text-[#00A8E1]" />
-                          <span className="text-gray-400 text-xs">{item.icon_key}</span>
+                    <tr key={item.id} className="hover:bg-[#1e2638] transition-colors group">
+                      
+                      {/* Item Details (Name + Badges) */}
+                      <td className="px-4 py-3">
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 rounded-md bg-[#FF6B00]/10 flex items-center justify-center shrink-0 border border-[#FF6B00]/20">
+                            <IconComponent size={14} className="text-[#FF6B00]" />
+                          </div>
+                          <div className="flex flex-col min-w-0">
+                            <div className="flex items-center gap-2 flex-wrap">
+                              <span className="font-bold text-white truncate text-sm">{item.name}</span>
+                              {item.is_highlight && (
+                                <span className="px-1.5 py-0.5 rounded bg-[#FF6B00]/10 text-[#FF6B00] text-[9px] font-bold border border-[#FF6B00]/20 uppercase">Highlight</span>
+                              )}
+                              {item.is_logout && (
+                                <span className="px-1.5 py-0.5 rounded bg-red-500/10 text-red-400 text-[9px] font-bold border border-red-500/20 uppercase">Logout</span>
+                              )}
+                            </div>
+                            <span className="text-[10px] text-gray-500 font-mono mt-0.5 sm:hidden truncate">{item.path || 'No path'}</span>
+                          </div>
                         </div>
                       </td>
-                      <td className="px-6 py-4 text-gray-400">{item.path || '—'}</td>
-                      <td className="px-6 py-4 text-center">
-                        {item.is_highlight
-                          ? <span className="text-[#00A8E1] font-bold">Yes</span>
-                          : <span className="text-gray-600">No</span>}
+
+                      {/* Path (Truncated) */}
+                      <td className="px-4 py-3 hidden sm:table-cell max-w-[140px]">
+                        <div className="truncate text-xs font-mono text-gray-400" title={item.path}>
+                          {item.path || '—'}
+                        </div>
                       </td>
-                      <td className="px-6 py-4 text-center">
-                        {item.is_logout
-                          ? <span className="text-red-400 font-bold">Yes</span>
-                          : <span className="text-gray-600">No</span>}
+
+                      {/* Sort */}
+                      <td className="px-4 py-3 text-center">
+                        <span className="text-xs font-medium text-gray-400 bg-black/30 px-2 py-1 rounded border border-white/5">{item.sort_order}</span>
                       </td>
-                      <td className="px-6 py-4 text-center">{item.sort_order}</td>
-                      <td className="px-6 py-4">
+
+                      {/* Status */}
+                      <td className="px-4 py-3">
                         <div className="flex justify-center">
                           <CustomToggle isOn={item.status} onToggle={() => toggleStatus(item)} />
                         </div>
                       </td>
-                      {/* Live preview of exactly how it looks on SettingsPage */}
-                      <td className="px-6 py-4 min-w-[220px]">
+
+                      {/* Compact Preview */}
+                      <td className="px-4 py-3 hidden lg:table-cell w-[260px]">
                         <PreviewCard item={item} />
                       </td>
-                      <td className="px-6 py-4">
-                        <div className="flex justify-center gap-3">
-                          <button onClick={() => openEdit(item)} className="text-gray-400 hover:text-[#3b82f6] transition-colors">
-                            <Edit2 size={17} />
+
+                      {/* Actions */}
+                      <td className="px-4 py-3 text-right">
+                        <div className="flex justify-end gap-1 opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity">
+                          <button onClick={() => openEdit(item)} className="p-1.5 text-gray-400 hover:text-[#FF6B00] hover:bg-[#FF6B00]/10 rounded-md transition-colors" title="Edit">
+                            <Edit2 size={16} />
                           </button>
-                          <button onClick={() => setDeleteId(item.id)} className="text-gray-400 hover:text-red-400 transition-colors">
-                            <Trash2 size={17} />
+                          <button onClick={() => setDeleteId(item.id)} className="p-1.5 text-gray-400 hover:text-red-400 hover:bg-red-400/10 rounded-md transition-colors" title="Delete">
+                            <Trash2 size={16} />
                           </button>
                         </div>
                       </td>
+
                     </tr>
                   );
                 })
@@ -293,17 +307,17 @@ const AdminSettings = () => {
         </div>
 
         {/* Pagination footer */}
-        <div className="p-4 border-t border-gray-800 mt-auto flex items-center justify-between text-sm text-gray-400 bg-[#141a29]">
-          <div className="border border-[#3b82f6]/30 text-[#3b82f6] px-4 py-1.5 rounded-md font-medium text-xs bg-[#3b82f6]/10">
-            {filtered.length} item{filtered.length !== 1 ? 's' : ''}
+        <div className="p-3 border-t border-gray-800 mt-auto flex items-center justify-between text-sm text-gray-400 bg-[#141a29]">
+          <div className="text-xs font-medium text-gray-500">
+            {filtered.length} total item{filtered.length !== 1 ? 's' : ''}
           </div>
         </div>
       </div>
 
       {/* ── Edit / Create Modal ───────────────────────────────────────────── */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-[#1e2638] rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-hidden shadow-2xl border border-gray-700/50 flex flex-col" style={{ boxShadow: '0 25px 50px -12px rgba(0,0,0,0.7)' }}>
+        <div className="fixed inset-0 z-[100] bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-[#1e2638] rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.8)] border border-gray-700/50 flex flex-col">
 
             {/* Header */}
             <div className="p-4 md:p-6 border-b border-gray-700/50 shrink-0">
@@ -318,25 +332,25 @@ const AdminSettings = () => {
               {/* Name */}
               <div className="space-y-2">
                 <label className="text-sm font-semibold text-white tracking-wide flex items-center">
-                  Name <span className="text-red-500 ml-1">*</span>
+                  Name <span className="text-[#FF6B00] ml-1">*</span>
                 </label>
                 <input
                   type="text"
                   value={formData.name}
                   onChange={(e) => setForm({ ...formData, name: e.target.value })}
-                  className="w-full bg-[#3b82f6]/20 border-none text-[#4aa5ff] rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-[#3b82f6]/50 font-medium transition-all"
+                  className="w-full bg-black/40 border border-gray-700 text-white rounded-lg px-4 py-3 outline-none focus:border-[#FF6B00] focus:shadow-[0_0_15px_rgba(255,107,0,0.15)] font-medium transition-all"
                 />
               </div>
 
               {/* Icon Key */}
               <div className="space-y-2">
                 <label className="text-sm font-semibold text-white tracking-wide flex items-center">
-                  Icon <span className="text-red-500 ml-1">*</span>
+                  Icon <span className="text-[#FF6B00] ml-1">*</span>
                 </label>
                 <select
                   value={formData.icon_key}
                   onChange={(e) => setForm({ ...formData, icon_key: e.target.value })}
-                  className="w-full bg-[#3b82f6]/20 border-none text-[#4aa5ff] rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-[#3b82f6]/50 font-medium transition-all cursor-pointer"
+                  className="w-full bg-black/40 border border-gray-700 text-white rounded-lg px-4 py-3 outline-none focus:border-[#FF6B00] focus:shadow-[0_0_15px_rgba(255,107,0,0.15)] font-medium transition-all cursor-pointer"
                 >
                   {ICON_OPTIONS.map((k) => (
                     <option key={k} value={k} className="bg-[#1e2638]">{k}</option>
@@ -354,7 +368,7 @@ const AdminSettings = () => {
                   placeholder="/plans"
                   value={formData.path}
                   onChange={(e) => setForm({ ...formData, path: e.target.value })}
-                  className="w-full bg-[#3b82f6]/20 border-none text-[#4aa5ff] rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-[#3b82f6]/50 font-medium transition-all"
+                  className="w-full bg-black/40 border border-gray-700 text-white rounded-lg px-4 py-3 outline-none focus:border-[#FF6B00] focus:shadow-[0_0_15px_rgba(255,107,0,0.15)] font-medium transition-all"
                 />
               </div>
 
@@ -371,7 +385,7 @@ const AdminSettings = () => {
                     const max = editingItem ? items.length : items.length + 1;
                     setForm({ ...formData, sort_order: Math.min(Math.max(val, 1), max) });
                   }}
-                  className="w-full bg-[#3b82f6]/20 border-none text-[#4aa5ff] rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-[#3b82f6]/50 font-medium transition-all"
+                  className="w-full bg-black/40 border border-gray-700 text-white rounded-lg px-4 py-3 outline-none focus:border-[#FF6B00] focus:shadow-[0_0_15px_rgba(255,107,0,0.15)] font-medium transition-all"
                 />
                 <p className="text-xs text-gray-500">
                   Valid range: 1 – {editingItem ? items.length : items.length + 1}
@@ -379,40 +393,40 @@ const AdminSettings = () => {
               </div>
 
               {/* Toggles row */}
-              <div className="md:col-span-2 flex flex-wrap gap-6 items-center">
-                <label className="flex items-center gap-3 cursor-pointer">
+              <div className="md:col-span-2 flex flex-wrap gap-6 items-center pt-2">
+                <label className="flex items-center gap-3 cursor-pointer group">
                   <input
                     type="checkbox"
                     checked={formData.is_highlight}
                     onChange={(e) => setForm({ ...formData, is_highlight: e.target.checked })}
-                    className="w-4 h-4 accent-[#00A8E1]"
+                    className="w-4 h-4 accent-[#FF6B00]"
                   />
-                  <span className="text-sm font-semibold text-white">Highlight (blue border)</span>
+                  <span className="text-sm font-semibold text-gray-300 group-hover:text-white">Highlight (orange border)</span>
                 </label>
-                <label className="flex items-center gap-3 cursor-pointer">
+                <label className="flex items-center gap-3 cursor-pointer group">
                   <input
                     type="checkbox"
                     checked={formData.is_logout}
                     onChange={(e) => setForm({ ...formData, is_logout: e.target.checked })}
-                    className="w-4 h-4 accent-red-400"
+                    className="w-4 h-4 accent-red-500"
                   />
-                  <span className="text-sm font-semibold text-white">Logout trigger</span>
+                  <span className="text-sm font-semibold text-gray-300 group-hover:text-white">Logout trigger</span>
                 </label>
-                <label className="flex items-center gap-3 cursor-pointer">
+                <label className="flex items-center gap-3 cursor-pointer group">
                   <input
                     type="checkbox"
                     checked={formData.status}
                     onChange={(e) => setForm({ ...formData, status: e.target.checked })}
                     className="w-4 h-4 accent-[#22c55e]"
                   />
-                  <span className="text-sm font-semibold text-white">Active (visible on Settings page)</span>
+                  <span className="text-sm font-semibold text-gray-300 group-hover:text-white">Active (visible on Settings page)</span>
                 </label>
               </div>
 
               {/* Live preview */}
-              <div className="md:col-span-2 space-y-2">
+              <div className="md:col-span-2 space-y-2 mt-2">
                 <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider">Live Preview</p>
-                <div className="bg-bg-dark p-4 rounded-xl">
+                <div className="bg-black/50 p-4 rounded-xl border border-white/5">
                   <PreviewCard item={formData} />
                 </div>
               </div>
@@ -422,16 +436,16 @@ const AdminSettings = () => {
             <div className="p-4 md:p-6 border-t border-gray-700/50 flex justify-end items-center space-x-4 bg-[#141a29]/50 shrink-0">
               <button
                 onClick={() => setModal(false)}
-                className="px-4 py-2 md:px-6 md:py-2.5 rounded-lg bg-[#334155] text-white font-medium hover:bg-[#475569] transition-colors text-sm"
+                className="px-5 py-2.5 rounded-lg bg-[#334155] text-white font-medium hover:bg-[#475569] transition-colors text-sm"
               >
                 Discard
               </button>
               <button
                 onClick={handleSave}
                 disabled={saving || !formData.name}
-                className="px-6 py-2 md:px-8 md:py-2.5 rounded-lg bg-[#22c55e] text-white font-bold hover:bg-[#16a34a] transition-colors shadow-lg shadow-green-500/20 text-sm disabled:opacity-50"
+                className="px-6 py-2.5 rounded-lg bg-gradient-to-r from-[#FF6B00] to-[#FF8C1A] text-white font-bold hover:shadow-[0_0_15px_rgba(255,107,0,0.4)] transition-all text-sm disabled:opacity-50"
               >
-                {saving ? 'Saving...' : 'Save'}
+                {saving ? 'Saving...' : 'Save Changes'}
               </button>
             </div>
           </div>
@@ -447,7 +461,7 @@ const AdminSettings = () => {
               This will remove the item from the Settings page. This action cannot be undone.
             </p>
             <div className="flex gap-3">
-              <button
+               <button
                 onClick={() => setDeleteId(null)}
                 className="flex-1 py-2.5 px-4 rounded-lg bg-[#334155] text-gray-300 font-bold hover:bg-[#475569] transition-colors text-sm"
               >
@@ -455,7 +469,7 @@ const AdminSettings = () => {
               </button>
               <button
                 onClick={() => handleDelete(deleteId)}
-                className="flex-1 py-2.5 px-4 rounded-lg bg-red-500 hover:bg-red-600 text-white font-bold transition-colors text-sm"
+                className="flex-1 py-2.5 px-4 rounded-lg bg-red-500 hover:bg-red-600 text-white font-bold transition-colors text-sm shadow-[0_0_10px_rgba(239,68,68,0.2)]"
               >
                 Delete
               </button>

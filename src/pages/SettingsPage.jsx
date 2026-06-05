@@ -36,7 +36,11 @@ const SettingsPage = () => {
     // Fetch only active menu items from backend
     settingsMenuApi
       .getAll(true)
-      .then((data) => setMenuItems(data))
+      .then((data) => {
+        // Filter out the Dashboard shortcut for security/UI requirements
+        const filteredMenu = data.filter(item => item.path !== '/admin' && item.name !== 'Dashboard');
+        setMenuItems(filteredMenu);
+      })
       .catch((err) => console.error('Settings menu fetch failed:', err))
       .finally(() => setLoading(false));
   }, []);

@@ -38,7 +38,7 @@ function App() {
             <Route path="audios" element={<AdminAudios />} />
             <Route path="users" element={<div className="text-xl">Users Management Coming Soon</div>} />
             <Route path="subscriptions" element={<AdminSubscriptions />} />
-            <Route path="settings" element={<AdminSettings />} />  {/* ← NEW */}
+            <Route path="settings" element={<AdminSettings />} />
             <Route path="about-us" element={<AdminAboutUs />} />
             <Route path="pages" element={<AdminPages />} />
           </Route>
