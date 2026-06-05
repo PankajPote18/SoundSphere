@@ -12,10 +12,8 @@ import OtpPage from './pages/OtpPage';
 import PlansPage from './pages/PlansPage';
 import Player from './pages/Player';
 import AdminLayout from './pages/admin/AdminLayout';
-import AdminDashboard from './pages/admin/AdminDashboard';
 import AdminAudios from './pages/admin/AdminAudios';
 import AdminSubscriptions from './pages/admin/AdminSubscriptions';
-import AdminAboutUs from './pages/admin/AdminAboutUs';
 import AdminSettings from './pages/admin/AdminSettings';   // ← NEW
 import AdminPages from './pages/admin/AdminPages';
 import ScrollToTop from './components/ScrollToTop';
@@ -36,10 +34,8 @@ function App() {
           <Route path="/admin" element={<AdminLayout />}>
             <Route index element={<AdminDashboard />} />
             <Route path="audios" element={<AdminAudios />} />
-            <Route path="users" element={<div className="text-xl">Users Management Coming Soon</div>} />
             <Route path="subscriptions" element={<AdminSubscriptions />} />
             <Route path="settings" element={<AdminSettings />} />
-            <Route path="about-us" element={<AdminAboutUs />} />
             <Route path="pages" element={<AdminPages />} />
           </Route>
 

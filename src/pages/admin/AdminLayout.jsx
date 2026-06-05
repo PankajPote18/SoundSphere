@@ -11,14 +11,14 @@ const AdminLayout = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const menu = [
-    { name: 'Dashboard',     path: '/admin',               icon: LayoutDashboard },
-    { name: 'Audios',        path: '/admin/audios',         icon: Film },
-    { name: 'Users',         path: '/admin/users',          icon: Users },
-    { name: 'Subscriptions', path: '/admin/subscriptions',  icon: CreditCard },
+    { name: 'Dashboard', path: '/admin', icon: LayoutDashboard },
+    { name: 'Audios', path: '/admin/audios', icon: Film },
+    { name: 'Users', path: '/admin/users', icon: Users },
+    { name: 'Subscriptions', path: '/admin/subscriptions', icon: CreditCard },
     // ── NEW ──────────────────────────────────────────────────────────────
-    { name: 'Settings',      path: '/admin/settings',       icon: Settings },
+    { name: 'Settings', path: '/admin/settings', icon: Settings },
     // ─────────────────────────────────────────────────────────────────────
-    { name: 'About Us',      path: '/admin/about-us',       icon: Info },
+    { name: 'About Us', path: '/admin/about-us', icon: Info },
   ];
 
   return (
@@ -35,7 +35,7 @@ const AdminLayout = () => {
       {/* Admin Sidebar */}
       <div className={`fixed inset-y-0 left-0 w-64 bg-[#141a29] border-r border-gray-800 flex flex-col shrink-0 shadow-2xl z-40 transform transition-transform duration-300 ease-in-out md:relative md:translate-x-0 ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}>
         <div className="p-6 h-20 flex items-center justify-between border-b border-gray-800/50">
-          <h2 className="text-xl md:text-2xl font-bold text-[#4aa5ff] tracking-wider">Nexora Admin</h2>
+          <h2 className="text-xl md:text-2xl font-bold text-[#4aa5ff] tracking-wider">SoundSphere Admin</h2>
           <button className="md:hidden text-gray-400 hover:text-white" onClick={() => setMobileMenuOpen(false)}>
             <X size={24} />
           </button>
@@ -49,11 +49,10 @@ const AdminLayout = () => {
               key={item.name}
               to={item.path}
               onClick={() => setMobileMenuOpen(false)}
-              className={`flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200 ${
-                location.pathname === item.path
+              className={`flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200 ${location.pathname === item.path
                   ? 'bg-[#3b82f6] text-white font-semibold shadow-lg shadow-blue-500/20'
                   : 'text-gray-400 hover:bg-[#1e2638] hover:text-white font-medium'
-              }`}
+                }`}
             >
               <item.icon size={20} strokeWidth={location.pathname === item.path ? 2.5 : 2} />
               <span>{item.name}</span>
@@ -64,11 +63,10 @@ const AdminLayout = () => {
           <div className="pt-2 pb-1">
             <button
               onClick={() => setPagesOpen(!pagesOpen)}
-              className={`w-full flex items-center justify-between px-4 py-3 rounded-xl transition-all duration-200 font-medium ${
-                pagesOpen || location.pathname.includes('/admin/page')
+              className={`w-full flex items-center justify-between px-4 py-3 rounded-xl transition-all duration-200 font-medium ${pagesOpen || location.pathname.includes('/admin/page')
                   ? 'bg-[#3b82f6] text-white shadow-lg shadow-blue-500/20'
                   : 'text-gray-400 hover:bg-[#1e2638] hover:text-white'
-              }`}
+                }`}
             >
               <div className="flex items-center space-x-3">
                 <FileText size={20} strokeWidth={pagesOpen || location.pathname.includes('/admin/page') ? 2.5 : 2} />
@@ -82,11 +80,10 @@ const AdminLayout = () => {
                 <Link
                   to="/admin/pages"
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-colors text-sm font-medium ${
-                    location.pathname === '/admin/pages'
+                  className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-colors text-sm font-medium ${location.pathname === '/admin/pages'
                       ? 'text-[#4aa5ff] bg-[#4aa5ff]/10'
                       : 'text-gray-400 hover:text-white hover:bg-[#1e2638]'
-                  }`}
+                    }`}
                 >
                   <div className={`w-1.5 h-1.5 rounded-full ${location.pathname === '/admin/pages' ? 'bg-[#4aa5ff]' : 'bg-gray-500'}`}></div>
                   <span>Page Listing</span>
@@ -101,11 +98,10 @@ const AdminLayout = () => {
               key={item.name}
               to={item.path}
               onClick={() => setMobileMenuOpen(false)}
-              className={`flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200 ${
-                location.pathname === item.path
+              className={`flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200 ${location.pathname === item.path
                   ? 'bg-[#3b82f6] text-white font-semibold shadow-lg shadow-blue-500/20'
                   : 'text-gray-400 hover:bg-[#1e2638] hover:text-white font-medium'
-              }`}
+                }`}
             >
               <item.icon size={20} strokeWidth={location.pathname === item.path ? 2.5 : 2} />
               <span>{item.name}</span>
