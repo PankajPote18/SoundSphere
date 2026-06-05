@@ -18,7 +18,6 @@ const AdminLayout = () => {
     // ── NEW ──────────────────────────────────────────────────────────────
     { name: 'Settings', path: '/admin/settings', icon: Settings },
     // ─────────────────────────────────────────────────────────────────────
-    { name: 'About Us', path: '/admin/about-us', icon: Info },
   ];
 
   return (
@@ -50,8 +49,8 @@ const AdminLayout = () => {
               to={item.path}
               onClick={() => setMobileMenuOpen(false)}
               className={`flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200 ${location.pathname === item.path
-                  ? 'bg-[#3b82f6] text-white font-semibold shadow-lg shadow-blue-500/20'
-                  : 'text-gray-400 hover:bg-[#1e2638] hover:text-white font-medium'
+                ? 'bg-[#3b82f6] text-white font-semibold shadow-lg shadow-blue-500/20'
+                : 'text-gray-400 hover:bg-[#1e2638] hover:text-white font-medium'
                 }`}
             >
               <item.icon size={20} strokeWidth={location.pathname === item.path ? 2.5 : 2} />
@@ -64,8 +63,8 @@ const AdminLayout = () => {
             <button
               onClick={() => setPagesOpen(!pagesOpen)}
               className={`w-full flex items-center justify-between px-4 py-3 rounded-xl transition-all duration-200 font-medium ${pagesOpen || location.pathname.includes('/admin/page')
-                  ? 'bg-[#3b82f6] text-white shadow-lg shadow-blue-500/20'
-                  : 'text-gray-400 hover:bg-[#1e2638] hover:text-white'
+                ? 'bg-[#3b82f6] text-white shadow-lg shadow-blue-500/20'
+                : 'text-gray-400 hover:bg-[#1e2638] hover:text-white'
                 }`}
             >
               <div className="flex items-center space-x-3">
@@ -81,8 +80,8 @@ const AdminLayout = () => {
                   to="/admin/pages"
                   onClick={() => setMobileMenuOpen(false)}
                   className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-colors text-sm font-medium ${location.pathname === '/admin/pages'
-                      ? 'text-[#4aa5ff] bg-[#4aa5ff]/10'
-                      : 'text-gray-400 hover:text-white hover:bg-[#1e2638]'
+                    ? 'text-[#4aa5ff] bg-[#4aa5ff]/10'
+                    : 'text-gray-400 hover:text-white hover:bg-[#1e2638]'
                     }`}
                 >
                   <div className={`w-1.5 h-1.5 rounded-full ${location.pathname === '/admin/pages' ? 'bg-[#4aa5ff]' : 'bg-gray-500'}`}></div>
@@ -92,15 +91,15 @@ const AdminLayout = () => {
             )}
           </div>
 
-          {/* Remaining items: Subscriptions, Settings, About Us */}
+          {/* Remaining items: Subscriptions, Settings */}
           {menu.slice(3).map((item) => (
             <Link
               key={item.name}
               to={item.path}
               onClick={() => setMobileMenuOpen(false)}
               className={`flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200 ${location.pathname === item.path
-                  ? 'bg-[#3b82f6] text-white font-semibold shadow-lg shadow-blue-500/20'
-                  : 'text-gray-400 hover:bg-[#1e2638] hover:text-white font-medium'
+                ? 'bg-[#3b82f6] text-white font-semibold shadow-lg shadow-blue-500/20'
+                : 'text-gray-400 hover:bg-[#1e2638] hover:text-white font-medium'
                 }`}
             >
               <item.icon size={20} strokeWidth={location.pathname === item.path ? 2.5 : 2} />
