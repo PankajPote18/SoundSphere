@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 import HeroCarousel from '../components/HeroCarousel';
-
+import { moviesApi, plansApi, BASE_URL } from '../services/api';
 import AudioRow from '../components/AudioRow';
 
 const HomePage = () => {
@@ -17,6 +17,8 @@ const HomePage = () => {
     recentlyAdded: []
   });
 
+  const [categories, setCategories] = useState([]);
+  const [activeCategory, setActiveCategory] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -36,21 +38,21 @@ const HomePage = () => {
     const fetchData = async () => {
 
       try {
-
-        const [categoriesRes, moviesRes] = await Promise.all([
-
-          fetch(`${import.meta.env.VITE_API_URL}/api/audio-categories`),
-
-          fetch(`${import.meta.env.VITE_API_URL}/api/audios`)
-
+        const [catsRes, audiosRes, plansRes] = await Promise.all([
+          fetch(`${BASE_URL}/api/audio-categories`),
+          moviesApi.getAll(),
+          plansApi.getAll(true)
         ]);
 
+        if (catsRes.ok) {
+          const cats = await catsRes.json();
+          setCategories(cats);
+        }
 
-
-        const audios = await moviesRes.json();
+        const audios = await audiosRes;
 
         let finalHero = audios.filter(m => m.audio_category_id === 'hero');
-        
+
         // Ensure we always have at least 6 items in the hero banner to show off the carousel
         if (finalHero.length < 6) {
           const extraAudios = audios.filter(m => m.audio_category_id !== 'hero').slice(0, 6 - finalHero.length);
@@ -71,7 +73,7 @@ const HomePage = () => {
 
         const allPodcasts = audios.filter(m => m.audio_category_id === 'podcasts');
         const allMusic = audios.filter(m => m.audio_category_id === 'music');
-        
+
         const recentlyAdded = [...audios]
           .sort((a, b) => b.releaseYear - a.releaseYear)
           .slice(0, 12);

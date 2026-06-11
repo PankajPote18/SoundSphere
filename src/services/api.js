@@ -1,5 +1,6 @@
-// Central API base — change this once if your backend URL changes
-const BASE = "https://soundsphere-backend-h8vx.onrender.com/api";
+// Central API base
+export const BASE_URL = import.meta.env.VITE_API_URL || "https://soundsphere-backend-h8vx.onrender.com";
+const BASE = `${BASE_URL}/api`;
 
 const get = (path) =>
   fetch(`${BASE}${path}`).then((r) => {

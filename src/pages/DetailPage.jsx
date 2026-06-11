@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Play, ArrowLeft } from 'lucide-react';
 import AudioRow from '../components/AudioRow';
+import { moviesApi } from '../services/api';
 
 const mockEpisodes = [
   { id: 1, title: "Lanterns and Lost Directions", durationSeconds: 780, date: "Jan 2026" },
@@ -15,7 +16,7 @@ const mockEpisodes = [
 const DetailPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  
+
   const [audio, setAudio] = useState(null);
   const [related, setRelated] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -26,17 +27,15 @@ const DetailPage = () => {
     const fetchAudio = async () => {
       setLoading(true);
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/audios/${id}`);
-        if (!response.ok) throw new Error("Audio not found");
-        const data = await response.json();
+        const data = await moviesApi.getOne(id);
         setAudio(data);
         setEpisodes(mockEpisodes);
 
-        const res2 = await fetch(`${import.meta.env.VITE_API_URL}/api/audios`);
-        if (res2.ok) {
-          const all = await res2.json();
-          // filter out the current one
-          setRelated(all.filter(a => a.id !== parseInt(id)).slice(0, 15));
+        try {
+          const all = await moviesApi.getAll();
+          setRelated(all.filter(a => a.id !== id).slice(0, 15));
+        } catch (e) {
+          console.error("Error fetching related:", e);
         }
       } catch (error) {
         console.error("Error fetching audio:", error);
@@ -57,7 +56,7 @@ const DetailPage = () => {
   return (
     <div className="w-full bg-[#050505] text-white pt-20 md:pt-24 pb-16 px-4 md:px-8 lg:px-12 min-h-screen">
       <div className="max-w-[1400px] mx-auto">
-        
+
         {/* Back Button */}
         <button onClick={() => navigate(-1)} className="flex items-center text-gray-400 hover:text-white transition-colors mb-4 md:mb-6 bg-[#0A0A0A] px-4 py-2 rounded-full text-xs md:text-sm border border-[#FF6B00]/10 hover:border-[#FF6B00]/50 hover:shadow-[0_0_15px_rgba(255,107,0,0.2)] w-fit cursor-pointer">
           <ArrowLeft size={16} className="mr-2" /> Back
@@ -65,13 +64,13 @@ const DetailPage = () => {
 
         {/* Top Section: Overview */}
         <div className="flex flex-col lg:flex-row gap-6 md:gap-8 lg:gap-10 xl:gap-12 bg-[#0A0A0A] p-5 md:p-6 lg:p-10 rounded-3xl md:rounded-[2rem] border border-white/5 shadow-2xl relative overflow-hidden">
-          
+
           <div className="absolute top-0 right-0 w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-[#FF6B00]/5 rounded-full blur-[100px] md:blur-[120px] pointer-events-none"></div>
 
           {/* Left: Cover Art */}
           <div className="flex-shrink-0 w-full md:w-[300px] lg:w-[300px] xl:w-[350px] mx-auto relative z-10">
-            <img 
-              src={audio.coverImage || audio.bannerImage} 
+            <img
+              src={audio.coverImage || audio.bannerImage}
               alt={audio.title}
               className="w-full aspect-square md:aspect-[4/5] object-cover rounded-xl md:rounded-2xl shadow-[0_20px_40px_rgba(0,0,0,0.8)] border border-white/10"
               onError={(e) => { e.target.src = 'https://images.unsplash.com/photo-1440404653325-ab127d49abc1?q=80&w=480&auto=format&fit=crop' }}
@@ -94,7 +93,7 @@ const DetailPage = () => {
           <div className="w-full lg:w-[320px] xl:w-[350px] flex-shrink-0 flex flex-col border-t lg:border-t-0 lg:border-l border-white/10 pt-5 md:pt-6 lg:pt-0 lg:pl-6 xl:pl-8 relative z-10">
             <h3 className="text-[#FF6B00] font-bold border-b-2 border-[#FF6B00] pb-1 md:pb-2 w-fit mb-3 md:mb-4 text-xs md:text-sm tracking-wide">Episodes</h3>
             <p className="text-[10px] md:text-xs font-semibold text-gray-400 mb-3 md:mb-4">All {episodes.length} Episodes</p>
-            
+
             <div className="space-y-2 md:space-y-3 max-h-[300px] md:max-h-[400px] overflow-y-auto pr-2 hide-scrollbar">
               {episodes.map((ep) => (
                 <div key={ep.id} onClick={handlePlayNavigate} className="p-2.5 md:p-3 rounded-xl flex items-center justify-between cursor-pointer transition-all border bg-transparent border-transparent hover:bg-white/5 group">

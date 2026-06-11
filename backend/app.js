@@ -23,12 +23,14 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 // API Routes
 const authRoutes = require('./routes/auth.routes');
 const audioRoutes = require('./routes/audio.routes');
+const categoryRoutes = require('./routes/category.routes');
 const planRoutes = require('./routes/plan.routes');
 const menuRoutes = require('./routes/menu.routes');
 const pageRoutes = require('./routes/page.routes');
 
 app.use('/api/auth', authRoutes);
 app.use('/api/audios', audioRoutes);
+app.use('/api/audio-categories', categoryRoutes);
 app.use('/api/subscription-plans', planRoutes);
 app.use('/api/settings-menu', menuRoutes);
 app.use('/api/settings-pages', pageRoutes);
