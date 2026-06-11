@@ -1,5 +1,5 @@
 // Central API base — change this once if your backend URL changes
-const BASE = 'https://soundsphere-backend-nk2q.onrender.com/api';
+const BASE = "http://localhost:5000/api";
 
 const get = (path) =>
   fetch(`${BASE}${path}`).then((r) => {
